@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+
+<VBox spacing="10" alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.main.society.Controller">
+    <padding><Insets top="20" right="20" bottom="20" left="20"/></padding>
+    <children>
+        <Label text="Society Management System" style="-fx-font-size: 20px; -fx-font-weight: bold;"/>
+        
+        <GridPane vgap="10" hgap="10">
+            <TextField fx:id="srNoField" promptText="Sr. No" GridPane.columnIndex="0" GridPane.rowIndex="0"/>
+            <TextField fx:id="nameField" promptText="Name" GridPane.columnIndex="1" GridPane.rowIndex="0"/>
+            <TextField fx:id="phoneField" promptText="Phone" GridPane.columnIndex="0" GridPane.rowIndex="1"/>
+            <TextField fx:id="addressField" promptText="Address" GridPane.columnIndex="1" GridPane.rowIndex="1"/>
+            <Button fx:id="addButton" text="Add Member" onAction="#handleAddMember" GridPane.columnIndex="0" GridPane.rowIndex="2"/>
+            <Button fx:id="refreshButton" text="Refresh List" onAction="#handleRefresh" GridPane.columnIndex="1" GridPane.rowIndex="2"/>
+        </GridPane>
+
+        <TableView fx:id="memberTable" VBox.vgrow="ALWAYS">
+            <columns>
+                <TableColumn fx:id="srNoColumn" text="Sr. No"/>
+                <TableColumn fx:id="nameColumn" text="Name"/>
+                <TableColumn fx:id="phoneColumn" text="Phone"/>
+                <TableColumn fx:id="addressColumn" text="Address"/>
+            </columns>
+        </TableView>
+    </children>
+</VBox>
