@@ -1,0 +1,174 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f7f7f7;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+}
+
+.container {
+    background-color: #ffffff;
+    padding: 20px 30px;
+    border-radius: 12px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 400px;
+}
+
+h1 {
+    text-align: center;
+    margin-bottom: 20px;
+    color: #333333;
+}
+
+label {
+    display: block;
+    margin: 10px 0 5px;
+}
+
+input {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #cccccc;
+    border-radius: 8px;
+}
+
+button {
+    width: 100%;
+    padding: 12px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #45a049;
+}
+
+#message {
+    text-align: center;
+    color: green;
+    margin-top: 10px;
+}
+
+
+/* Landing Page Styles */
+.landing-page {
+    background: url('backgrnd-image.jpg.jpg') no-repeat center center/cover;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start; /* Shift box to the right */
+    padding-left: 10%;
+  }
+  
+  .landing-box {
+    background: rgba(0, 0, 0, 0.6);
+    width: 400px; /* Broader box */
+    padding: 20px;
+    border-radius: 15px;
+    text-align: center;
+    color: #fff;
+  }
+  
+  .landing-box h1 {
+    font-size: 28px;
+    margin-bottom: 10px;
+  }
+  
+  .landing-box p {
+    font-size: 14px;
+    margin-bottom: 20px;
+  }
+  
+  .landing-box button {
+    display: block;
+    width: 100%;
+    margin: 10px 0;
+    padding: 10px;
+    font-size: 16px;
+    font-weight: bold;
+    background-color: #28a745;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .landing-box button:hover {
+    background-color: #218838;
+  }
+  
+  .footer-text {
+    margin-top: 15px;
+    font-weight: bold;
+    font-size: 14px;
+  }
+  
+
+  
+  .overlay-box .btn {
+    width: 100%;
+    margin: 10px 0;
+    padding: 10px;
+    font-weight: bold;
+    border: none;
+    border-radius: 10px;
+    background-color: #28a745;
+    color: white;
+    cursor: pointer;
+  }
+  
+  .overlay-box .btn:hover {
+    background-color: #218838;
+  }
+  
+  /* Registration form styling */
+  .registration-form {
+    display: block; /* Hidden initially */
+    position: absolute;
+    top: 50%;
+    right: 5%;
+    transform: translateY(-50%);
+    background: white;
+    padding: 20px;
+    width: 350px;
+    border-radius: 15px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  }
+  
+  .registration-form h2 {
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  
+  .registration-form label {
+    display: block;
+    margin-top: 10px;
+  }
+  
+  .registration-form input {
+    width: 100%;
+    padding: 8px;
+    margin-top: 5px;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+  }
+  
+  .registration-form .btn {
+    width: 100%;
+    margin-top: 15px;
+    background-color: #28a745;
+  }
+  
+  .registration-form .btn:hover {
+    background-color: #218838;
+  }
+  
