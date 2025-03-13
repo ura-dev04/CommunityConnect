@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Parking Management | CommunityConnect</title>
+    <link rel="stylesheet" href="parking.css">
+</head>
+<body>
+    <header class="navbar">
+        <div class="logo">CommunityConnect</div>
+        <nav class="nav-links">
+            <a href="homepage.html">Home</a>
+        </nav>
+    </header>
+
+    <div class="parking-container">
+        <div class="parking-stats">
+            <h2>Parking Statistics</h2>
+            <div class="stats">
+                <p>Total Slots: 50</p>
+                <p>Available Slots: <span id="available-slots">--</span></p>
+            </div>
+        </div>
+
+        <div class="booking-form">
+            <h2>Book Parking Slot</h2>
+            <form id="parkingForm">
+                <input type="text" id="flatNumber" placeholder="Flat Number" required>
+                <input type="text" id="wing" placeholder="Wing" required>
+                <input type="text" id="buildingName" placeholder="Building Name" required>
+                <select id="vehicleType" required>
+                    <option value="">Select Vehicle Type</option>
+                    <option value="2">2 Wheeler</option>
+                    <option value="4">4 Wheeler</option>
+                </select>
+                <button type="submit">Book Parking</button>
+            </form>
+        </div>
+
+        <div class="assigned-parking">
+            <h2>Your Assigned Parking</h2>
+            <div id="parkingDetails" class="parking-details">
+                <!-- Parking details will be displayed here -->
+            </div>
+        </div>
+
+        <div class="booked-slots">
+            <h2>Booked Parking Slots</h2>
+            <button id="showBookedSlots" class="show-slots-btn">Show Booked Slots</button>
+            <div id="bookedSlotsList" class="booked-slots-list"></div>
+        </div>
+    </div>
+
+    <script src="https://www.gstatic.com/firebasejs/9.x.x/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.x.x/firebase-database.js"></script>
+    <script src="parking.js" type="module"></script>
+</body>
+</html>
