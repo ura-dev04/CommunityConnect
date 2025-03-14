@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Society Management System</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+    <!-- Registration Form (Visible by default) -->
+    <div class="registration-form" id="registration-form">
+        <h2>Resident Information Form</h2>
+        <form id="residentForm">
+            <label>Name:</label>
+            <input type="text" id="name" placeholder="Enter your name" required>
+
+            <label>Flat Number:</label>
+            <input type="text" id="flatNumber" placeholder="Enter flat number" required>
+
+            <label>Floor:</label>
+            <input type="text" id="floor" placeholder="Enter floor number" required>
+
+            <label>Wing:</label>
+            <input type="text" id="wing" placeholder="Enter wing" required>
+
+            <label for="role">Select Role:</label>
+            <select id="role">
+                <option value="resident">Resident</option>
+                <option value="admin">Admin</option>
+            </select>
+
+            <button type="submit" class="btn">Submit</button>
+        </form>
+
+        <p id="message"></p> <!-- To display success/error messages -->
+    </div>
+
+    <script src="users.js" type="module"></script>
+
+</body>
+</html>
