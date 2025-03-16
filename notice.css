@@ -1,3 +1,4 @@
+
 body {
     margin: 0;
     padding: 0;
@@ -16,7 +17,6 @@ body {
     border-radius: 15px;
 }
 
-
 h1 {
     text-align: center;
     color: white;
@@ -32,7 +32,7 @@ form {
 
 label {
     font-size: 1.1rem;
-    color: #008B8B;
+    color: #64ffda;
 }
 
 input, textarea {
@@ -72,10 +72,36 @@ button:hover {
     transform: translateY(-2px);
 }
 
-#complaintMessage {
+#noticeMessage {
     text-align: center;
     margin-top: 1rem;
     color: #64ffda;
+}
+
+ul {
+    list-style: none;
+    padding: 0;
+}
+
+li {
+    background: rgba(255, 255, 255, 0.1);
+    padding: 1rem;
+    border-radius: 10px;
+    margin-bottom: 1rem;
+    box-shadow: 0 4px 10px rgba(0, 139, 139, 0.3);
+}
+
+li h3 {
+    color: #20B2AA;
+    margin: 0 0 0.5rem 0;
+}
+
+li p {
+    margin: 0 0 0.5rem 0;
+}
+
+li small {
+    color: #B0C4DE;
 }
 
 a {
