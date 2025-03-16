@@ -2,7 +2,7 @@ body {
     margin: 0;
     padding: 0;
     min-height: 100vh;
-        font-family: 'Segoe UI', system-ui, sans-serif;
+     font-family: 'Segoe UI', system-ui, sans-serif;
     background-color: #0e0e15;
     color: white;
     line-height: 1.6; 
@@ -16,23 +16,22 @@ body {
     border-radius: 15px;
 }
 
-
-h1 {
+h1, h2 {
     text-align: center;
-    color: white;
-    margin-bottom: 2rem;
-    font-size: 2.5rem;
+    color:white;
+    margin-bottom: 1.5rem;
 }
 
 form {
     display: flex;
     flex-direction: column;
-    gap: 1.5rem;
+    gap: 1rem;
 }
 
 label {
+    font-family: 'Segoe UI', system-ui, sans-serif;
     font-size: 1.1rem;
-    color: #008B8B;
+    color: #64ffda;
 }
 
 input, textarea {
@@ -54,6 +53,9 @@ input:focus, textarea:focus {
 
 button {
 
+        width: 100%; /* Makes the button take full width of its container */
+        max-width: 1200px; 
+    
     margin-top: 15px;
     padding: 1rem;
 
@@ -72,22 +74,31 @@ button:hover {
     transform: translateY(-2px);
 }
 
-#complaintMessage {
-    text-align: center;
-    margin-top: 1rem;
-    color: #64ffda;
+
+
+#calendar {
+    padding: 10px;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(255, 255, 255, 0.3);
+    margin-top: 20px;
+    background-color: antiquewhite;
 }
 
-a {
-    text-decoration: none;
-}
-
-a button {
+#calendar {
+    background-color: #232333;
     width: 100%;
-    background: rgba(255, 255, 255, 0.1);
-    color: white;
+    max-width: 100%;
+    height: auto;
+    min-height: 500px; /* Adjust as needed */
+}
+.fc-col-header-cell {
+    display: table-cell !important;
+    color: white; /* Adjust color if needed */
+    font-weight: bold;
+    text-align: center;
 }
 
-a button:hover {
-    background: rgba(255, 255, 255, 0.2);
+
+.fc {
+    width: 100% !important;
 }
