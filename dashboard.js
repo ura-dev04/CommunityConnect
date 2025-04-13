@@ -36,8 +36,13 @@ document.addEventListener('DOMContentLoaded', () => {
     return;
   }
   
-  // User is logged in, display welcome message and role
+  // User is logged in
   userData = JSON.parse(loggedInUser);
+  
+  // Check if the user has set a password
+  checkPasswordSetup(userData);
+  
+  // Display welcome message and role
   welcomeMessage.textContent = `Hi ${userData.name}`;
   
   let roleText = `${userData.role}`;
@@ -79,11 +84,118 @@ document.addEventListener('DOMContentLoaded', () => {
   
   // Handle logout button click
   document.querySelector('.logout-btn').addEventListener('click', () => {
+    logout();
+  });
+
+  // Function to check if user has set a password
+  async function checkPasswordSetup(user) {
+    try {
+      const dbRef = ref(database);
+      const userSnapshot = await get(child(dbRef, `residents/${user.apartment}`));
+      
+      if (userSnapshot.exists()) {
+        const userDbData = userSnapshot.val();
+        
+        // Check if password_set attribute exists and is true
+        if (!userDbData.password_set) {
+          // Password not set, show password setup modal
+          showPasswordSetupModal();
+        }
+      }
+    } catch (error) {
+      console.error('Error checking password setup:', error);
+      // If there's an error, it's safer to assume the password hasn't been set
+      showPasswordSetupModal();
+    }
+  }
+
+  // Function to show password setup modal
+  function showPasswordSetupModal() {
+    // Create modal overlay
+    const modalOverlay = document.createElement('div');
+    modalOverlay.className = 'password-modal-overlay';
+    
+    // Create modal content
+    const modalContent = document.createElement('div');
+    modalContent.className = 'password-modal-content';
+    modalContent.innerHTML = `
+      <h2>Set Your Password</h2>
+      <p>Please set a new password to continue.</p>
+      <form id="password-setup-form">
+        <div class="form-group">
+          <label for="new-password">New Password</label>
+          <input type="password" id="new-password" required>
+        </div>
+        <div class="form-group">
+          <label for="confirm-password">Confirm Password</label>
+          <input type="password" id="confirm-password" required>
+        </div>
+        <div class="error-message" id="password-error"></div>
+        <div class="button-group">
+          <button type="submit" class="save-btn">Save Password</button>
+          <button type="button" class="cancel-btn">Cancel</button>
+        </div>
+      </form>
+    `;
+    
+    // Add modal to body
+    modalOverlay.appendChild(modalContent);
+    document.body.appendChild(modalOverlay);
+    
+    // Handle form submission
+    const passwordForm = document.getElementById('password-setup-form');
+    passwordForm.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      
+      const newPassword = document.getElementById('new-password').value;
+      const confirmPassword = document.getElementById('confirm-password').value;
+      const errorElement = document.getElementById('password-error');
+      
+      // Validate password
+      if (newPassword !== confirmPassword) {
+        errorElement.textContent = 'Passwords do not match';
+        return;
+      }
+      
+      if (newPassword.length < 6) {
+        errorElement.textContent = 'Password must be at least 6 characters';
+        return;
+      }
+      
+      try {
+        // Update password in database
+        const updates = {};
+        updates[`residents/${userData.apartment}/password`] = newPassword;
+        updates[`residents/${userData.apartment}/password_set`] = true;
+        
+        await update(ref(database), updates);
+        
+        // Update session storage
+        userData.password_set = true;
+        sessionStorage.setItem('loggedInUser', JSON.stringify(userData));
+        
+        // Remove modal
+        document.body.removeChild(modalOverlay);
+      } catch (error) {
+        console.error('Error setting password:', error);
+        errorElement.textContent = 'Error setting password. Please try again.';
+      }
+    });
+    
+    // Handle cancel button click
+    const cancelButton = modalContent.querySelector('.cancel-btn');
+    cancelButton.addEventListener('click', () => {
+      logout();
+    });
+  }
+  
+  // Function to logout
+  function logout() {
     // Remove user data from session storage
     sessionStorage.removeItem('loggedInUser');
     // Redirect to homepage after logout
     window.location.href = 'homepage.html';
-  });
+  }
 
   // Function to load notifications
   async function loadNotifications() {
@@ -92,7 +204,7 @@ document.addEventListener('DOMContentLoaded', () => {
       const dbRef = ref(database);
       
       // First, check if user has viewed notifications
-      const userSnapshot = await get(child(dbRef, `logins/${userData.apartment}`));
+      const userSnapshot = await get(child(dbRef, `residents/${userData.apartment}`));
       const notificationViewed = userSnapshot.exists() ? 
         userSnapshot.val().notification_viewed || false : false;
       
@@ -149,7 +261,7 @@ document.addEventListener('DOMContentLoaded', () => {
     try {
       // Update the notification_viewed field for the user
       const updates = {};
-      updates[`logins/${apartment}/notification_viewed`] = true;
+      updates[`residents/${apartment}/notification_viewed`] = true;
       await update(ref(database), updates);
       
       // Also update the sessionStorage data

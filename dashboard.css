@@ -239,6 +239,101 @@ body {
   font-weight: bold;
 }
 
+/* Password Setup Modal */
+.password-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.8);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 2000;
+}
+
+.password-modal-content {
+  background-color: #1a1a25;
+  border-radius: 15px;
+  padding: 2rem;
+  width: 90%;
+  max-width: 500px;
+  box-shadow: 0 5px 30px rgba(0, 0, 0, 0.5);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.password-modal-content h2 {
+  color: #64ffda;
+  margin-bottom: 1rem;
+  text-align: center;
+}
+
+.password-modal-content p {
+  color: #ffffff;
+  margin-bottom: 1.5rem;
+  text-align: center;
+}
+
+.form-group {
+  margin-bottom: 1rem;
+}
+
+.form-group label {
+  display: block;
+  color: #cccccc;
+  margin-bottom: 0.5rem;
+}
+
+.form-group input {
+  width: 100%;
+  padding: 0.8rem;
+  background-color: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: 8px;
+  color: #ffffff;
+  font-size: 1rem;
+}
+
+.button-group {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 1.5rem;
+}
+
+.save-btn, .cancel-btn {
+  padding: 0.8rem 1.5rem;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.save-btn {
+  background-color: #64ffda;
+  color: #0e0e15;
+}
+
+.cancel-btn {
+  background-color: #ff6464;
+  color: #ffffff;
+}
+
+.save-btn:hover {
+  background-color: #52e0c4;
+}
+
+.cancel-btn:hover {
+  background-color: #e05252;
+}
+
+.error-message {
+  color: #ff6464;
+  font-size: 0.9rem;
+  margin-top: 0.5rem;
+  min-height: 20px;
+}
+
 /* Footer */
 footer {
   text-align: center;
