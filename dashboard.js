@@ -47,6 +47,9 @@ document.addEventListener('DOMContentLoaded', () => {
   
   userRole.textContent = roleText;
 
+  // Apply sub-role-based access controls to feature boxes
+  applySubRoleBasedAccess(userData.sub_role);
+
   // Load and display notifications
   loadNotifications();
 
@@ -157,5 +160,42 @@ document.addEventListener('DOMContentLoaded', () => {
     } catch (error) {
       console.error('Error marking notifications as viewed:', error);
     }
+  }
+
+  // Function to apply sub-role-based access control to feature boxes
+  function applySubRoleBasedAccess(subRole) {
+    // Define permissions for each feature based on sub-role
+    const subRolePermissions = {
+      'admin': ['users.html', 'complaint.html', 'parking.html', 'events.html', 'notices.html', 'contact.html', 'maid-services.html', 'banquet-hall.html'],
+      'president': ['users.html', 'complaint.html', 'parking.html', 'events.html', 'notices.html', 'contact.html', 'maid-services.html', 'banquet-hall.html'],
+      'secretary': ['users.html', 'complaint.html', 'parking.html', 'events.html', 'notices.html', 'contact.html', 'maid-services.html', 'banquet-hall.html'],
+      'treasurer': ['users.html', 'complaint.html', 'parking.html', 'events.html', 'notices.html', 'contact.html', 'maid-services.html', 'banquet-hall.html'],
+      'member': ['users.html', 'complaint.html', 'parking.html', 'events.html', 'notices.html', 'contact.html', 'maid-services.html', 'banquet-hall.html'],
+      'building-manager': ['users.html', 'complaint.html', 'parking.html', 'events.html', 'notices.html', 'contact.html', 'maid-services.html', 'banquet-hall.html'],
+    };
+
+    // Get all feature boxes
+    const featureBoxes = document.querySelectorAll('.feature-box');
+    
+    featureBoxes.forEach(box => {
+      const target = box.getAttribute('data-target');
+      
+      // Check if the user has permission to access this feature based on sub-role
+      let hasPermission = false;
+      
+      // If user has a defined sub-role, check permissions
+      if (subRole && subRolePermissions[subRole] && subRolePermissions[subRole].includes(target)) {
+        hasPermission = true;
+      } 
+      // If no sub-role is defined, default to resident permissions
+      else if (!subRole && subRolePermissions['resident'] && subRolePermissions['resident'].includes(target)) {
+        hasPermission = true;
+      }
+      
+      // Hide the feature if the user doesn't have permission
+      if (!hasPermission) {
+        box.style.display = 'none';
+      }
+    });
   }
 });
