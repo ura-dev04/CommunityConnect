@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Find a Maid | CommunityConnect</title>
+    <link rel="stylesheet" href="homepage.css">
+    <link rel="stylesheet" href="find-maid.css">
+    <!-- Firebase SDKs -->
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-database-compat.js"></script>
+</head>
+<body>
+    <header class="navbar">
+        <div class="logo">CommunityConnect</div>
+        <a href="homepage.html" class="back-btn">Back to Home</a>
+    </header>
+
+    <main class="search-container">
+        <h1>Find Available Maids</h1>
+        
+        <div class="time-slot-selector">
+            <h2>Select Time Slot</h2>
+            <div class="time-slots">
+                <button class="time-slot-btn" data-slot="6-8">6 AM - 8 AM</button>
+                <button class="time-slot-btn" data-slot="8-10">8 AM - 10 AM</button>
+                <button class="time-slot-btn" data-slot="10-12">10 AM - 12 PM</button>
+                <button class="time-slot-btn" data-slot="12-2">12 PM - 2 PM</button>
+                <button class="time-slot-btn" data-slot="2-4">2 PM - 4 PM</button>
+                <button class="time-slot-btn" data-slot="4-6">4 PM - 6 PM</button>
+            </div>
+        </div>
+
+        <div id="searchResults" class="search-results">
+            <!-- Results will be displayed here -->
+        </div>
+
+        <div id="loadingIndicator" class="loading">Searching...</div>
+    </main>
+
+    <script src="find-maid.js"></script>
+</body>
+</html>
