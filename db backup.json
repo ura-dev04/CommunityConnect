@@ -193,52 +193,7 @@
       "timestamp": "2025-04-03T09:50:08.121Z"
     }
   },
-  "logins": {
-    "1503-A": {
-      "Owner_Name": "Armaan",
-      "flatNumber": "1503",
-      "notification_viewed": true,
-      "password": "Nakhuda",
-      "role": "MC",
-      "sub_role": "secretary",
-      "wing": "A"
-    },
-    "1503-B": {
-      "Owner_Name": "Saima",
-      "flatNumber": "1403",
-      "notification_viewed": false,
-      "password": "Khan",
-      "role": "MC",
-      "sub_role": "treasurer",
-      "wing": "C"
-    },
-    "1503-C": {
-      "Owner_Name": "Urmi",
-      "flatNumber": "1303",
-      "notification_viewed": false,
-      "password": "Joshi",
-      "role": "member",
-      "wing": "B"
-    },
-    "1503-D": {
-      "Owner_Name": "Vrishab Shenvi",
-      "flatNumber": "1203",
-      "notification_viewed": false,
-      "password": "Joshi",
-      "role": "MC",
-      "sub_role": "Society Manager",
-      "wing": "B"
-    },
-    "1503-E": {
-      "Owner_Name": "Ganesh",
-      "flatNumber": "1503",
-      "notification_viewed": false,
-      "password": "Nakhuda",
-      "role": "MC",
-      "sub_role": "president",
-      "wing": "A"
-    }
-  },
+  
   "maids": {
     "1234": {
       "createdAt": 1744561561826,
@@ -401,54 +356,77 @@
     "108": {
       "flatNumber": "108",
       "floor": "1",
-      "name": "Vrishab Shenvi",
+      "Owner_Name": "Vrishab Shenvi",
       "role": "resident",
-      "wing": "V"
+      "wing": "V",
+      "password": "123456",
+      "notification_viewed": false,
+      "resident_type": "renter"
     },
     "304": {
       "flatNumber": "304",
       "floor": "3",
-      "name": "urmi",
-      "role": "resident",
-      "wing": "A"
+      "Owner_Name": "urmi",
+      "role": "MC",
+      "sub_role": "Society Manager",
+      "wing": "A",
+      "password": "123456",
+      "notification_viewed": false,
+      "resident_type": "owner"
+      
     },
     "405": {
       "flatNumber": "405",
       "floor": "6",
-      "name": "gayatri ",
-      "role": "resident",
-      "wing": "g"
+      "Owner_Name": "gayatri ",
+      "role": "MC",
+      "sub_role": "president",
+      "wing": "g",
+      "password": "123456",
+      "notification_viewed": false,
+      "resident_type": "owner"
     },
     "703": {
       "flatNumber": "703",
       "floor": "7",
-      "name": "shawar khan",
+      "Owner_Name": "shawar khan",
       "role": "resident",
-      "wing": "J"
+      "wing": "J",
+      "password": "123456",
+      "notification_viewed": false,
+      "resident_type": "owner"
     },
     "909": {
       "flatNumber": "909",
       "floor": "9",
-      "name": "kajol kapoor",
+      "Owner_Name": "kajol kapoor",
       "role": "resident",
-      "wing": "B"
-    }
-  },
-  "permission_level": {
-    "secretary": {
-      "title": "No water supply today",
-      "body": "No water supply from 8 am - 11 am for all wings.",
-      "timestamp": "2025-04-02T18:47:38.677Z"
+      "wing": "B",
+      "password": "123456",
+      "notification_viewed": false,
+      "resident_type": "owner"
     },
-    "treasurer": {
-      "title": "Meter Reading",
-      "body": "Meter reading for the month of March 2025 is due. Please pay the amount before 5th April 2025.",
-      "timestamp": "2025-04-03T02:28:27.185Z"
+    "1503": {
+      "flatNumber": "1503",
+      "floor": "15",
+      "Owner_Name": "Armaan",
+      "password": "123456",
+      "role": "MC",
+      "sub_role": "secretary",
+      "wing": "A",
+      "notification_viewed": false,
+      "resident_type": "owner"
     },
-    "member": {
-      "title": "Power Cut",
-      "body": "Power cut from 10 am to 12 pm for all wings.",
-      "timestamp": "2025-04-03T02:36:02.415Z"
+    "1703": {
+      "flatNumber": "1703",
+      "floor": "17",
+      "Owner_Name": "Saima",
+      "role": "MC",
+      "sub_role": "treasurer",
+      "wing": "C",
+      "password": "123456",
+      "notification_viewed": false,
+      "resident_type": "owner"
     }
   }
 }

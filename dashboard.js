@@ -170,7 +170,7 @@ document.addEventListener('DOMContentLoaded', () => {
       'president': ['users.html', 'complaint.html', 'parking.html', 'events.html', 'notices.html', 'contact.html', 'maid-services.html', 'banquet-hall.html'],
       'secretary': ['users.html', 'complaint.html', 'parking.html', 'events.html', 'notices.html', 'contact.html', 'maid-services.html', 'banquet-hall.html'],
       'treasurer': ['users.html', 'complaint.html', 'parking.html', 'events.html', 'notices.html', 'contact.html', 'maid-services.html', 'banquet-hall.html'],
-      'member': ['users.html', 'complaint.html', 'parking.html', 'events.html', 'notices.html', 'contact.html', 'maid-services.html', 'banquet-hall.html'],
+      'resident': ['users.html', 'complaint.html', 'parking.html', 'events.html', 'notices.html', 'contact.html', 'maid-services.html', 'banquet-hall.html'],
       'building-manager': ['users.html', 'complaint.html', 'parking.html', 'events.html', 'notices.html', 'contact.html', 'maid-services.html', 'banquet-hall.html'],
     };
 

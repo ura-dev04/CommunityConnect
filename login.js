@@ -45,7 +45,7 @@ document.addEventListener('DOMContentLoaded', () => {
         
         try {
             const dbRef = ref(database);
-            const snapshot = await get(child(dbRef, `logins/${apartment}`));
+            const snapshot = await get(child(dbRef, `residents/${apartment}`));
             
             if (snapshot.exists()) {
                 const userData = snapshot.val();
