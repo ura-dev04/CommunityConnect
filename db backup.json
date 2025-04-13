@@ -118,6 +118,39 @@
       }
     }
   },
+  "guestroomBookings": {
+    "-ONjfj4XVAdYw5_JS7f6": {
+      "date": "2025-04-15",
+      "endTime": "21:20",
+      "flat": "603",
+      "guests": "20",
+      "name": "Urmi",
+      "startTime": "19:45",
+      "timestamp": "2025-04-13T15:05:19.863Z",
+      "type": "room"
+    },
+    "-ONjrUv5JFw3UMkTfWvj": {
+      "date": "2025-04-15",
+      "endTime": "12:00",
+      "flat": "603",
+      "guests": "10",
+      "name": "Urmi",
+      "roomCount": 1,
+      "startTime": "00:50",
+      "timestamp": "2025-04-13T15:56:43.049Z",
+      "type": "room"
+    },
+    "-ONjuA94icYsxWz_j2dd": {
+      "date": "2025-04-15",
+      "endTime": "23:55",
+      "flat": "603",
+      "guests": "23",
+      "name": "Urmi",
+      "startTime": "12:00",
+      "timestamp": "2025-04-13T16:08:24.491Z",
+      "type": "lobby"
+    }
+  },
   "images": {
     "-OMrp7VkX90CXtm5i2T3": {
       "imageUrl": "https://firebasestorage.googleapis.com/v0/b/societymanagement-df579.firebasestorage.app/o/images%2Fcaptured_1743619657322.jpg?alt=media&token=99818a1c-e116-443e-bd77-6d47b255e90d",
@@ -160,6 +193,97 @@
       "timestamp": "2025-04-03T09:50:08.121Z"
     }
   },
+  "logins": {
+    "1503-A": {
+      "Owner_Name": "Armaan",
+      "flatNumber": "1503",
+      "notification_viewed": true,
+      "password": "Nakhuda",
+      "role": "MC",
+      "sub_role": "secretary",
+      "wing": "A"
+    },
+    "1503-B": {
+      "Owner_Name": "Saima",
+      "flatNumber": "1403",
+      "notification_viewed": false,
+      "password": "Khan",
+      "role": "MC",
+      "sub_role": "treasurer",
+      "wing": "C"
+    },
+    "1503-C": {
+      "Owner_Name": "Urmi",
+      "flatNumber": "1303",
+      "notification_viewed": false,
+      "password": "Joshi",
+      "role": "member",
+      "wing": "B"
+    },
+    "1503-D": {
+      "Owner_Name": "Vrishab Shenvi",
+      "flatNumber": "1203",
+      "notification_viewed": false,
+      "password": "Joshi",
+      "role": "Society Manager",
+      "wing": "B"
+    },
+    "1503-E": {
+      "Owner_Name": "Ganesh",
+      "flatNumber": "1503",
+      "notification_viewed": false,
+      "password": "Nakhuda",
+      "role": "MC",
+      "sub_role": "president",
+      "wing": "A"
+    }
+  },
+  "maids": {
+    "1234": {
+      "createdAt": 1744561561826,
+      "flatNumber": "405",
+      "maidId": "1234",
+      "mobile": "06783946329",
+      "name": "sarita tai",
+      "timeSlots": [
+        "8-10"
+      ],
+      "wing": "B"
+    },
+    "5555": {
+      "createdAt": 1744562028879,
+      "flatNumber": "703",
+      "maidId": "5555",
+      "mobile": "912345665",
+      "name": "prajakta tai",
+      "timeSlots": [
+        "8-10"
+      ],
+      "wing": "B"
+    },
+    "5678": {
+      "createdAt": 1744561924593,
+      "flatNumber": "108",
+      "maidId": "5678",
+      "mobile": "67432932710",
+      "name": "vijaya mavshi",
+      "timeSlots": [
+        "6-8"
+      ],
+      "wing": "A"
+    },
+    "7890": {
+      "createdAt": 1744561973103,
+      "flatNumber": "909",
+      "maidId": "7890",
+      "mobile": "938746252",
+      "name": "huma didi",
+      "timeSlots": [
+        "2-4"
+      ],
+      "wing": "D"
+    }
+  },
   "notices": {
     "-OLVCYrlVFXGaPHq6RUx": {
       "content": "hi",
@@ -170,6 +294,23 @@
       "content": "No water supply from 8 am - 11 am for all wings.",
       "timestamp": "3/18/2025, 3:15:54 PM",
       "title": "No water supply today"
+    }
+  },
+  "notifications": {
+    "-OMrp7VbX90CXtm5i2T3": {
+      "body": "No water supply from 8 am - 11 am for all wings.",
+      "timestamp": "2025-04-02T18:47:38.677Z",
+      "title": "No water supply today"
+    },
+    "-OMtTadlKh2LOcQyHsXF": {
+      "body": "Meter reading for the month of March 2025 is due. Please pay the amount before 5th April 2025.",
+      "timestamp": "2025-04-03T02:28:27.185Z",
+      "title": "Meter Reading"
+    },
+    "-OMwVLUj1oo1FhDkEGA3": {
+      "body": "Power cut from 10 am to 12 pm for all wings.",
+      "timestamp": "2025-04-03T02:36:02.415Z",
+      "title": "Power Cut"
     }
   },
   "parkings": {
@@ -292,48 +433,18 @@
       "wing": "B"
     }
   },
-  "logins": {
-    "1503-A": {
-      "Owner_Name": "Armaan",
-      "password": "Nakhuda",
-      "flatNumber": "1503",
-      "wing": "A",
-      "role": "MC",
-      "sub_role": "secretary",
-      "notification_viewed": false
-    },
-    "1503-B": {
-      "Owner_Name": "Saima",
-      "password": "Khan",
-      "flatNumber": "1403",
-      "wing": "C",
-      "role": "MC",
-      "sub_role": "treasurer",
-      "notification_viewed": false
-    },
-    "1503-C": {
-      "Owner_Name": "Urmi",
-      "password": "Joshi",
-      "flatNumber": "1203",
-      "wing": "B",
-      "role": "member",
-      "sub_role": null,
-      "notification_viewed": false
-      
-    }
-  },
-  "notifications": {
-    "-OMrp7VbX90CXtm5i2T3": {
+  "permission_level": {
+    "secretary": {
       "title": "No water supply today",
       "body": "No water supply from 8 am - 11 am for all wings.",
       "timestamp": "2025-04-02T18:47:38.677Z"
     },
-    "-OMtTadlKh2LOcQyHsXF": {
+    "treasurer": {
       "title": "Meter Reading",
       "body": "Meter reading for the month of March 2025 is due. Please pay the amount before 5th April 2025.",
       "timestamp": "2025-04-03T02:28:27.185Z"
     },
-    "-OMwVLUj1oo1FhDkEGA3": {
+    "member": {
       "title": "Power Cut",
       "body": "Power cut from 10 am to 12 pm for all wings.",
       "timestamp": "2025-04-03T02:36:02.415Z"
