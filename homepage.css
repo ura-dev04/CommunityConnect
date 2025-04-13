@@ -82,55 +82,13 @@
     border-radius: 10px;
     font-size: 1rem;
     cursor: pointer;
+    margin-right: 1rem;
   }
   
   .cta-btn:hover {
     background-color: #52e0c4;
   }
-  
-  /* Features Section */
-  .features {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 2rem;
-    padding: 4rem 3rem;
-    background-color: #1a1a25;
-  }
-  
-  .feature-box {
-    background: rgba(255, 255, 255, 0.1);
-    backdrop-filter: blur(8px);
-    padding: 2rem;
-    border-radius: 15px;
-    text-align: center;
-    transition: all 0.3s ease;
-    cursor: pointer;
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    min-height: 200px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-  }
-  
-  .feature-box:hover {
-    transform: translateY(-10px);
-    background: rgba(255, 255, 255, 0.15);
-    border-color: #008B8B;
-    box-shadow: 0 8px 32px 0 rgba(0, 139, 139, 0.2);
-  }
-  
-  .feature-box h3 {
-    color: #008B8B;
-    font-size: 1.8rem;
-    margin-bottom: 1rem;
-  }
-  
-  .feature-box p {
-    color: #ffffff;
-    font-size: 1.1rem;
-  }
-  
+
   /* Footer */
   footer {
     text-align: center;
