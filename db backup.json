@@ -1,0 +1,325 @@
+{
+  "bookings": {
+    "-OLTu3S5-UgDgffjZcgt": {
+      "date": "2025-03-18",
+      "flatNumber": "603",
+      "guests": "30",
+      "name": "urmi",
+      "purpose": "Butrhday",
+      "status": "rejected",
+      "time": "14:52"
+    },
+    "-OLUAulk2Rtxn_ek5-Zr": {
+      "date": "2025-03-20",
+      "flatNumber": "607",
+      "guests": "20",
+      "name": "Uru",
+      "purpose": "Birthday party ",
+      "status": "Cancelled",
+      "time": "20:12"
+    },
+    "-OLV50O83XEfLcxMkrDS": {
+      "date": "2025-03-26",
+      "flatNumber": "709",
+      "guests": "16",
+      "name": "Saima",
+      "purpose": "Birthday",
+      "status": "Pending",
+      "time": "16:30"
+    },
+    "-OLV6t9OrBY7V9CeWId1": {
+      "date": "2025-03-29",
+      "flatNumber": "604",
+      "guests": "15",
+      "name": "Saimi",
+      "purpose": "Birthday ",
+      "status": "Pending",
+      "time": "16:20"
+    },
+    "-OLV7WCWAGcxY-eERA5j": {
+      "date": "2025-03-18",
+      "flatNumber": "602",
+      "guests": "10",
+      "name": "Heyyyy",
+      "purpose": "Pooja",
+      "status": "Pending",
+      "time": "18:45"
+    },
+    "-OLcNSMB2oSrfjQBzH1O": {
+      "date": "2025-03-31",
+      "flatNumber": "909",
+      "guests": "10",
+      "name": "sofian bday",
+      "purpose": "bday",
+      "status": "approved",
+      "time": "01:01"
+    },
+    "-OLcfOSfmR8rdGUXdBW6": {
+      "date": "2025-05-01",
+      "flatNumber": "108",
+      "guests": "1",
+      "name": "Vrishab Shenvi",
+      "purpose": "Get together",
+      "status": "Pending",
+      "time": "12:23"
+    },
+    "-OLcjLIsmQmPuxNnfSyC": {
+      "date": "2025-03-28",
+      "flatNumber": "304",
+      "guests": "50",
+      "name": "Vrishab Shenvi",
+      "purpose": "bbday",
+      "status": "Pending",
+      "time": "17:43"
+    }
+  },
+  "complaints": {
+    "108": {
+      "-OLcg16gUIYkehYGnkCY": {
+        "complaint": "there is no proper water supply in the building. please look into this matter as soon as possible.\n",
+        "status": "Pending",
+        "timestamp": "2025-03-18T09:57:50.183Z"
+      }
+    },
+    "703": {
+      "-OLJzEF7QJG3Xic-hK_v": {
+        "complaint": "water has been cut for today",
+        "status": "Pending",
+        "timestamp": "2025-03-14T14:09:20.388Z"
+      },
+      "-OLJzEIPElzz1dIw3E4Z": {
+        "complaint": "water has been cut for today",
+        "status": "Pending",
+        "timestamp": "2025-03-14T14:09:20.602Z"
+      }
+    },
+    "809": {
+      "-OL5S0ReRBHD9hWV9Y5b": {
+        "complaint": "armaan is imbucile",
+        "status": "Pending",
+        "timestamp": "2025-03-11T18:25:09.926Z"
+      }
+    },
+    "909": {
+      "-OLcMbp5jSWqdDgOUw_G": {
+        "complaint": "i have a complain\n",
+        "status": "Pending",
+        "timestamp": "2025-03-18T08:28:39.622Z"
+      },
+      "-OLcMgHJE5dLJhokg96B": {
+        "complaint": "i have a complain\n",
+        "status": "Pending",
+        "timestamp": "2025-03-18T08:28:58.206Z"
+      },
+      "-OLcdgffHZPtIeFNQ7q8": {
+        "complaint": "i have a complaint\n",
+        "status": "Pending",
+        "timestamp": "2025-03-18T09:47:38.091Z"
+      }
+    }
+  },
+  "images": {
+    "-OMrp7VkX90CXtm5i2T3": {
+      "imageUrl": "https://firebasestorage.googleapis.com/v0/b/societymanagement-df579.firebasestorage.app/o/images%2Fcaptured_1743619657322.jpg?alt=media&token=99818a1c-e116-443e-bd77-6d47b255e90d",
+      "name": "captured_1743619657322.jpg",
+      "timestamp": "2025-04-02T18:47:38.677Z"
+    },
+    "-OMtTadlKh2LOcQ2HsXF": {
+      "imageUrl": "https://firebasestorage.googleapis.com/v0/b/societymanagement-df579.firebasestorage.app/o/images%2Fcaptured_1743647305875.jpg?alt=media&token=11672e92-cc39-407f-9ab3-922349b1c9e0",
+      "name": "captured_1743647305875.jpg",
+      "timestamp": "2025-04-03T02:28:27.185Z"
+    },
+    "-OMtVLUj1oo1FhDkEGA3": {
+      "imageUrl": "https://firebasestorage.googleapis.com/v0/b/societymanagement-df579.firebasestorage.app/o/images%2Fcaptured_1743647761204.jpg?alt=media&token=6454423c-5ddb-4566-b15c-8bae91633d8b",
+      "name": "captured_1743647761204.jpg",
+      "timestamp": "2025-04-03T02:36:02.415Z"
+    },
+    "-OMuMGzb7e6r08vu8yx-": {
+      "imageUrl": "https://firebasestorage.googleapis.com/v0/b/societymanagement-df579.firebasestorage.app/o/images%2Fcaptured_1743662077583.jpg?alt=media&token=899fa6ef-4df9-4944-9c38-900f994745a0",
+      "name": "captured_1743662077583.jpg",
+      "timestamp": "2025-04-03T06:36:01.895Z"
+    },
+    "-OMuoWSHPajJyhGezvSa": {
+      "imageUrl": "https://firebasestorage.googleapis.com/v0/b/societymanagement-df579.firebasestorage.app/o/images%2Fcaptured_1743662476012.jpg?alt=media&token=b5cdca65-2ea0-49c7-908d-415507ed03dc",
+      "name": "captured_1743662476012.jpg",
+      "timestamp": "2025-04-03T08:43:47.411Z"
+    },
+    "-OMv1QKm7LNFqx0Zh56V": {
+      "imageUrl": "https://firebasestorage.googleapis.com/v0/b/societymanagement-df579.firebasestorage.app/o/images%2Fcaptured_1743673467183.jpg?alt=media&token=08e20517-731a-4e6e-9e27-393d47dba9fa",
+      "name": "captured_1743673467183.jpg",
+      "timestamp": "2025-04-03T09:44:32.370Z"
+    },
+    "-OMv1XBdaU9se2YQGoZt": {
+      "imageUrl": "https://firebasestorage.googleapis.com/v0/b/societymanagement-df579.firebasestorage.app/o/images%2Fcaptured_1743673497344.jpg?alt=media&token=5a92cb72-d5ee-41a6-9c5b-3a61422a67d0",
+      "name": "captured_1743673497344.jpg",
+      "timestamp": "2025-04-03T09:45:00.458Z"
+    },
+    "-OMv2hIt1t6yB0-eqaOa": {
+      "imageUrl": "https://firebasestorage.googleapis.com/v0/b/societymanagement-df579.firebasestorage.app/o/images%2Fcaptured_1743673804236.jpg?alt=media&token=c92f02e5-dd75-4c41-b0ef-bd77f31a220b",
+      "name": "captured_1743673804236.jpg",
+      "timestamp": "2025-04-03T09:50:08.121Z"
+    }
+  },
+  "notices": {
+    "-OLVCYrlVFXGaPHq6RUx": {
+      "content": "hi",
+      "timestamp": "16/3/2025, 11:57:46 pm",
+      "title": "hiii"
+    },
+    "-OLcdI49zLVYk4YvdehK": {
+      "content": "No water supply from 8 am - 11 am for all wings.",
+      "timestamp": "3/18/2025, 3:15:54 PM",
+      "title": "No water supply today"
+    }
+  },
+  "parkings": {
+    "-OLFwWCgGJcSYnj3cSII": {
+      "buildingName": "Azziano",
+      "flatNumber": "601",
+      "parkingId": "B1",
+      "slotNumber": 1,
+      "timestamp": 1741893546919,
+      "vehicleType": "2",
+      "wing": "B"
+    },
+    "-OLFwkeXtbxZyXZs8vbQ": {
+      "buildingName": "Azziano",
+      "flatNumber": "605",
+      "parkingId": "C2",
+      "slotNumber": 2,
+      "timestamp": 1741893610204,
+      "vehicleType": "2",
+      "wing": "C"
+    },
+    "-OLFxfCGgibKoKQcK4DT": {
+      "buildingName": "athena",
+      "flatNumber": "123",
+      "parkingId": "J3",
+      "slotNumber": 3,
+      "timestamp": 1741893849788,
+      "vehicleType": "2",
+      "wing": "J"
+    },
+    "-OLFycaH3fboIJwQkHD9": {
+      "buildingName": "athena",
+      "flatNumber": "302",
+      "parkingId": "D4",
+      "slotNumber": 4,
+      "timestamp": 1741894101346,
+      "vehicleType": "4",
+      "wing": "D"
+    },
+    "-OLGx5nxv3O007dQ9K4L": {
+      "buildingName": "athena",
+      "flatNumber": "503",
+      "parkingId": "G5",
+      "slotNumber": 5,
+      "timestamp": 1741910477961,
+      "vehicleType": "2",
+      "wing": "G"
+    },
+    "-OLIfVaClqZIlZYDu-u4": {
+      "buildingName": "MIB",
+      "flatNumber": "609",
+      "parkingId": "B6",
+      "slotNumber": 6,
+      "timestamp": 1741939420505,
+      "vehicleType": "2",
+      "wing": "B"
+    },
+    "-OLJzQRVCTLhKCSjpBJt": {
+      "buildingName": "Azziano",
+      "flatNumber": "606",
+      "parkingId": "D7",
+      "slotNumber": 7,
+      "timestamp": 1741961419994,
+      "vehicleType": "4",
+      "wing": "D"
+    },
+    "-OLcMvriMyMWZRsm_ohK": {
+      "buildingName": "athena",
+      "flatNumber": "909",
+      "parkingId": "B8",
+      "slotNumber": 8,
+      "timestamp": 1742286602194,
+      "vehicleType": "2",
+      "wing": "B"
+    },
+    "-OMv6UZKjK3GtwVK81Gv": {
+      "buildingName": "azxcv",
+      "flatNumber": "12334",
+      "parkingId": "B9",
+      "slotNumber": 9,
+      "timestamp": 1743674804512,
+      "vehicleType": "4",
+      "wing": "B"
+    }
+  },
+  "residents": {
+    "108": {
+      "flatNumber": "108",
+      "floor": "1",
+      "name": "Vrishab Shenvi",
+      "role": "resident",
+      "wing": "V"
+    },
+    "304": {
+      "flatNumber": "304",
+      "floor": "3",
+      "name": "urmi",
+      "role": "resident",
+      "wing": "A"
+    },
+    "405": {
+      "flatNumber": "405",
+      "floor": "6",
+      "name": "gayatri ",
+      "role": "resident",
+      "wing": "g"
+    },
+    "703": {
+      "flatNumber": "703",
+      "floor": "7",
+      "name": "shawar khan",
+      "role": "resident",
+      "wing": "J"
+    },
+    "909": {
+      "flatNumber": "909",
+      "floor": "9",
+      "name": "kajol kapoor",
+      "role": "resident",
+      "wing": "B"
+    }
+  },
+  "logins": {
+    "1503-A": {
+      "Owner_Name": "Armaan",
+      "password": "Nakhuda",
+      "flatNumber": "1503",
+      "wing": "A",
+      "role": "MC",
+      "sub_role": "secretary",
+      "notification_viewed": false
+    },
+    "1503-B": {
+      "Owner_Name": "Saima",
+      "password": "Khan",
+      "flatNumber": "1403",
+      "wing": "C",
+      "role": "MC",
+      "sub_role": "treasurer",
+      "notification_viewed": false
+    },
+    "1503-C": {
+      "Owner_Name": "Urmi",
+      "password": "Joshi",
+      "flatNumber": "1203",
+      "wing": "B",
+      "role": "member",
+      "sub_role": null,
+      "notification_viewed": false
+      
+    }
+  }
+}
