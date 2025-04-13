@@ -27,6 +27,23 @@ body {
   color: #64ffda;
 }
 
+.user-welcome-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+#welcome-message {
+  color: #64ffda;
+  font-weight: bold;
+  margin-bottom: 0.2rem;
+}
+
+#user-role {
+  color: #cccccc;
+  font-size: 0.9rem;
+}
+
 .nav-links a {
   margin: 0 1rem;
   color: #ffffff;

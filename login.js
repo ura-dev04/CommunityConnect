@@ -60,12 +60,8 @@ document.addEventListener('DOMContentLoaded', () => {
                         sub_role: userData.sub_role || ''
                     }));
                     
-                    showWelcomeMessage({
-                        apartment: apartment,
-                        name: userData.Name,
-                        role: userData.role,
-                        sub_role: userData.sub_role || ''
-                    });
+                    // Redirect to dashboard instead of showing welcome message
+                    window.location.href = 'dashboard.html';
                     
                     clearInputs();
                 } else {
