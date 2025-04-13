@@ -55,7 +55,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     // Store user data in session storage
                     sessionStorage.setItem('loggedInUser', JSON.stringify({
                         apartment: apartment,
-                        name: userData.Name,
+                        name: userData.Owner_Name,
                         role: userData.role,
                         sub_role: userData.sub_role || ''
                     }));
