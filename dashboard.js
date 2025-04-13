@@ -24,6 +24,10 @@ document.addEventListener('DOMContentLoaded', () => {
   const closeNotifications = document.querySelector('.close-notifications');
   const notificationsList = document.querySelector('.notifications-list');
   const notificationBadge = document.querySelector('.notification-badge');
+  const changePasswordBtn = document.querySelector('.change-password-btn');
+  const changePasswordModal = document.getElementById('change-password-modal');
+  const changePasswordForm = document.getElementById('change-password-form');
+  const cancelChangePasswordBtn = document.getElementById('cancel-change-password');
   
   let userData;
   
@@ -80,6 +84,22 @@ document.addEventListener('DOMContentLoaded', () => {
         window.location.href = target;
       }
     });
+  });
+  
+  // Handle change password button click
+  changePasswordBtn.addEventListener('click', () => {
+    showChangePasswordModal();
+  });
+
+  // Handle cancel button in change password modal
+  cancelChangePasswordBtn.addEventListener('click', () => {
+    hideChangePasswordModal();
+  });
+
+  // Handle change password form submission
+  changePasswordForm.addEventListener('submit', (e) => {
+    e.preventDefault();
+    updatePassword();
   });
   
   // Handle logout button click
@@ -189,6 +209,78 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
   
+  // Function to show change password modal
+  function showChangePasswordModal() {
+    // Clear previous inputs and errors
+    document.getElementById('current-password').value = '';
+    document.getElementById('new-password-change').value = '';
+    document.getElementById('confirm-password-change').value = '';
+    document.getElementById('change-password-error').textContent = '';
+    
+    // Show modal
+    changePasswordModal.style.display = 'flex';
+  }
+
+  // Function to hide change password modal
+  function hideChangePasswordModal() {
+    changePasswordModal.style.display = 'none';
+  }
+
+  // Function to update password
+  async function updatePassword() {
+    const currentPassword = document.getElementById('current-password').value;
+    const newPassword = document.getElementById('new-password-change').value;
+    const confirmPassword = document.getElementById('confirm-password-change').value;
+    const errorElement = document.getElementById('change-password-error');
+    
+    // Clear previous error
+    errorElement.textContent = '';
+    
+    try {
+      // Verify current password
+      const dbRef = ref(database);
+      const userSnapshot = await get(child(dbRef, `residents/${userData.apartment}`));
+      
+      if (!userSnapshot.exists()) {
+        errorElement.textContent = 'User data not found';
+        return;
+      }
+      
+      const userDbData = userSnapshot.val();
+      
+      if (userDbData.password !== currentPassword) {
+        errorElement.textContent = 'Current password is incorrect';
+        return;
+      }
+      
+      // Validate new password
+      if (newPassword !== confirmPassword) {
+        errorElement.textContent = 'New passwords do not match';
+        return;
+      }
+      
+      if (newPassword.length < 6) {
+        errorElement.textContent = 'New password must be at least 6 characters';
+        return;
+      }
+      
+      // Update password in database
+      const updates = {};
+      updates[`residents/${userData.apartment}/password`] = newPassword;
+      
+      await update(ref(database), updates);
+      
+      // Close modal and logout
+      hideChangePasswordModal();
+      alert('Password updated successfully. Please login with your new password.');
+      logout();
+      
+    } catch (error) {
+      console.error('Error updating password:', error);
+      errorElement.textContent = 'Error updating password. Please try again.';
+    }
+  }
+
   // Function to logout
   function logout() {
     // Remove user data from session storage

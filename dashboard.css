@@ -341,3 +341,36 @@ footer {
   background-color: #0e0e15;
   color: #888888;
 }
+
+/* Auth Buttons Group */
+.auth-buttons {
+  display: flex;
+  gap: 12px;
+}
+
+.change-password-btn {
+  padding: 0.5rem 1rem;
+  background-color: #008B8B;
+  color: #ffffff;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.change-password-btn:hover {
+  background-color: #006666;
+}
+
+.logout-btn {
+  padding: 0.5rem 1rem;
+  background-color: #ff6464;
+  color: #ffffff;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.logout-btn:hover {
+  background-color: #e05252;
+}

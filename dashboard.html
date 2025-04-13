@@ -16,7 +16,10 @@
     <nav class="nav-links">
       <a href="dashboard.html">Home</a>
     </nav>
-    <button class="logout-btn">Logout</button>
+    <div class="auth-buttons">
+      <button class="change-password-btn">Change Password</button>
+      <button class="logout-btn">Logout</button>
+    </div>
   </header>
 
   <!-- Notifications Panel -->
@@ -74,6 +77,33 @@
       <p>Book community hall for events</p>
     </div>
   </section>
+
+  <!-- Change Password Modal -->
+  <div class="password-modal-overlay" id="change-password-modal" style="display: none;">
+    <div class="password-modal-content">
+      <h2>Change Your Password</h2>
+      <p>Please enter your current password and set a new one.</p>
+      <form id="change-password-form">
+        <div class="form-group">
+          <label for="current-password">Current Password</label>
+          <input type="password" id="current-password" required>
+        </div>
+        <div class="form-group">
+          <label for="new-password-change">New Password</label>
+          <input type="password" id="new-password-change" required>
+        </div>
+        <div class="form-group">
+          <label for="confirm-password-change">Confirm New Password</label>
+          <input type="password" id="confirm-password-change" required>
+        </div>
+        <div class="error-message" id="change-password-error"></div>
+        <div class="button-group">
+          <button type="submit" class="save-btn">Update Password</button>
+          <button type="button" class="cancel-btn" id="cancel-change-password">Cancel</button>
+        </div>
+      </form>
+    </div>
+  </div>
 
   <footer>
     <p>&copy; 2025 CommunityConnect. All rights reserved.</p>
