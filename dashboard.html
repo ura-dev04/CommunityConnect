@@ -14,10 +14,26 @@
       <div id="user-role">Loading...</div>
     </div>
     <nav class="nav-links">
-      <a href="homepage.html">Home</a>
+      <a href="dashboard.html">Home</a>
     </nav>
     <button class="logout-btn">Logout</button>
   </header>
+
+  <!-- Notifications Panel -->
+  <button class="notification-toggle">
+    <span>Notifications</span>
+    <span class="notification-badge">0</span>
+  </button>
+  
+  <div class="notifications-panel">
+    <div class="notifications-header">
+      <h2>Notifications</h2>
+      <button class="close-notifications">&times;</button>
+    </div>
+    <div class="notifications-list">
+      <!-- Notifications will be loaded here dynamically -->
+    </div>
+  </div>
 
   <section class="dashboard-header">
     <h1>Community Dashboard</h1>
@@ -63,6 +79,6 @@
     <p>&copy; 2025 CommunityConnect. All rights reserved.</p>
   </footer>
 
-  <script src="dashboard.js"></script>
+  <script type="module" src="dashboard.js"></script>
 </body>
 </html>
