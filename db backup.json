@@ -225,7 +225,8 @@
       "flatNumber": "1203",
       "notification_viewed": false,
       "password": "Joshi",
-      "role": "Society Manager",
+      "role": "MC",
+      "sub_role": "Society Manager",
       "wing": "B"
     },
     "1503-E": {
