@@ -321,5 +321,22 @@
       "notification_viewed": false
       
     }
+  },
+  "notifications": {
+    "-OMrp7VbX90CXtm5i2T3": {
+      "title": "No water supply today",
+      "body": "No water supply from 8 am - 11 am for all wings.",
+      "timestamp": "2025-04-02T18:47:38.677Z"
+    },
+    "-OMtTadlKh2LOcQyHsXF": {
+      "title": "Meter Reading",
+      "body": "Meter reading for the month of March 2025 is due. Please pay the amount before 5th April 2025.",
+      "timestamp": "2025-04-03T02:28:27.185Z"
+    },
+    "-OMwVLUj1oo1FhDkEGA3": {
+      "title": "Power Cut",
+      "body": "Power cut from 10 am to 12 pm for all wings.",
+      "timestamp": "2025-04-03T02:36:02.415Z"
+    }
   }
 }
