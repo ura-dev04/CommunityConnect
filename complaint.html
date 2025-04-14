@@ -10,8 +10,12 @@
     <div class="container">
         <h1>Complaint Box</h1>
         <form id="complaintForm">
-            <label for="flatNumber">Flat Number:</label>
-            <input type="text" id="flatNumber" placeholder="Enter your flat number" required>
+            <label for="complaintType">Complaint Type:</label>
+            <select id="complaintType" required>
+                <option value="" disabled selected>Select complaint type</option>
+                <option value="society_related">Society Related</option>
+                <option value="member_related">Member Related</option>
+            </select>
 
             <label for="complaint">Complaint:</label>
             <textarea id="complaint" placeholder="Describe your complaint" rows="4" required></textarea>
