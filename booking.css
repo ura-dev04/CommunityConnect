@@ -1,0 +1,89 @@
+body {
+    background-color: #0e0e15;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    font-family: 'Segoe UI', system-ui, sans-serif;
+  }
+  
+  .button-container {
+    background-color: rgba(0, 0, 0, 0.6); /* Semi-transparent box */
+    padding: 7rem;
+    border-radius: 15px;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    align-items: center;
+  }
+  
+  .fancy-button {
+    position: relative;
+    padding: 1.5em 3.5em; /* Larger size */
+    font-size: 18px; /* Bigger text */
+    font-weight: 600;
+    color: #ffffff;
+    background-color: #1a1a25;
+    border: 2px solid #64ffda;
+    border-radius: 12px;
+    overflow: hidden;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+  }
+  
+  .fancy-button::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    background: rgba(100, 255, 218, 0.2);
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    transition: width 0.4s ease, height 0.4s ease;
+    z-index: 0;
+  }
+  
+  .fancy-button:hover::before {
+    width: 300%;
+    height: 300%;
+  }
+  
+  .fancy-button:hover {
+    color: #0e0e15;
+    background-color: #64ffda;
+    transform: translateY(-2px);
+  }
+  
+  .fancy-button span {
+    position: relative;
+    z-index: 1;
+  }
+  
+  
+.fc {
+  width: 100% !important;
+}
+.back-button {
+  position: absolute;
+  top: 1.2rem;
+  right: 1.5rem;
+  padding: 0.5em 1em;
+  font-size: 0.9rem;
+  font-weight: 500;
+  background-color: rgba(100, 255, 218, 0.1);
+  border: 1px solid #64ffda;
+  color: #64ffda;
+  border-radius: 8px;
+  text-decoration: none;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  z-index: 1000;
+}
+
+.back-button:hover {
+  background-color: #64ffda;
+  color: #0e0e15;
+  transform: translateY(-1px);
+}
