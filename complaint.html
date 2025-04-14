@@ -25,13 +25,19 @@
         <p id="complaintMessage"></p>
 
         <button id="viewComplaintsBtn" type="button">View My Complaints</button>
+        <button id="viewAllComplaintsBtn" type="button" class="role-restricted admin-only">View All Pending Complaints</button>
         
         <div id="complaintsContainer" class="complaints-container hidden">
             <h2>My Complaints</h2>
             <div id="complaintsList"></div>
         </div>
 
-        <a href="homepage.html">
+        <div id="allComplaintsContainer" class="complaints-container hidden">
+            <h2>All Pending Complaints</h2>
+            <div id="allComplaintsList"></div>
+        </div>
+
+        <a href="dashboard.html">
             <button type="button">Back to Home</button>
         </a>
     </div>

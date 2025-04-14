@@ -1,5 +1,5 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-app.js";
-import { getDatabase, ref, push, update, get } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-database.js";
+import { getDatabase, ref, push, update, get, query, orderByChild, equalTo } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-database.js";
 
 // Firebase Configuration
 const firebaseConfig = {
@@ -15,6 +15,9 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const database = getDatabase(app);
 
+// Roles that can access admin features
+const ADMIN_ROLES = ['admin', 'president', 'secretary', 'treasurer', 'building-manager'];
+
 // Check if user is logged in
 document.addEventListener('DOMContentLoaded', () => {
     const loggedInUser = sessionStorage.getItem('loggedInUser');
@@ -23,6 +26,11 @@ document.addEventListener('DOMContentLoaded', () => {
         window.location.href = 'login.html';
         return;
     }
+    
+    const userData = JSON.parse(loggedInUser);
+    
+    // Apply role-based access control
+    applyRoleBasedAccess(userData);
     
     // Move form event handler inside DOMContentLoaded to ensure elements exist
     const complaintForm = document.getElementById('complaintForm');
@@ -55,7 +63,8 @@ document.addEventListener('DOMContentLoaded', () => {
                     complaint_type: complaintType,
                     complaint_content: complaintText,
                     status: "Pending",
-                    timestamp: new Date().toISOString()
+                    timestamp: new Date().toISOString(),
+                    resident_name: loggedInUser.Owner_Name || 'Unknown'
                 };
                 
                 // Get reference to the complaints node under the resident
@@ -155,6 +164,140 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
     }
+    
+    // Add event listener for the View All Complaints button
+    const viewAllComplaintsBtn = document.getElementById('viewAllComplaintsBtn');
+    const allComplaintsContainer = document.getElementById('allComplaintsContainer');
+    
+    if (viewAllComplaintsBtn) {
+        viewAllComplaintsBtn.addEventListener('click', async () => {
+            if (allComplaintsContainer.classList.contains('hidden')) {
+                // Show container
+                allComplaintsContainer.classList.remove('hidden');
+                
+                // Add loading spinner
+                const allComplaintsList = document.getElementById('allComplaintsList');
+                allComplaintsList.innerHTML = '<div class="loading-spinner"></div>';
+                
+                try {
+                    // Fetch all residents
+                    const residentsRef = ref(database, 'residents');
+                    const residentsSnapshot = await get(residentsRef);
+                    
+                    if (residentsSnapshot.exists()) {
+                        const residents = residentsSnapshot.val();
+                        
+                        // Fetch pending complaints from all residents
+                        const pendingComplaints = [];
+                        
+                        // Process each resident
+                        for (const [apartment, residentData] of Object.entries(residents)) {
+                            // Skip if no complaints
+                            if (!residentData.complaints) continue;
+                            
+                            // Process each complaint for this resident
+                            for (const [complaintId, complaint] of Object.entries(residentData.complaints)) {
+                                // Only include pending complaints
+                                if (complaint.status === 'Pending') {
+                                    pendingComplaints.push({
+                                        apartmentId: apartment,
+                                        complaintId: complaintId,
+                                        residentName: residentData.Owner_Name || 'Unknown', // Use Owner_Name from resident data
+                                        ...complaint
+                                    });
+                                }
+                            }
+                        }
+                        
+                        // Sort pending complaints by timestamp (newest first)
+                        pendingComplaints.sort((a, b) => {
+                            return new Date(b.timestamp) - new Date(a.timestamp);
+                        });
+                        
+                        // Clear loading spinner
+                        allComplaintsList.innerHTML = '';
+                        
+                        // Check if we found any pending complaints
+                        if (pendingComplaints.length === 0) {
+                            allComplaintsList.innerHTML = '<p>No pending complaints found.</p>';
+                            return;
+                        }
+                        
+                        // Display each pending complaint
+                        pendingComplaints.forEach(complaint => {
+                            const date = new Date(complaint.timestamp).toLocaleString();
+                            
+                            const complaintItem = document.createElement('div');
+                            complaintItem.className = 'complaint-item';
+                            complaintItem.innerHTML = `
+                                <div class="complaint-resident">Flat: ${complaint.apartmentId} - ${complaint.residentName}</div>
+                                <div class="complaint-header">
+                                    <div class="complaint-type">${formatComplaintType(complaint.complaint_type)}</div>
+                                    <div class="complaint-date">${date}</div>
+                                </div>
+                                <div class="complaint-content">${complaint.complaint_content}</div>
+                                <div class="complaint-actions">
+                                    <button class="resolve-btn" data-apartment="${complaint.apartmentId}" data-complaint="${complaint.complaintId}">Resolve</button>
+                                    <button class="reject-btn" data-apartment="${complaint.apartmentId}" data-complaint="${complaint.complaintId}">Reject</button>
+                                </div>
+                            `;
+                            allComplaintsList.appendChild(complaintItem);
+                        });
+                        
+                        // Add event listeners to resolve and reject buttons
+                        document.querySelectorAll('.resolve-btn, .reject-btn').forEach(button => {
+                            button.addEventListener('click', async (e) => {
+                                const apartment = e.target.getAttribute('data-apartment');
+                                const complaintId = e.target.getAttribute('data-complaint');
+                                const action = e.target.classList.contains('resolve-btn') ? 'Resolved' : 'Rejected';
+                                
+                                try {
+                                    // Update complaint status
+                                    const updates = {};
+                                    updates[`residents/${apartment}/complaints/${complaintId}/status`] = action;
+                                    await update(ref(database), updates);
+                                    
+                                    // Remove the complaint item from the list
+                                    const complaintItem = e.target.closest('.complaint-item');
+                                    complaintItem.style.opacity = '0.5';
+                                    
+                                    // Add a note that it was updated
+                                    const note = document.createElement('div');
+                                    note.style.color = '#64ffda';
+                                    note.style.marginTop = '10px';
+                                    note.textContent = `Status updated to ${action}`;
+                                    complaintItem.appendChild(note);
+                                    
+                                    // Disable buttons
+                                    complaintItem.querySelectorAll('button').forEach(btn => {
+                                        btn.disabled = true;
+                                    });
+                                } catch (error) {
+                                    console.error("Error updating complaint status:", error);
+                                    alert(`Error updating status: ${error.message}`);
+                                }
+                            });
+                        });
+                        
+                    } else {
+                        allComplaintsList.innerHTML = '<p>No residents found.</p>';
+                    }
+                    
+                } catch (error) {
+                    console.error("Error fetching all complaints:", error);
+                    allComplaintsList.innerHTML = `<p>Error loading complaints: ${error.message}</p>`;
+                }
+                
+                // Change button text
+                viewAllComplaintsBtn.textContent = "Hide All Complaints";
+                
+            } else {
+                // Hide complaints
+                allComplaintsContainer.classList.add('hidden');
+                viewAllComplaintsBtn.textContent = "View All Pending Complaints";
+            }
+        });
+    }
 });
 
 // Helper function to format complaint type for display
@@ -162,4 +305,20 @@ function formatComplaintType(type) {
     if (type === "society_related") return "Society Related";
     if (type === "member_related") return "Member Related";
     return type.charAt(0).toUpperCase() + type.slice(1).replace(/_/g, ' ');
+}
+
+// Function to apply role-based access control
+function applyRoleBasedAccess(userData) {
+    // Check if user has admin role or sub-role
+    const isAdmin = userData.role === 'admin' || 
+                    (userData.sub_role && ADMIN_ROLES.includes(userData.sub_role.toLowerCase()));
+    
+    // Show or hide admin-only elements
+    document.querySelectorAll('.admin-only').forEach(element => {
+        if (isAdmin) {
+            element.classList.remove('role-restricted');
+        } else {
+            element.classList.add('role-restricted');
+        }
+    });
 }
