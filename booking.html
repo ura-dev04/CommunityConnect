@@ -19,11 +19,34 @@
     <div class="tab-container">
       <button class="tab-button active" data-tab="banquet">Banquet Hall</button>
       <button class="tab-button" data-tab="guestroom">Guest Room</button>
+      <button id="pending-requests-btn" class="admin-button" style="display: none;">View Pending Requests</button>
     </div>
     
     <!-- Common Availability Button -->
     <div class="availability-button-container">
       <button id="checkAvailability" class="availability-button">Check Availability</button>
+    </div>
+    
+    <!-- Pending Requests Modal -->
+    <div id="pending-requests-modal" class="modal">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h2>Pending Facility Requests</h2>
+          <span class="close-modal">&times;</span>
+        </div>
+        <div class="modal-tabs">
+          <button class="modal-tab active" data-target="pending-banquet">Banquet Hall</button>
+          <button class="modal-tab" data-target="pending-guestroom">Guest Rooms</button>
+        </div>
+        <div id="pending-banquet" class="modal-tab-content active">
+          <h3>Pending Banquet Hall Requests</h3>
+          <div id="pending-banquet-list" class="pending-list"></div>
+        </div>
+        <div id="pending-guestroom" class="modal-tab-content">
+          <h3>Pending Guest Room Requests</h3>
+          <div id="pending-guestroom-list" class="pending-list"></div>
+        </div>
+      </div>
     </div>
     
     <!-- Availability Calendar Section (Hidden by Default) -->

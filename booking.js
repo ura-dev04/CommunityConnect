@@ -1,5 +1,5 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-app.js";
-import { getDatabase, ref, push, set, get, child, onValue } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-database.js";
+import { getDatabase, ref, push, set, get, child, onValue, update } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-database.js";
 
 // Firebase Configuration
 const firebaseConfig = {
@@ -28,6 +28,13 @@ const roomCountInput = document.getElementById('roomCount');
 const banquetForm = document.getElementById('banquetForm');
 const banquetMessage = document.getElementById('banquet-message');
 const banquetBookedList = document.getElementById('banquetBookedList');
+
+const pendingRequestsBtn = document.getElementById('pending-requests-btn');
+const pendingRequestsModal = document.getElementById('pending-requests-modal');
+const closeModal = document.querySelector('.close-modal');
+const modalTabs = document.querySelectorAll('.modal-tab');
+const pendingBanquetList = document.getElementById('pending-banquet-list');
+const pendingGuestroomList = document.getElementById('pending-guestroom-list');
 
 // User data from session storage
 let userData = null;
@@ -112,6 +119,270 @@ function initializeUI() {
     dateFormat: "h:i K",
     time_24hr: false
   });
+
+  // Pending Requests Modal Functionality
+  if (pendingRequestsBtn) {
+    pendingRequestsBtn.addEventListener('click', () => {
+      pendingRequestsModal.style.display = 'block';
+      loadPendingRequests();
+    });
+  }
+
+  if (closeModal) {
+    closeModal.addEventListener('click', () => {
+      pendingRequestsModal.style.display = 'none';
+    });
+  }
+
+  // Close modal when clicking outside
+  window.addEventListener('click', (event) => {
+    if (event.target === pendingRequestsModal) {
+      pendingRequestsModal.style.display = 'none';
+    }
+  });
+
+  // Modal tab functionality
+  modalTabs.forEach(tab => {
+    tab.addEventListener('click', () => {
+      const target = tab.getAttribute('data-target');
+      
+      // Update active tab
+      modalTabs.forEach(t => t.classList.remove('active'));
+      tab.classList.add('active');
+      
+      // Update active content
+      document.querySelectorAll('.modal-tab-content').forEach(content => {
+        content.classList.remove('active');
+      });
+      document.getElementById(target).classList.add('active');
+    });
+  });
+
+  // Check user role to show/hide pending requests button
+  if (userData) {
+    const adminRoles = ['admin', 'president', 'secretary', 'treasurer', 'building-manager'];
+    if (userData.sub_role && adminRoles.includes(userData.sub_role)) {
+      pendingRequestsBtn.style.display = 'block';
+    } else if (userData.role === 'admin') {
+      pendingRequestsBtn.style.display = 'block';
+    } else {
+      pendingRequestsBtn.style.display = 'none';
+    }
+  }
+}
+
+// =================
+// PENDING REQUESTS FUNCTIONS
+// =================
+
+// Load pending requests for both facilities
+function loadPendingRequests() {
+  loadPendingBanquetRequests();
+  loadPendingGuestroomRequests();
+}
+
+// Load pending banquet hall requests
+function loadPendingBanquetRequests() {
+  const banquetRef = ref(db, 'bookings/banquet');
+  
+  get(banquetRef).then((snapshot) => {
+    pendingBanquetList.innerHTML = '';
+    
+    if (snapshot.exists()) {
+      let pendingRequests = [];
+      
+      snapshot.forEach((childSnapshot) => {
+        const booking = childSnapshot.val();
+        const bookingId = childSnapshot.key;
+        
+        if (booking.status === 'Pending') {
+          pendingRequests.push({ id: bookingId, ...booking });
+        }
+      });
+      
+      // Sort by timestamp (newest first)
+      pendingRequests.sort((a, b) => new Date(b.timestamp) - new Date(a.timestamp));
+      
+      if (pendingRequests.length > 0) {
+        pendingRequests.forEach(request => {
+          const requestEl = createPendingBanquetItem(request);
+          pendingBanquetList.appendChild(requestEl);
+        });
+      } else {
+        pendingBanquetList.innerHTML = '<p>No pending banquet hall requests.</p>';
+      }
+    } else {
+      pendingBanquetList.innerHTML = '<p>No pending banquet hall requests.</p>';
+    }
+  }).catch(error => {
+    console.error("Error loading pending banquet requests:", error);
+    pendingBanquetList.innerHTML = '<p>Error loading requests. Please try again.</p>';
+  });
+}
+
+// Load pending guestroom requests
+function loadPendingGuestroomRequests() {
+  const guestroomRef = ref(db, 'bookings/guestroom');
+  
+  get(guestroomRef).then((snapshot) => {
+    pendingGuestroomList.innerHTML = '';
+    
+    if (snapshot.exists()) {
+      let pendingRequests = [];
+      
+      snapshot.forEach((childSnapshot) => {
+        const booking = childSnapshot.val();
+        const bookingId = childSnapshot.key;
+        
+        if (booking.status === 'Pending') {
+          pendingRequests.push({ id: bookingId, ...booking });
+        }
+      });
+      
+      // Sort by timestamp (newest first)
+      pendingRequests.sort((a, b) => new Date(b.timestamp) - new Date(a.timestamp));
+      
+      if (pendingRequests.length > 0) {
+        pendingRequests.forEach(request => {
+          const requestEl = createPendingGuestroomItem(request);
+          pendingGuestroomList.appendChild(requestEl);
+        });
+      } else {
+        pendingGuestroomList.innerHTML = '<p>No pending guest room requests.</p>';
+      }
+    } else {
+      pendingGuestroomList.innerHTML = '<p>No pending guest room requests.</p>';
+    }
+  }).catch(error => {
+    console.error("Error loading pending guestroom requests:", error);
+    pendingGuestroomList.innerHTML = '<p>Error loading requests. Please try again.</p>';
+  });
+}
+
+// Create a pending banquet request item
+function createPendingBanquetItem(request) {
+  const item = document.createElement('div');
+  item.className = 'pending-item';
+  
+  // Format dates information
+  let datesInfo = '';
+  if (request.days && request.days.length > 0) {
+    request.days.forEach((day, index) => {
+      const timeDisplay = day.startTime && day.endTime ? 
+        `${formatTime(day.startTime)} - ${formatTime(day.endTime)}` : 
+        'Time not specified';
+      datesInfo += `<div>Day ${index+1}: ${day.date} at ${timeDisplay}</div>`;
+    });
+  } else if (request.date) {
+    // Legacy format support
+    datesInfo = `<div>${request.date} at ${request.time || 'Time not specified'}</div>`;
+  }
+  
+  item.innerHTML = `
+    <div class="pending-item-details">
+      <p><strong>Name:</strong> ${request.name} (Flat: ${request.flatNumber})</p>
+      <p><strong>Booking:</strong> ${request.days ? request.days.length : 1} day(s)</p>
+      <p><strong>Dates:</strong></p>
+      <div class="dates-info">${datesInfo}</div>
+      <p><strong>Guests:</strong> ${request.guests}</p>
+      <p><strong>Purpose:</strong> ${request.purpose}</p>
+      <p><strong>Requested on:</strong> ${new Date(request.timestamp).toLocaleString()}</p>
+    </div>
+    <div class="pending-item-actions">
+      <button class="approve-btn" data-id="${request.id}" data-type="banquet">Approve</button>
+      <button class="reject-btn" data-id="${request.id}" data-type="banquet">Reject</button>
+    </div>
+  `;
+  
+  // Add event listeners for action buttons
+  item.querySelector('.approve-btn').addEventListener('click', (e) => {
+    updateBookingStatus(e.target.dataset.id, 'banquet', 'Confirmed');
+  });
+  
+  item.querySelector('.reject-btn').addEventListener('click', (e) => {
+    updateBookingStatus(e.target.dataset.id, 'banquet', 'Rejected');
+  });
+  
+  return item;
+}
+
+// Create a pending guestroom request item
+function createPendingGuestroomItem(request) {
+  const item = document.createElement('div');
+  item.className = 'pending-item';
+  
+  // Format dates information
+  let datesInfo = '';
+  if (request.days && request.days.length > 0) {
+    request.days.forEach((day, index) => {
+      datesInfo += `<div>Day ${index+1}: ${day.date} (Check-in: 11:30 AM, Check-out: 10:30 AM next day)</div>`;
+    });
+  } else if (request.date) {
+    // Legacy format support
+    const timeDisplay = request.startTime && request.endTime ? 
+      `${formatTime(request.startTime)} - ${formatTime(request.endTime)}` : 
+      'Time not specified';
+    datesInfo = `<div>${request.date} at ${timeDisplay}</div>`;
+  }
+  
+  item.innerHTML = `
+    <div class="pending-item-details">
+      <p><strong>Name:</strong> ${request.name} (Flat: ${request.flat})</p>
+      <p><strong>Booking:</strong> ${request.type === 'room' ? 
+          `${request.roomCount} Room(s) for ${request.days ? request.days.length : 1} day(s)` : 
+          'Lobby'}
+      </p>
+      <p><strong>Dates:</strong></p>
+      <div class="dates-info">${datesInfo}</div>
+      <p><strong>Guests:</strong> ${request.guests}</p>
+      <p><strong>Requested on:</strong> ${new Date(request.timestamp).toLocaleString()}</p>
+    </div>
+    <div class="pending-item-actions">
+      <button class="approve-btn" data-id="${request.id}" data-type="guestroom">Approve</button>
+      <button class="reject-btn" data-id="${request.id}" data-type="guestroom">Reject</button>
+    </div>
+  `;
+  
+  // Add event listeners for action buttons
+  item.querySelector('.approve-btn').addEventListener('click', (e) => {
+    updateBookingStatus(e.target.dataset.id, 'guestroom', 'Confirmed');
+  });
+  
+  item.querySelector('.reject-btn').addEventListener('click', (e) => {
+    updateBookingStatus(e.target.dataset.id, 'guestroom', 'Rejected');
+  });
+  
+  return item;
+}
+
+// Update booking status (approve/reject)
+function updateBookingStatus(bookingId, bookingType, status) {
+  const bookingRef = ref(db, `bookings/${bookingType}/${bookingId}`);
+  
+  update(bookingRef, { status: status })
+    .then(() => {
+      // Reload pending requests
+      loadPendingRequests();
+      
+      // Reload bookings list and calendar
+      if (bookingType === 'banquet') {
+        loadBanquetBookings();
+      } else {
+        loadGuestroomBookings();
+      }
+      
+      // Refresh calendar
+      if (window.calendar) {
+        window.calendar.refetchEvents();
+      }
+      
+      // Show success message
+      alert(`Booking has been ${status === 'Confirmed' ? 'approved' : 'rejected'} successfully.`);
+    })
+    .catch(error => {
+      console.error(`Error updating booking status:`, error);
+      alert(`Failed to update booking status. Please try again.`);
+    });
 }
 
 // =================
