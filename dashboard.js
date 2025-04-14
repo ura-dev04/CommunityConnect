@@ -370,12 +370,12 @@ document.addEventListener('DOMContentLoaded', () => {
   function applySubRoleBasedAccess(subRole) {
     // Define permissions for each feature based on sub-role
     const subRolePermissions = {
-      'admin': ['users.html', 'complaint.html', 'parking.html', 'events.html', 'notice.html', 'contact.html', 'maid-services.html', 'banquet-hall.html', 'maintenance.html'],
-      'president': ['users.html', 'complaint.html', 'parking.html', 'events.html', 'notice.html', 'contact.html', 'maid-services.html', 'banquet-hall.html', 'maintenance.html'],
-      'secretary': ['users.html', 'complaint.html', 'parking.html', 'events.html', 'notice.html', 'contact.html', 'maid-services.html', 'banquet-hall.html', 'maintenance.html'],
-      'treasurer': ['users.html', 'complaint.html', 'parking.html', 'events.html', 'notice.html', 'contact.html', 'maid-services.html', 'banquet-hall.html', 'maintenance.html'],
-      'resident': ['users.html', 'complaint.html', 'parking.html', 'events.html', 'notice.html', 'contact.html', 'maid-services.html', 'banquet-hall.html', 'maintenance.html'],
-      'building-manager': ['users.html', 'complaint.html', 'parking.html', 'events.html', 'notice.html', 'contact.html', 'maid-services.html', 'banquet-hall.html', 'maintenance.html'],
+      'admin': ['users.html', 'complaint.html', 'parking.html', 'events.html', 'notice.html', 'contact.html', 'maid-services.html', 'booking.html', 'maintenance.html'],
+      'president': ['users.html', 'complaint.html', 'parking.html', 'events.html', 'notice.html', 'contact.html', 'maid-services.html', 'booking.html', 'maintenance.html'],
+      'secretary': ['users.html', 'complaint.html', 'parking.html', 'events.html', 'notice.html', 'contact.html', 'maid-services.html', 'booking.html', 'maintenance.html'],
+      'treasurer': ['users.html', 'complaint.html', 'parking.html', 'events.html', 'notice.html', 'contact.html', 'maid-services.html', 'booking.html', 'maintenance.html'],
+      'resident': ['users.html', 'complaint.html', 'parking.html', 'events.html', 'notice.html', 'contact.html', 'maid-services.html', 'booking.html', 'maintenance.html'],
+      'building-manager': ['users.html', 'complaint.html', 'parking.html', 'events.html', 'notice.html', 'contact.html', 'maid-services.html', 'booking.html', 'maintenance.html'],
     };
 
     // Get all feature boxes
