@@ -16,13 +16,12 @@ const app = initializeApp(firebaseConfig);
 const db = getDatabase(app);
 
 // Constants
-const TOTAL_ROOMS = 5;
+const TOTAL_ROOMS = 8;
 
 // DOM Elements
 const guestroomForm = document.getElementById('guestroomForm');
 const guestroomMessage = document.getElementById('guestroom-message');
 const bookedList = document.getElementById('bookedList');
-const typeSelect = document.getElementById('guestroom-type');
 const roomCountDiv = document.getElementById('roomCountDiv');
 const roomCountInput = document.getElementById('roomCount');
 
@@ -99,11 +98,6 @@ function initializeUI() {
     document.getElementById('availability-section').style.display = 'none';
   });
 
-  // Show/hide room count input
-  typeSelect.addEventListener('change', () => {
-    roomCountDiv.style.display = typeSelect.value === 'room' ? 'block' : 'none';
-  });
-
   // Initialize flatpickr for time selection
   flatpickr("#guestroom-startTime", {
     enableTime: true,
@@ -124,6 +118,44 @@ function initializeUI() {
 // GUESTROOM BOOKING
 // =================
 
+// Update guest count display and calculate required rooms
+function updateGuestRoomCount() {
+  const guestCount = parseInt(document.getElementById("guestroom-guests").value);
+  document.getElementById("guests-value").textContent = guestCount;
+  
+  // Calculate rooms needed (3 guests per room, rounded up)
+  const roomsNeeded = Math.ceil(guestCount / 3);
+  document.getElementById("roomCount").value = roomsNeeded;
+  document.getElementById("roomCount-value").textContent = roomsNeeded;
+}
+
+// Generate dates array for multi-day guest room booking
+function generateGuestroomDates(startDateStr, duration) {
+  const startDate = new Date(startDateStr);
+  const days = [];
+  
+  for (let i = 0; i < duration; i++) {
+    const currentDate = new Date(startDate);
+    currentDate.setDate(startDate.getDate() + i);
+    
+    const checkInDate = new Date(currentDate);
+    checkInDate.setHours(11, 30, 0); // 11:30 AM check-in
+    
+    const checkOutDate = new Date(currentDate);
+    checkOutDate.setDate(checkOutDate.getDate() + 1);
+    checkOutDate.setHours(10, 30, 0); // 10:30 AM check-out next day
+    
+    days.push({
+      date: currentDate.toISOString().split("T")[0],
+      startTime: "11:30",
+      endTime: "10:30", // Next day
+      isOvernight: true
+    });
+  }
+  
+  return days;
+}
+
 // Load guest room bookings
 function loadGuestroomBookings() {
   const dbRef = ref(db, 'bookings/guestroom');
@@ -134,8 +166,18 @@ function loadGuestroomBookings() {
       for (let key in bookings) {
         const b = bookings[key];
         const li = document.createElement('li');
-        // Add status to the displayed booking info
-        li.textContent = `${b.date} | ${formatTime(b.startTime)} - ${formatTime(b.endTime)} | ${b.type.toUpperCase()}${b.roomCount ? ' x' + b.roomCount : ''} | ${b.flat} | ${b.status}`;
+        
+        // Handle multi-day bookings
+        if (b.days && b.days.length > 0) {
+          li.innerHTML = `${b.name} | ${b.flat} | ${b.days.length} day(s) from ${b.startDate} | 
+                         ${b.type === 'room' ? `Room${b.roomCount > 1 ? 's: ' + b.roomCount : ''}` : 'Lobby'} | 
+                         ${b.guests} guest(s) | ${b.status}`;
+        } else {
+          // Handle legacy single-day bookings
+          li.textContent = `${b.date} | ${formatTime(b.startTime)} - ${formatTime(b.endTime)} | 
+                          ${b.type.toUpperCase()}${b.roomCount ? ' x' + b.roomCount : ''} | ${b.flat} | ${b.status}`;
+        }
+        
         // Add color coding based on status
         if (b.status === 'Pending') {
           li.style.borderColor = '#FFD700'; // Yellow for pending
@@ -160,28 +202,21 @@ function handleGuestroomBooking(e) {
     return;
   }
 
-  const date = document.getElementById("guestroom-date").value;
-  const rawStart = document.getElementById("guestroom-startTime").value;
-  const rawEnd = document.getElementById("guestroom-endTime").value;
-  const startTime = convertTo24Hour(rawStart);
-  const endTime = convertTo24Hour(rawEnd);
-  const guests = document.getElementById("guestroom-guests").value;
-  const type = document.getElementById("guestroom-type").value;
-  const roomCount = type === 'room' ? parseInt(roomCountInput.value) : null;
+  // Get form values
+  const startDate = document.getElementById("guestroom-start-date").value;
+  const duration = parseInt(document.getElementById("guestroom-duration").value);
+  const guests = parseInt(document.getElementById("guestroom-guests").value);
+  const roomCount = parseInt(document.getElementById("roomCount").value);
+
+  // Generate days array
+  const days = generateGuestroomDates(startDate, duration);
 
   // Get user data from session storage
   const name = userData.name;
   const flat = userData.apartment;
 
-  // Validation
-  if (startTime >= endTime) {
-    guestroomMessage.textContent = "End time must be after start time.";
-    guestroomMessage.style.color = "red";
-    return;
-  }
-
   // Check availability
-  checkGuestroomAvailability(date, startTime, endTime, type, roomCount)
+  checkGuestroomAvailability(days, "room", roomCount)
     .then(availabilityResult => {
       if (!availabilityResult.isAvailable) {
         guestroomMessage.textContent = availabilityResult.message;
@@ -194,18 +229,15 @@ function handleGuestroomBooking(e) {
       const bookingData = {
         name,
         flat,
-        date,
-        startTime,
-        endTime,
+        startDate,
+        duration,
+        days,
         guests,
-        type,
-        status: "Pending", // Changed from "Confirmed" to "Pending"
+        type: "room",
+        roomCount: roomCount,
+        status: "Pending",
         timestamp: new Date().toISOString()
       };
-
-      if (type === 'room') {
-        bookingData.roomCount = roomCount;
-      }
 
       set(bookingRef, bookingData)
         .then(() => {
@@ -213,7 +245,6 @@ function handleGuestroomBooking(e) {
           guestroomMessage.style.color = "#FFD700"; // Yellow color for pending status
           loadGuestroomBookings();
           guestroomForm.reset();
-          roomCountDiv.style.display = 'none';
           
           // Refresh calendar
           if (window.calendar) {
@@ -229,7 +260,7 @@ function handleGuestroomBooking(e) {
 }
 
 // Check if guestroom is available
-async function checkGuestroomAvailability(date, startTime, endTime, type, roomCount) {
+async function checkGuestroomAvailability(days, type, roomCount) {
   const result = { 
     isAvailable: true, 
     message: "" 
@@ -247,41 +278,53 @@ async function checkGuestroomAvailability(date, startTime, endTime, type, roomCo
   const dbRef = ref(db);
   const snapshot = await get(child(dbRef, 'bookings/guestroom'));
 
-  let roomsBooked = 0;
+  // Check each requested day against existing bookings
+  for (const requestedDay of days) {
+    const requestedDate = requestedDay.date;
+    let roomsAvailable = TOTAL_ROOMS;
+    let lobbyBooked = false;
 
-  if (snapshot.exists()) {
-    const bookings = snapshot.val();
-    for (let key in bookings) {
-      const b = bookings[key];
-      // Check for time conflicts
-      if (
-        b.date === date &&
-        b.type === type &&
-        (
-          (startTime >= b.startTime && startTime < b.endTime) ||
-          (endTime > b.startTime && endTime <= b.endTime) ||
-          (startTime <= b.startTime && endTime >= b.endTime)
-        )
-      ) {
-        if (type === 'room') {
-          roomsBooked += b.roomCount ? parseInt(b.roomCount) : 1;
-        } else {
-          result.isAvailable = false;
-          result.message = "The lobby is already booked for this time slot.";
-          return result;
+    if (snapshot.exists()) {
+      const bookings = snapshot.val();
+      
+      for (let key in bookings) {
+        const booking = bookings[key];
+        
+        // Skip rejected bookings
+        if (booking.status === "Rejected") continue;
+        
+        // Check for new multi-day booking format
+        if (booking.days && booking.days.length > 0) {
+          for (const bookedDay of booking.days) {
+            if (bookedDay.date === requestedDate) {
+              if (booking.type === 'lobby') {
+                lobbyBooked = true;
+              } else if (booking.type === 'room') {
+                roomsAvailable -= booking.roomCount || 1;
+              }
+            }
+          }
+        } 
+        // Check legacy format
+        else if (booking.date === requestedDate) {
+          if (booking.type === 'lobby') {
+            lobbyBooked = true;
+          } else if (booking.type === 'room') {
+            roomsAvailable -= booking.roomCount || 1;
+          }
         }
       }
     }
-  }
 
-  // Check if enough rooms are available
-  if (type === 'room' && roomsBooked > 0) {
-    if (roomsBooked >= TOTAL_ROOMS) {
+    // Check availability based on booking type
+    if (type === 'lobby' && lobbyBooked) {
       result.isAvailable = false;
-      result.message = "No rooms available for the selected time slot.";
-    } else if (roomsBooked + roomCount > TOTAL_ROOMS) {
+      result.message = `The lobby is already booked for ${requestedDate}.`;
+      return result;
+    } else if (type === 'room' && roomsAvailable < roomCount) {
       result.isAvailable = false;
-      result.message = `Only ${TOTAL_ROOMS - roomsBooked} room(s) left for the selected time slot.`;
+      result.message = `Only ${roomsAvailable} room(s) available for ${requestedDate}.`;
+      return result;
     }
   }
 
@@ -672,22 +715,56 @@ function initializeCalendar() {
               if (booking.status === 'Confirmed') color = "#4ec0b7"; // Teal for confirmed
               if (booking.status === 'Rejected') color = "#FF0000"; // Red for rejected
               
-              events.push({
-                title: `${booking.type === 'room' ? 'Room' : 'Lobby'}: ${booking.name}`,
-                start: `${booking.date}T${booking.startTime}`,
-                end: `${booking.date}T${booking.endTime}`,
-                backgroundColor: color,
-                borderColor: color,
-                extendedProps: {
-                  type: "guestroom",
-                  bookingType: booking.type,
-                  name: booking.name,
-                  flat: booking.flat,
-                  roomCount: booking.roomCount || 1,
-                  guests: booking.guests,
-                  status: booking.status
-                }
-              });
+              // Handle multi-day bookings
+              if (booking.days && booking.days.length > 0) {
+                booking.days.forEach((day, index) => {
+                  const nextDay = new Date(day.date);
+                  nextDay.setDate(nextDay.getDate() + 1);
+                  const nextDayStr = nextDay.toISOString().split('T')[0];
+                  
+                  events.push({
+                    title: `${booking.type === 'room' ? 'Room' : 'Lobby'}: ${booking.name}${booking.days.length > 1 ? ` (${index+1}/${booking.days.length})` : ''}`,
+                    start: `${day.date}T11:30:00`,
+                    end: `${nextDayStr}T10:30:00`,
+                    backgroundColor: color,
+                    borderColor: color,
+                    extendedProps: {
+                      type: "guestroom",
+                      bookingType: booking.type,
+                      name: booking.name,
+                      flat: booking.flat,
+                      roomCount: booking.roomCount || 1,
+                      guests: booking.guests,
+                      status: booking.status,
+                      isOvernight: true,
+                      dayNumber: index + 1,
+                      totalDays: booking.days.length,
+                      checkIn: "11:30 AM",
+                      checkOut: "10:30 AM",
+                      allDays: booking.days
+                    }
+                  });
+                });
+              } 
+              // Handle legacy bookings
+              else {
+                events.push({
+                  title: `${booking.type === 'room' ? 'Room' : 'Lobby'}: ${booking.name}`,
+                  start: `${booking.date}T${booking.startTime}`,
+                  end: `${booking.date}T${booking.endTime}`,
+                  backgroundColor: color,
+                  borderColor: color,
+                  extendedProps: {
+                    type: "guestroom",
+                    bookingType: booking.type,
+                    name: booking.name,
+                    flat: booking.flat,
+                    roomCount: booking.roomCount || 1,
+                    guests: booking.guests,
+                    status: booking.status
+                  }
+                });
+              }
             });
           }
           
@@ -744,17 +821,33 @@ function initializeCalendar() {
           );
         }
       } else if (event.type === "guestroom") {
-        alert(
-          `Guest Room Booking:\n\n` +
-          `🔹 Name: ${event.name}\n` +
-          `🏠 Flat: ${event.flat}\n` +
-          `📅 Date: ${info.event.start.toISOString().split("T")[0]}\n` +
-          `⏰ Time: ${formatTime(info.event.start.toISOString().split("T")[1].substring(0,5))} - ` +
-                 `${formatTime(info.event.end.toISOString().split("T")[1].substring(0,5))}\n` +
-          `🏨 Type: ${event.bookingType === 'room' ? 'Room' + (event.roomCount > 1 ? 's (' + event.roomCount + ')' : '') : 'Full Lobby'}\n` +
-          `👥 Guests: ${event.guests}\n` +
-          `📌 Status: ${event.status}`
-        );
+        if (event.isOvernight) {
+          // Format for multi-day booking
+          alert(
+            `Guest Room Booking (Multi-day):\n\n` +
+            `🔹 Name: ${event.name}\n` +
+            `🏠 Flat: ${event.flat}\n` +
+            `📅 Day: ${event.dayNumber} of ${event.totalDays}\n` +
+            `🏨 Type: ${event.bookingType === 'room' ? 'Room' + (event.roomCount > 1 ? 's (' + event.roomCount + ')' : '') : 'Full Lobby'}\n` +
+            `👥 Guests: ${event.guests}\n` +
+            `⏰ Check-in: ${event.checkIn}\n` +
+            `⏰ Check-out: ${event.checkOut} (next day)\n` +
+            `📌 Status: ${event.status}`
+          );
+        } else {
+          // Format for legacy booking
+          alert(
+            `Guest Room Booking:\n\n` +
+            `🔹 Name: ${event.name}\n` +
+            `🏠 Flat: ${event.flat}\n` +
+            `📅 Date: ${info.event.start.toISOString().split("T")[0]}\n` +
+            `⏰ Time: ${formatTime(info.event.start.toISOString().split("T")[1].substring(0,5))} - ` +
+                   `${formatTime(info.event.end.toISOString().split("T")[1].substring(0,5))}\n` +
+            `🏨 Type: ${event.bookingType === 'room' ? 'Room' + (event.roomCount > 1 ? 's (' + event.roomCount + ')' : '') : 'Full Lobby'}\n` +
+            `👥 Guests: ${event.guests}\n` +
+            `📌 Status: ${event.status}`
+          );
+        }
       }
     }
   });
@@ -779,6 +872,22 @@ document.addEventListener("DOMContentLoaded", function () {
   // Event listeners for form submissions
   guestroomForm.addEventListener('submit', handleGuestroomBooking);
   banquetForm.addEventListener('submit', handleBanquetBooking);
+
+  // Guest room specific event listeners - Fix slider functionality
+  const guestSlider = document.getElementById("guestroom-guests");
+  if (guestSlider) {
+    // Remove any existing listeners first to avoid duplicates
+    guestSlider.removeEventListener('input', updateGuestRoomCount);
+    // Add the input event listener with proper binding
+    guestSlider.addEventListener('input', updateGuestRoomCount);
+    // Initialize the room count display
+    updateGuestRoomCount();
+  }
+  
+  // Always show roomCountDiv
+  if (roomCountDiv) {
+    roomCountDiv.style.display = 'block';
+  }
 
   // Load data
   loadGuestroomBookings();

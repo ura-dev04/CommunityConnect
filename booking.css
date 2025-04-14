@@ -140,6 +140,11 @@ h2 {
 }
 
 #roomCountDiv {
+    background-color: rgba(255, 255, 255, 0.05);
+    padding: 12px 15px;
+    border-radius: 10px;
+    margin: 0.8rem 0 1.5rem;
+    border-left: 3px solid #64ffda;
     transition: all 0.3s ease;
 }
 
@@ -322,5 +327,82 @@ h2 {
     background-color: rgba(255, 255, 255, 0.06);
     border-radius: 8px;
     font-size: 0.9rem;
+    color: #a0f0e0;
+}
+
+.booking-info-text {
+    background-color: rgba(100, 255, 218, 0.1);
+    padding: 12px 15px;
+    border-radius: 10px;
+    margin: 0.5rem 0 1.5rem;
+    font-size: 0.9rem;
+    color: #a0f0e0;
+    border-left: 3px solid #64ffda;
+}
+
+.room-info-text {
+    font-size: 0.85rem;
+    color: #a0f0e0;
+    margin-top: 5px;
+    font-style: italic;
+}
+
+/* Slider styling */
+.slider {
+    -webkit-appearance: none;
+    width: 100%;
+    height: 8px;
+    border-radius: 5px;
+    background: #15151f;
+    border: 1px solid #64ffda;
+    outline: none;
+    margin: 10px 0 25px;
+    opacity: 1;
+    cursor: pointer;
+}
+
+.slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    background: #64ffda;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.slider::-moz-range-thumb {
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    background: #64ffda;
+    cursor: pointer;
+    border: none;
+    transition: all 0.2s ease;
+}
+
+.slider::-webkit-slider-thumb:hover {
+    background: #52e0c4;
+    transform: scale(1.15);
+}
+
+.slider::-moz-range-thumb:hover {
+    background: #52e0c4;
+    transform: scale(1.15);
+}
+
+/* Multi-day booking styles for guestrooms */
+.guestroom-booking-info {
+    background-color: rgba(26, 26, 37, 0.7);
+    padding: 15px;
+    border-radius: 10px;
+    margin-top: 15px;
+    border-left: 3px solid #64ffda;
+}
+
+.guestroom-booking-date {
+    font-size: 0.9rem;
+    margin-bottom: 8px;
     color: #a0f0e0;
 }
