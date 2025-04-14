@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CommunityConnect | Dashboard</title>
+  <link rel="stylesheet" href="dashboard.css" />
+</head>
+<body>
+  <header class="navbar">
+    <div class="logo">CommunityConnect</div>
+    <div class="user-welcome-container">
+      <div id="welcome-message">Welcome</div>
+      <div id="user-role">Loading...</div>
+    </div>
+    <nav class="nav-links">
+      <a href="dashboard.html">Home</a>
+    </nav>
+    <div class="auth-buttons">
+      <button class="change-password-btn">Change Password</button>
+      <button class="logout-btn">Logout</button>
+    </div>
+  </header>
+
+  <!-- Notifications Panel -->
+  <button class="notification-toggle">
+    <span>Notifications</span>
+    <span class="notification-badge">0</span>
+  </button>
+  
+  <div class="notifications-panel">
+    <div class="notifications-header">
+      <h2>Notifications</h2>
+      <button class="close-notifications">&times;</button>
+    </div>
+    <div class="notifications-list">
+      <!-- Notifications will be loaded here dynamically -->
+    </div>
+  </div>
+
+  <section class="dashboard-header">
+    <h1>Community Dashboard</h1>
+    <p>Access all society management features</p>
+  </section>
+
+  <section class="features">
+    <div class="feature-box" data-target="users.html">
+      <h3>Users</h3>
+      <p>Manage society members</p>
+    </div>
+    <div class="feature-box" data-target="complaint.html">
+      <h3>Complaints</h3>
+      <p>Lodge and track complaints</p>
+    </div>
+    <div class="feature-box" data-target="parking.html">
+      <h3>Parking</h3>
+      <p>Manage parking slots</p>
+    </div>
+    <div class="feature-box" data-target="events.html">
+      <h3>Events</h3>
+      <p>Community events calendar</p>
+    </div>
+    <div class="feature-box" data-target="notice.html">
+      <h3>Notices</h3>
+      <p>Important announcements</p>
+    </div>
+    <div class="feature-box" data-target="contact.html">
+      <h3>Contact</h3>
+      <p>Get in touch with management</p>
+    </div>
+    <div class="feature-box" data-target="maid-services.html">
+      <h3>Maid Services</h3>
+      <div class="sub-features">
+        <a href="maid-registration.html" class="sub-feature">Register as Maid</a>
+        <a href="find-maid.html" class="sub-feature">Find a Maid</a>
+      </div>
+    </div>
+    <div class="feature-box" data-target="banquet-hall.html">
+      <h3>Banquet Hall</h3>
+      <p>Book community hall for events</p>
+    </div>
+  </section>
+
+  <!-- Change Password Modal -->
+  <div class="password-modal-overlay" id="change-password-modal" style="display: none;">
+    <div class="password-modal-content">
+      <h2>Change Your Password</h2>
+      <p>Please enter your current password and set a new one.</p>
+      <form id="change-password-form">
+        <div class="form-group">
+          <label for="current-password">Current Password</label>
+          <input type="password" id="current-password" required>
+        </div>
+        <div class="form-group">
+          <label for="new-password-change">New Password</label>
+          <input type="password" id="new-password-change" required>
+        </div>
+        <div class="form-group">
+          <label for="confirm-password-change">Confirm New Password</label>
+          <input type="password" id="confirm-password-change" required>
+        </div>
+        <div class="error-message" id="change-password-error"></div>
+        <div class="button-group">
+          <button type="submit" class="save-btn">Update Password</button>
+          <button type="button" class="cancel-btn" id="cancel-change-password">Cancel</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <footer>
+    <p>&copy; 2025 CommunityConnect. All rights reserved.</p>
+  </footer>
+
+  <script type="module" src="dashboard.js"></script>
+</body>
+</html>

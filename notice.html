@@ -1,33 +1,81 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
- <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" /><title>Society Notice Board</title>
-        <link rel="stylesheet" href="notice.css"notice />
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>CommunityConnect | Notices</title>
+    <link rel="stylesheet" href="notice.css" />
 </head>
 <body>
- <div class="container">
-<h1>Society Notice Board</h1>
- <ul id="noticesList"></ul>
-<p id="noticeMessage"></p>
+      <header class="navbar">
+            <div class="logo">CommunityConnect</div>
+            <div class="user-welcome-container">
+              <div id="welcome-message">Welcome</div>
+              <div id="user-role">Loading...</div>
+            </div>
+            <nav class="nav-links">
+              <a href="dashboard.html">Home</a>
+            </nav>
+            <button class="logout-btn">Logout</button>
+          </header>
 
- <!-- Form to Add or Edit Notices -->
- <h2>Notice</h2>
- <form id="noticeForm">
- <input type="hidden" id="noticeId"> <!-- Hidden field for editing -->
- <label for="title">Title:</label>
- <input type="text" id="title" required>
+    <!-- Section Header -->
+    <section class="section-header">
+        <h1>Society Notices</h1>
+        <p>View and manage important community announcements</p>
+    </section>
 
-<label for="content">Content:</label>
- <textarea id="content" required></textarea>
- <button type="submit">Save Notice</button>
- </form>
+    <div class="container">
+        <!-- Notifications List -->
+        <div class="notifications-container">
+            <h2>Current Notices</h2>
+            <ul id="notificationsList"></ul>
+        </div>
 
-<a href="homepage.html">
- <button type="button">Back to Home</button>
- </a>
-</div>
+        <!-- Form to Add or Edit Notifications -->
+        <div class="form-container">
+            <h2>Add/Edit Notice</h2>
+            <form id="notificationForm">
+                <input type="hidden" id="notificationId"> <!-- Hidden field for editing -->
+                
+                <label for="notificationTitle">Title:</label>
+                <input type="text" id="notificationTitle" required placeholder="Enter notice title">
 
-<script type="module" src="notice-board.js"></script>
+                <label for="notificationBody">Body:</label>
+                <textarea id="notificationBody" required placeholder="Enter notice details"></textarea>
+                
+                <div class="action-buttons">
+                    <button type="submit" id="saveButton">Save Notice</button>
+                    <button type="button" id="cancelEdit" style="display: none;">Cancel Edit</button>
+                </div>
+            </form>
+        </div>
+
+        <div id="statusMessage"></div>
+        
+        <a href="dashboard.html" class="back-btn">Back to Dashboard</a>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2025 CommunityConnect. All rights reserved.</p>
+    </footer>
+
+    <!-- Notification Template -->
+    <template id="notificationTemplate">
+        <li class="notification-item">
+            <div class="notification-header">
+                <h3 class="notification-title"></h3>
+                <div class="notification-actions">
+                    <button class="edit-btn">Edit</button>
+                    <button class="delete-btn">Delete</button>
+                </div>
+            </div>
+            <p class="notification-body"></p>
+            <small class="notification-timestamp"></small>
+        </li>
+    </template>
+
+    <script type="module" src="notice-board.js"></script>
 </body>
 </html>

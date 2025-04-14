@@ -2,20 +2,23 @@ body {
     margin: 0;
     padding: 0;
     min-height: 100vh;
-        font-family: 'Segoe UI', system-ui, sans-serif;
+    font-family: 'Segoe UI', system-ui, sans-serif;
     background-color: #0e0e15;
     color: white;
     line-height: 1.6; 
 }
 
+/* Main container for complaint form and listings */
 .container {
     max-width: 1200px;
     margin: 40px auto;
-    padding: 0.5rem;
-    background: linear-gradient(145deg, #232333, #1a1a25);
+    padding: 2rem;
+    background: rgba(26, 26, 37, 0.7);
     border-radius: 15px;
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.2);
+    backdrop-filter: blur(4px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
 }
-
 
 h1 {
     text-align: center;
@@ -24,6 +27,7 @@ h1 {
     font-size: 2.5rem;
 }
 
+/* Form styling */
 form {
     display: flex;
     flex-direction: column;
@@ -32,31 +36,31 @@ form {
 
 label {
     font-size: 1.1rem;
-    color: #008B8B;
+    color: #64ffda;
+    font-weight: 500;
 }
 
-input, textarea {
+input, textarea, select {
     padding: 1rem;
     border-radius: 8px;
     border: 2px solid rgba(100, 255, 218, 0.2);
-    background-color: #1a1a25;
+    background-color: rgba(30, 30, 45, 0.7);
     color: white;
     font-size: 1rem;
     font-family: 'Segoe UI', system-ui, sans-serif;
-    transition: border-color 0.3s ease;
+    transition: all 0.3s ease;
 }
 
-input:focus, textarea:focus {
+input:focus, textarea:focus, select:focus {
     outline: none;
-    background: rgba(255, 255, 255, 0.2);
-    box-shadow: 0 0 10px rgba(0, 139, 139, 0.3);
+    border-color: #64ffda;
+    box-shadow: 0 0 10px rgba(100, 255, 218, 0.3);
 }
 
+/* Button styling */
 button {
-
     margin-top: 15px;
     padding: 1rem;
-
     background-color: #64ffda;
     color: #0e0e15;
     border: none;
@@ -72,10 +76,51 @@ button:hover {
     transform: translateY(-2px);
 }
 
+.action-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    margin-top: 30px;
+}
+
+.action-buttons button, .action-buttons a button {
+    flex: 1;
+    min-width: 200px;
+    padding: 1rem;
+    border: none;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-align: center;
+}
+
+#complaintForm button {
+    margin-top: 15px;
+    padding: 1rem;
+    background-color: #64ffda;
+    color: #0e0e15;
+    border: none;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    align-self: flex-start;
+}
+
+#complaintForm button:hover {
+    background-color: #52e0c4;
+    transform: translateY(-2px);
+}
+
 #complaintMessage {
     text-align: center;
     margin-top: 1rem;
     color: #64ffda;
+    font-weight: 500;
+    min-height: 24px;
 }
 
 a {
@@ -90,4 +135,264 @@ a button {
 
 a button:hover {
     background: rgba(255, 255, 255, 0.2);
+}
+
+#viewComplaintsBtn {
+    background-color: #008B8B;
+    color: white;
+}
+
+#viewComplaintsBtn:hover {
+    background-color: #006666;
+}
+
+#viewAllComplaintsBtn {
+    background-color: #ff8c00;
+    color: white;
+}
+
+#viewAllComplaintsBtn:hover {
+    background-color: #e67e00;
+}
+
+.action-buttons a button {
+    background: rgba(255, 255, 255, 0.1);
+    color: white;
+}
+
+.action-buttons a button:hover {
+    background: rgba(255, 255, 255, 0.2);
+}
+
+/* Complaints containers */
+.complaints-container {
+    margin-top: 30px;
+    padding: 20px;
+    border-radius: 10px;
+    background: rgba(30, 30, 45, 0.7);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.complaints-container h2 {
+    color: #64ffda;
+    margin-top: 0;
+    text-align: center;
+    margin-bottom: 20px;
+    font-size: 1.8rem;
+}
+
+.complaint-card {
+    background: rgba(40, 40, 55, 0.8);
+    padding: 15px;
+    margin-bottom: 15px;
+    border-radius: 8px;
+    border-left: 4px solid #64ffda;
+    transition: transform 0.2s ease, box-shadow 0.3s ease;
+}
+
+.complaint-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+.complaint-header {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+}
+
+.complaint-type {
+    font-weight: bold;
+    color: #64ffda;
+}
+
+.complaint-date {
+    color: #aaa;
+    font-size: 0.9rem;
+}
+
+.complaint-status {
+    display: inline-block;
+    padding: 3px 8px;
+    border-radius: 4px;
+    font-size: 0.8rem;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.status-pending {
+    background-color: #ffa500;
+    color: #000;
+}
+
+.status-resolved {
+    background-color: #64ffda;
+    color: #000;
+}
+
+.status-rejected {
+    background-color: #ff4d4d;
+    color: #fff;
+}
+
+.complaint-content {
+    color: #eee;
+}
+
+.hidden {
+    display: none;
+}
+
+/* Role-based visibility classes */
+.role-restricted {
+    display: none;
+}
+
+/* Complaint item styles for all complaints view */
+.complaint-item {
+    padding: 15px;
+    margin-bottom: 20px;
+    background: rgba(40, 40, 55, 0.8);
+    border-radius: 8px;
+    border-left: 4px solid #ff8c00;
+    transition: transform 0.2s ease, box-shadow 0.3s ease;
+}
+
+.complaint-item:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+.complaint-resident {
+    color: #64ffda;
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.complaint-actions {
+    margin-top: 15px;
+    display: flex;
+    gap: 10px;
+}
+
+.resolve-btn, .reject-btn {
+    padding: 8px 16px;
+    border-radius: 4px;
+    border: none;
+    cursor: pointer;
+    font-weight: bold;
+    transition: all 0.2s ease;
+}
+
+.resolve-btn {
+    background-color: #64ffda;
+    color: #0e0e15;
+}
+
+.resolve-btn:hover {
+    background-color: #52e0c4;
+}
+
+.reject-btn {
+    background-color: #ff4d4d;
+    color: white;
+}
+
+.reject-btn:hover {
+    background-color: #e63e3e;
+}
+
+/* Loading spinner */
+.loading-spinner {
+    display: block;
+    width: 50px;
+    height: 50px;
+    border: 5px solid rgba(100, 255, 218, 0.2);
+    border-radius: 50%;
+    border-top-color: #64ffda;
+    margin: 20px auto;
+    animation: spin 1s ease-in-out infinite;
+}
+
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+/* Modal styles */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.7);
+    backdrop-filter: blur(8px);
+}
+
+.modal-content {
+    background: rgba(26, 26, 37, 0.95);
+    margin: 15% auto;
+    padding: 25px;
+    border: 1px solid rgba(100, 255, 218, 0.3);
+    border-radius: 12px;
+    width: 80%;
+    max-width: 600px;
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
+}
+
+.close-modal {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.close-modal:hover,
+.close-modal:focus {
+    color: #64ffda;
+    text-decoration: none;
+}
+
+.modal h3 {
+    color: #64ffda;
+    margin-top: 0;
+    margin-bottom: 15px;
+}
+
+.modal textarea {
+    width: 100%;
+    margin-bottom: 20px;
+}
+
+.modal-buttons {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+}
+
+.modal-buttons button {
+    padding: 10px 15px;
+}
+
+/* Closing reason styles */
+.complaint-closing-reason {
+    margin-top: 10px;
+    padding: 10px;
+    background: rgba(50, 50, 65, 0.7);
+    border-radius: 6px;
+    font-style: italic;
+}
+
+.closing-reason-label {
+    color: #64ffda;
+    font-weight: bold;
+    font-size: 0.9rem;
+    display: block;
+    margin-bottom: 5px;
 }

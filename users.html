@@ -3,40 +3,109 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Society Management System</title>
-    <link rel="stylesheet" href="styles.css">
+    <title>CommunityConnect | Users</title>
+    <link rel="stylesheet" href="users_styles.css">
 </head>
 <body>
+    <header class="navbar">
+        <div class="logo">CommunityConnect</div>
+        <div class="user-welcome-container">
+          <div id="welcome-message">Welcome</div>
+          <div id="user-role">Loading...</div>
+        </div>
+        <nav class="nav-links">
+          <a href="dashboard.html">Home</a>
+        </nav>
+        <button class="logout-btn">Logout</button>
+      </header>
 
-    <!-- Registration Form (Visible by default) -->
-    <div class="registration-form" id="registration-form">
-        <h2>Resident Information Form</h2>
-        <form id="residentForm">
-            <label>Name:</label>
-            <input type="text" id="name" placeholder="Enter your name" required>
+    <section class="page-header">
+        <h1>Society Residents</h1>
+        <p>Manage all residents in your community</p>
+    </section>
 
-            <label>Flat Number:</label>
-            <input type="text" id="flatNumber" placeholder="Enter flat number" required>
-
-            <label>Floor:</label>
-            <input type="text" id="floor" placeholder="Enter floor number" required>
-
-            <label>Wing:</label>
-            <input type="text" id="wing" placeholder="Enter wing" required>
-
-            <label for="role">Select Role:</label>
-            <select id="role">
-                <option value="resident">Resident</option>
-                <option value="admin">Admin</option>
-            </select>
-
-            <button type="submit" class="btn">Submit</button>
-        </form>
-
-        <p id="message"></p> <!-- To display success/error messages -->
+    <div class="content-container">
+        <div class="action-bar">
+            <button id="addResidentBtn" class="add-btn">+ Add New Resident</button>
+        </div>
+        
+        <!-- Residents Display Section -->
+        <div class="residents-container" id="residents-container">
+            <div class="loading" id="loading">Loading residents data...</div>
+            <div class="residents-grid" id="residents-grid"></div>
+        </div>
     </div>
 
-    <script src="users.js" type="module"></script>
+    <!-- Registration Form (Hidden by default) -->
+    <div class="modal-form" id="registration-form" style="display: none;">
+        <div class="form-content">
+            <div class="form-header">
+                <h2>Add New Resident</h2>
+                <button type="button" id="closeFormBtn" class="close-btn">&times;</button>
+            </div>
+            <form id="residentForm">
+                <div class="form-group">
+                    <label for="Owner_Name">Name:</label>
+                    <input type="text" id="Owner_Name" placeholder="Enter resident name" required>
+                </div>
 
+                <div class="form-group">
+                    <label for="email">Email:</label>
+                    <input type="email" id="email" placeholder="Enter email address" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="phone">Phone:</label>
+                    <input type="tel" id="phone" placeholder="Enter phone number" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="flatNumber">Flat Number:</label>
+                    <input type="text" id="flatNumber" placeholder="Enter flat number" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="floor">Floor:</label>
+                    <input type="text" id="floor" placeholder="Enter floor number" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="wing">Wing:</label>
+                    <input type="text" id="wing" placeholder="Enter wing" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="role">Select Role:</label>
+                    <select id="role">
+                        <option value="resident">Resident</option>
+                        <option value="MC">MC (Managing Committee)</option>
+                    </select>
+                </div>
+
+                <div class="form-group" id="sub-role-group" style="display: none;">
+                    <label for="sub_role">Select Position:</label>
+                    <select id="sub_role">
+                        <option value="president">President</option>
+                        <option value="secretary">Secretary</option>
+                        <option value="treasurer">Treasurer</option>
+                        <option value="building-manager">Building Manager</option>
+                        <option value="admin">Admin</option>
+                    </select>
+                </div>
+
+                <button type="submit" class="submit-btn">Submit</button>
+            </form>
+            <p id="message"></p>
+        </div>
+    </div>
+
+    <!-- Overlay for modal form -->
+    <div id="overlay" class="overlay" style="display: none;"></div>
+
+    <footer>
+        <p>&copy; 2025 CommunityConnect. All rights reserved.</p>
+    </footer>
+
+    <script src="users.js" type="module"></script>
 </body>
 </html>

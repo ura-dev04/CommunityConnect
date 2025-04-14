@@ -1,0 +1,140 @@
+/* Contact Page Specific Styles */
+
+.page-header {
+  padding: 3rem 2rem;
+  text-align: center;
+  background-color: #141428;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.page-header h1 {
+  font-size: 2.5rem;
+  margin-bottom: 0.5rem;
+  color: #64ffda;
+}
+
+.page-header p {
+  font-size: 1.1rem;
+  color: #cccccc;
+}
+
+.contact-container {
+  padding: 3rem;
+  background-color: #1a1a25;
+  min-height: 60vh;
+}
+
+#contacts-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.contact-card {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(8px);
+  padding: 2rem;
+  border-radius: 15px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  transition: all 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.contact-card:hover {
+  transform: translateY(-10px);
+  background: rgba(255, 255, 255, 0.15);
+  border-color: #64ffda;
+  box-shadow: 0 8px 32px 0 rgba(100, 255, 218, 0.2);
+}
+
+.contact-avatar {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  background-color: #008B8B;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 1.5rem;
+  color: white;
+  font-size: 2.5rem;
+  font-weight: bold;
+}
+
+.contact-name {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #ffffff;
+  margin-bottom: 0.5rem;
+  text-align: center;
+}
+
+.contact-role {
+  font-size: 1.2rem;
+  color: #64ffda;
+  margin-bottom: 1rem;
+  text-align: center;
+}
+
+.contact-info {
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+  width: 100%;
+}
+
+.info-item {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.info-label {
+  color: #cccccc;
+  font-size: 0.9rem;
+  min-width: 60px;
+}
+
+.info-value {
+  color: #ffffff;
+}
+
+.contact-email {
+  word-break: break-word;
+}
+
+.loading-card {
+  justify-content: center;
+  min-height: 200px;
+  text-align: center;
+}
+
+.loading-animation {
+  width: 50px;
+  height: 50px;
+  border: 5px solid rgba(100, 255, 218, 0.2);
+  border-radius: 50%;
+  border-top: 5px solid #64ffda;
+  animation: spin 1s linear infinite;
+  margin-bottom: 1rem;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  #contacts-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .contact-container {
+    padding: 2rem 1rem;
+  }
+}
