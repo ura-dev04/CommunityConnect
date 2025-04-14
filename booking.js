@@ -6,7 +6,7 @@ const firebaseConfig = {
   apiKey: "AIzaSyAjWn47KqOzJ2cMM7t74EE86XxWvOA_OOA",
   authDomain: "societymanagement-df579.firebaseapp.com",
   projectId: "societymanagement-df579",
-  storageBucket: "societymanagement-df579.appspot.com",
+  storageBucket: "societymanagement-df579",
   messagingSenderId: "526280568230",
   appId: "1:526280568230:web:c5c01cf4f30591be437367"
 };
@@ -73,6 +73,18 @@ function formatTime(timeStr) {
 
 // UI Initialization
 function initializeUI() {
+  // Update welcome message and role
+  if (userData) {
+    document.getElementById('welcome-message').textContent = `Hi ${userData.name}`;
+    
+    let roleText = `${userData.role}`;
+    if (userData.sub_role) {
+      roleText += ` (${userData.sub_role})`;
+    }
+    
+    document.getElementById('user-role').textContent = roleText;
+  }
+  
   // Tab functionality
   const tabButtons = document.querySelectorAll('.tab-button');
   const tabContents = document.querySelectorAll('.tab-content');
@@ -169,6 +181,20 @@ function initializeUI() {
       pendingRequestsBtn.style.display = 'none';
     }
   }
+
+  // Handle logout button click
+  document.querySelector('.logout-btn').addEventListener('click', () => {
+    logout();
+  });
+
+}
+
+// Function to logout
+function logout() {
+  // Remove user data from session storage
+  sessionStorage.removeItem('loggedInUser');
+  // Redirect to homepage after logout
+  window.location.href = 'homepage.html';
 }
 
 // =================
