@@ -23,14 +23,13 @@ document.addEventListener('DOMContentLoaded', () => {
     const errorMessage = document.getElementById('error-message');
     const loginForm = document.querySelector('.login-form');
     const welcomeContainer = document.getElementById('welcome-container');
-    const welcomeMessage = document.getElementById('welcome-message');
-    const userRole = document.getElementById('user-role');
 
     // Check if user is already logged in
     const loggedInUser = sessionStorage.getItem('loggedInUser');
     if (loggedInUser) {
-        const userData = JSON.parse(loggedInUser);
-        showWelcomeMessage(userData);
+        // Instead of showing welcome message, redirect to dashboard
+        window.location.href = 'dashboard.html';
+        return; // Stop further execution
     }
 
     // Login functionality
@@ -60,7 +59,7 @@ document.addEventListener('DOMContentLoaded', () => {
                         sub_role: userData.sub_role || ''
                     }));
                     
-                    // Redirect to dashboard instead of showing welcome message
+                    // Redirect to dashboard
                     window.location.href = 'dashboard.html';
                     
                     clearInputs();
@@ -83,20 +82,6 @@ document.addEventListener('DOMContentLoaded', () => {
         welcomeContainer.classList.add('hidden');
         clearInputs();
     });
-    
-    function showWelcomeMessage(userData) {
-        welcomeMessage.textContent = `Hi ${userData.name}`;
-        
-        let roleText = `Role: ${userData.role}`;
-        if (userData.sub_role) {
-            roleText += ` (${userData.sub_role})`;
-        }
-        
-        userRole.textContent = roleText;
-        
-        loginForm.classList.add('hidden');
-        welcomeContainer.classList.remove('hidden');
-    }
     
     function showError(message) {
         errorMessage.textContent = message;
