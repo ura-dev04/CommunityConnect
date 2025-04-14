@@ -130,28 +130,6 @@
     color: #ffffff;
     font-size: 1.1rem;
   }
-
-  .sub-features {
-    display: flex;
-    flex-direction: column;
-    gap: 0.5rem;
-    margin-top: 1rem;
-  }
-  
-  .sub-feature {
-    padding: 0.5rem 1rem;
-    background: rgba(100, 255, 218, 0.1);
-    border: 1px solid rgba(100, 255, 218, 0.3);
-    border-radius: 8px;
-    color: #64ffda;
-    text-decoration: none;
-    transition: all 0.3s ease;
-  }
-  
-  .sub-feature:hover {
-    background: rgba(100, 255, 218, 0.2);
-    transform: translateY(-2px);
-  }
   
   /* Footer */
   footer {
