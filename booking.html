@@ -1,23 +1,115 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Sleek Gradient Buttons</title>
-  <link rel="stylesheet" href="booking.css" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Facility Booking</title>
+  <link rel="stylesheet" href="booking.css">
+  <!-- Flatpickr CSS -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+  <!-- FullCalendar CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.3/main.min.css" rel="stylesheet">
 </head>
 <body>
-<a href="dashboard.html" class="back-button">← Back</a>
+  <a href="dashboard.html" class="back-button">← Back</a>
+  
+  <div class="container">
+    <h1>Facility Booking</h1>
+    
+    <div class="tab-container">
+      <button class="tab-button active" data-tab="guestroom">Guest Room</button>
+      <button class="tab-button" data-tab="banquet">Banquet Hall</button>
+    </div>
+    
+    <!-- Guest Room Booking Form -->
+    <div id="guestroom-tab" class="tab-content active">
+      <form id="guestroomForm">
+        <label>Name</label>
+        <input type="text" id="guestroom-name" required />
 
-  <div class="button-wrapper">
-<div class="button-container">
-    <button class="fancy-button" onclick="window.location.href='guestroom.html'">
-      <span class="text">Guest Room Booking</span>
-    </button>
-    <button class="fancy-button" onclick="window.location.href='banquet.html'">
-      <span class="text">Banquet Hall Booking</span>
-    </button>
-</div>
+        <label>Flat Number</label>
+        <input type="text" id="guestroom-flat" required />
+
+        <label>Date</label>
+        <input type="date" id="guestroom-date" required />
+
+        <label>Start Time</label>
+        <input type="text" id="guestroom-startTime" required />
+
+        <label>End Time</label>
+        <input type="text" id="guestroom-endTime" required />
+
+        <label>Number of Guests</label>
+        <input type="number" id="guestroom-guests" required />
+
+        <label>Booking Type</label>
+        <select id="guestroom-type" required>
+          <option value="">Select...</option>
+          <option value="room">Room</option>
+          <option value="lobby">Full Lobby</option>
+        </select>
+
+        <div id="roomCountDiv" style="display: none;">
+          <label for="roomCount">How many rooms?</label>
+          <select id="roomCount">
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+          </select>
+        </div>
+
+        <button type="submit">Book Now</button>
+      </form>
+
+      <div id="guestroom-message" class="message"></div>
+      <h2>Booked Guest Rooms</h2>
+      <ul id="bookedList"></ul>
+    </div>
+    
+    <!-- Banquet Hall Booking Form -->
+    <div id="banquet-tab" class="tab-content">
+      <div id="banquet-booking-section">
+        <form id="banquetForm">
+          <label for="banquet-date">Date:</label>
+          <input type="date" id="banquet-date" required>
+          
+          <label for="banquet-time">Time:</label>
+          <input type="time" id="banquet-time" required>
+          
+          <label for="banquet-name">Name:</label>
+          <input type="text" id="banquet-name" placeholder="Your Name" required>
+          
+          <label for="banquet-flatNumber">Flat Number:</label>
+          <input type="text" id="banquet-flatNumber" placeholder="Flat Number" required>
+          
+          <label for="banquet-purpose">Purpose:</label>
+          <textarea id="banquet-purpose" placeholder="Purpose of booking" required></textarea>
+          
+          <label for="banquet-guests">Guest Count:</label>
+          <input type="number" id="banquet-guests" placeholder="Number of guests" required>
+          
+          <button type="submit">Book Now</button>
+        </form>
+        
+        <div id="banquet-message" class="message"></div>
+        <button id="showCalendar" class="view-toggle-button">Check Availability</button>
+      </div>
+      
+      <div id="calendar-section" style="display: none;">
+        <h2>Availability Calendar</h2>
+        <button id="hideCalendar" class="view-toggle-button">Back to Form</button>
+        <div id="calendar"></div>
+      </div>
+      
+      <h2>Banquet Hall Bookings</h2>
+      <ul id="banquetBookedList"></ul>
+    </div>
   </div>
+
+  <!-- Firebase + Flatpickr + FullCalendar Scripts -->
+  <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+  <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.3/main.min.js"></script>
+  <script type="module" src="booking.js"></script>
 </body>
 </html>
