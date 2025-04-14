@@ -17,8 +17,8 @@
     <h1>Facility Booking</h1>
     
     <div class="tab-container">
-      <button class="tab-button active" data-tab="guestroom">Guest Room</button>
-      <button class="tab-button" data-tab="banquet">Banquet Hall</button>
+      <button class="tab-button active" data-tab="banquet">Banquet Hall</button>
+      <button class="tab-button" data-tab="guestroom">Guest Room</button>
     </div>
     
     <!-- Common Availability Button -->
@@ -43,45 +43,8 @@
       <div id="calendar"></div>
     </div>
     
-    <!-- Guest Room Booking Form -->
-    <div id="guestroom-tab" class="tab-content active">
-      <form id="guestroomForm">
-        <label for="guestroom-start-date">Start Date</label>
-        <input type="date" id="guestroom-start-date" required />
-
-        <label for="guestroom-duration">Number of Days</label>
-        <select id="guestroom-duration" required>
-          <option value="1">1 Day</option>
-          <option value="2">2 Days</option>
-          <option value="3">3 Days</option>
-          <option value="4">4 Days</option>
-          <option value="5">5 Days</option>
-        </select>
-
-        <div class="booking-info-text">
-          <p>Check-in time: 11:30 AM on start date</p>
-          <p>Check-out time: 10:30 AM on end date</p>
-        </div>
-
-        <label for="guestroom-guests">Number of Guests: <span id="guests-value">1</span></label>
-        <input type="range" id="guestroom-guests" min="1" max="24" value="1" step="1" class="slider" required />
-
-        <div id="roomCountDiv">
-          <label for="roomCount">Rooms needed: <span id="roomCount-value">1</span></label>
-          <input type="hidden" id="roomCount" min="1" max="8" value="1" />
-          <div class="room-info-text">Each room accommodates up to 3 guests</div>
-        </div>
-
-        <button type="submit">Book Now</button>
-      </form>
-
-      <div id="guestroom-message" class="message"></div>
-      <h2>Booked Guest Rooms</h2>
-      <ul id="bookedList"></ul>
-    </div>
-    
-    <!-- Banquet Hall Booking Form -->
-    <div id="banquet-tab" class="tab-content">
+    <!-- Banquet Hall Booking Form (Now First and Active) -->
+    <div id="banquet-tab" class="tab-content active">
       <div id="banquet-booking-section">
         <form id="banquetForm">
           <label for="banquet-start-date">Start Date:</label>
@@ -112,6 +75,43 @@
       
       <h2>Banquet Hall Bookings</h2>
       <ul id="banquetBookedList"></ul>
+    </div>
+    
+    <!-- Guest Room Booking Form -->
+    <div id="guestroom-tab" class="tab-content">
+      <form id="guestroomForm">
+        <label for="guestroom-start-date">Start Date:</label>
+        <input type="date" id="guestroom-start-date" required />
+
+        <label for="guestroom-duration">Number of Days:</label>
+        <select id="guestroom-duration" required>
+          <option value="1">1 Day</option>
+          <option value="2">2 Days</option>
+          <option value="3">3 Days</option>
+          <option value="4">4 Days</option>
+          <option value="5">5 Days</option>
+        </select>
+
+        <div class="booking-info-text">
+          <p>Check-in time: 11:30 AM on start date</p>
+          <p>Check-out time: 10:30 AM on end date</p>
+        </div>
+
+        <label for="guestroom-guests">Number of Guests: <span id="guests-value">1</span></label>
+        <input type="range" id="guestroom-guests" min="1" max="24" value="1" step="1" class="slider" required />
+
+        <div id="roomCountDiv">
+          <label for="roomCount">Rooms needed: <span id="roomCount-value">1</span></label>
+          <input type="hidden" id="roomCount" min="1" max="8" value="1" />
+          <div class="room-info-text">Each room accommodates up to 3 guests</div>
+        </div>
+
+        <button type="submit">Book Now</button>
+      </form>
+
+      <div id="guestroom-message" class="message"></div>
+      <h2>Booked Guest Rooms</h2>
+      <ul id="bookedList"></ul>
     </div>
   </div>
 
