@@ -292,6 +292,56 @@ async function checkGuestroomAvailability(date, startTime, endTime, type, roomCo
 // BANQUET HALL BOOKING
 // =================
 
+// Initialize banquet form with dynamic day inputs
+function initializeBanquetForm() {
+  const durationSelect = document.getElementById('banquet-duration');
+  const daysContainer = document.getElementById('banquet-days-container');
+  
+  // Generate time input fields based on selected duration
+  function updateDayFields() {
+    daysContainer.innerHTML = '';
+    const startDate = new Date(document.getElementById('banquet-start-date').value);
+    const numDays = parseInt(durationSelect.value);
+    
+    if (isNaN(startDate.getTime())) {
+      daysContainer.innerHTML = '<p style="color: #ffcc70;">Please select a start date first</p>';
+      return;
+    }
+    
+    for (let i = 0; i < numDays; i++) {
+      const currentDate = new Date(startDate);
+      currentDate.setDate(startDate.getDate() + i);
+      
+      const dateString = currentDate.toISOString().split('T')[0];
+      const formattedDate = new Intl.DateTimeFormat('en-US', {
+        weekday: 'long',
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric'
+      }).format(currentDate);
+      
+      const dayContainer = document.createElement('div');
+      dayContainer.classList.add('day-container');
+      dayContainer.innerHTML = `
+        <h3>Day ${i + 1}: ${formattedDate}</h3>
+        <div class="day-time-input">
+          <label for="banquet-start-time-${i}">Start Time for ${formattedDate}:</label>
+          <input type="time" id="banquet-start-time-${i}" class="banquet-day-start-time" data-date="${dateString}" required>
+        </div>
+        <div class="day-time-input">
+          <label for="banquet-end-time-${i}">End Time for ${formattedDate}:</label>
+          <input type="time" id="banquet-end-time-${i}" class="banquet-day-end-time" data-date="${dateString}" required>
+        </div>
+      `;
+      daysContainer.appendChild(dayContainer);
+    }
+  }
+  
+  // Event listeners
+  durationSelect.addEventListener('change', updateDayFields);
+  document.getElementById('banquet-start-date').addEventListener('change', updateDayFields);
+}
+
 // Load banquet bookings
 function loadBanquetBookings() {
   const bookingsRef = ref(db, "bookings/banquet");
@@ -302,7 +352,37 @@ function loadBanquetBookings() {
       for (let key in bookings) {
         const booking = bookings[key];
         const li = document.createElement('li');
-        li.textContent = `${booking.date} | ${booking.time} | ${booking.name} | ${booking.flatNumber} | ${booking.status}`;
+        
+        // Format multi-day booking display
+        if (booking.days && booking.days.length > 1) {
+          li.classList.add('banquet-multi-day');
+          let daysInfo = '';
+          booking.days.forEach((day, index) => {
+            // Check for both startTime and endTime
+            const timeDisplay = day.startTime && day.endTime ? 
+              `${day.startTime} - ${day.endTime}` : 
+              (day.time || 'Time not specified');
+            daysInfo += `<div>${day.date} at ${timeDisplay}</div>`;
+          });
+          
+          li.innerHTML = `
+            <strong>${booking.name} (${booking.flatNumber})</strong><br>
+            Multi-day booking (${booking.days.length} days)<br>
+            <div class="multi-day-info">${daysInfo}</div>
+            Purpose: ${booking.purpose} | Guests: ${booking.guests} | Status: ${booking.status}
+          `;
+        } else if (booking.days && booking.days.length === 1) {
+          // Single day booking with new structure
+          const day = booking.days[0];
+          const timeDisplay = day.startTime && day.endTime ? 
+            `${day.startTime} - ${day.endTime}` : 
+            (day.time || 'Time not specified');
+          li.textContent = `${day.date} | ${timeDisplay} | ${booking.name} | ${booking.flatNumber} | ${booking.status}`;
+        } else {
+          // Legacy format support
+          li.textContent = `${booking.date || 'N/A'} | ${booking.time || 'N/A'} | ${booking.name} | ${booking.flatNumber} | ${booking.status}`;
+        }
+        
         banquetBookedList.appendChild(li);
       }
     }
@@ -322,15 +402,58 @@ function handleBanquetBooking(e) {
   // Get user data from session storage
   const name = userData.name;
   const flatNumber = userData.apartment;
-
+  
+  // Get form values
+  const startDate = document.getElementById("banquet-start-date").value;
+  const duration = parseInt(document.getElementById("banquet-duration").value);
+  const guests = document.getElementById("banquet-guests").value;
+  const purpose = document.getElementById("banquet-purpose").value;
+  
+  // Collect day-specific information
+  const days = [];
+  const startTimeInputs = document.querySelectorAll('.banquet-day-start-time');
+  const endTimeInputs = document.querySelectorAll('.banquet-day-end-time');
+  
+  for (let i = 0; i < startTimeInputs.length; i++) {
+    const startTimeInput = startTimeInputs[i];
+    const endTimeInput = endTimeInputs[i];
+    const date = startTimeInput.getAttribute('data-date');
+    const startTime = startTimeInput.value;
+    const endTime = endTimeInput.value;
+    
+    days.push({
+      date: date,
+      startTime: startTime,
+      endTime: endTime
+    });
+  }
+  
+  // Validate all times are filled
+  const allTimesFilled = days.every(day => day.startTime && day.endTime);
+  if (!allTimesFilled) {
+    banquetMessage.textContent = "Please provide both start and end times for all selected days.";
+    banquetMessage.style.color = "red";
+    return;
+  }
+  
+  // Validate that end time is after start time for each day
+  const validTimes = days.every(day => day.startTime < day.endTime);
+  if (!validTimes) {
+    banquetMessage.textContent = "End time must be after start time for all days.";
+    banquetMessage.style.color = "red";
+    return;
+  }
+  
+  // Create booking object
   let bookingData = {
-    date: document.getElementById("banquet-date").value,
-    time: document.getElementById("banquet-time").value,
     name: name,
     flatNumber: flatNumber,
-    purpose: document.getElementById("banquet-purpose").value,
-    guests: document.getElementById("banquet-guests").value,
-    status: "Pending", // Default status when booking is made
+    startDate: startDate,
+    duration: duration,
+    days: days,
+    guests: guests,
+    purpose: purpose,
+    status: "Pending",
     timestamp: new Date().toISOString()
   };
 
@@ -342,6 +465,7 @@ function handleBanquetBooking(e) {
       banquetMessage.textContent = "Booking submitted! Status: Pending";
       banquetMessage.style.color = "lightgreen";
       banquetForm.reset();
+      document.getElementById('banquet-days-container').innerHTML = '';
       loadBanquetBookings();
       
       // Refresh calendar
@@ -380,27 +504,59 @@ function initializeCalendar() {
           banquetSnapshot.forEach((childSnapshot) => {
             let booking = childSnapshot.val();
             
-            let status = booking.status.toLowerCase();
+            let status = (booking.status || "pending").toLowerCase();
             let color = "#FFD700"; // Default: Yellow (Pending)
-            if (status === "approved") color = "#008000"; // Green (Approved)
+            if (status === "approved" || status === "confirmed") color = "#4ec0b7"; // Teal (Confirmed)
             if (status === "rejected") color = "#FF0000"; // Red (Rejected)
             if (status === "cancelled") color = "#808080"; // Grey (Cancelled)
-
-            events.push({
-              title: `Banquet: ${booking.name}`,
-              start: `${booking.date}T${booking.time}`,
-              backgroundColor: color,
-              borderColor: color,
-              extendedProps: {
-                type: "banquet",
-                name: booking.name,
-                flatNumber: booking.flatNumber,
-                time: booking.time,
-                guests: booking.guests,
-                purpose: booking.purpose,
-                status: booking.status
-              }
-            });
+            
+            // Handle multi-day bookings
+            if (booking.days && booking.days.length > 0) {
+              // Add individual event for each day
+              booking.days.forEach((day, index) => {
+                events.push({
+                  title: `Banquet: ${booking.name}${booking.days.length > 1 ? ` (${index+1}/${booking.days.length})` : ''}`,
+                  start: `${day.date}T${day.startTime || day.time || '00:00'}`,
+                  end: day.endTime ? `${day.date}T${day.endTime}` : null,
+                  backgroundColor: color,
+                  borderColor: color,
+                  extendedProps: {
+                    type: "banquet",
+                    name: booking.name,
+                    flatNumber: booking.flatNumber,
+                    startTime: day.startTime || day.time,
+                    endTime: day.endTime,
+                    date: day.date,
+                    dayInfo: `Day ${index+1} of ${booking.days.length}`,
+                    guests: booking.guests,
+                    purpose: booking.purpose,
+                    status: booking.status,
+                    isMultiDay: booking.days.length > 1,
+                    totalDays: booking.days.length,
+                    allDays: booking.days
+                  }
+                });
+              });
+            } else if (booking.date && booking.time) {
+              // Support for legacy format
+              events.push({
+                title: `Banquet: ${booking.name}`,
+                start: `${booking.date}T${booking.time}`,
+                backgroundColor: color,
+                borderColor: color,
+                extendedProps: {
+                  type: "banquet",
+                  name: booking.name,
+                  flatNumber: booking.flatNumber,
+                  time: booking.time,
+                  date: booking.date,
+                  guests: booking.guests,
+                  purpose: booking.purpose,
+                  status: booking.status,
+                  isMultiDay: false
+                }
+              });
+            }
           });
         }
         
@@ -451,16 +607,43 @@ function initializeCalendar() {
       let event = info.event.extendedProps;
       
       if (event.type === "banquet") {
-        alert(
-          `Banquet Hall Booking:\n\n` +
-          `🔹 Name: ${event.name}\n` +
-          `🏠 Flat: ${event.flatNumber}\n` +
-          `📅 Date: ${info.event.start.toISOString().split("T")[0]}\n` +
-          `⏰ Time: ${event.time}\n` +
-          `👥 Guests: ${event.guests}\n` +
-          `🎉 Purpose: ${event.purpose}\n` +
-          `📌 Status: ${event.status}`
-        );
+        if (event.isMultiDay) {
+          // Format for multi-day booking
+          let daysInfo = '';
+          event.allDays.forEach((day, i) => {
+            // Check for both startTime and endTime
+            const timeDisplay = day.startTime && day.endTime ? 
+              `${day.startTime} - ${day.endTime}` : 
+              (day.time || 'Time not specified');
+            daysInfo += `📅 Day ${i+1}: ${day.date} at ${timeDisplay}\n`;
+          });
+          
+          alert(
+            `Banquet Hall Booking (Multi-day):\n\n` +
+            `🔹 Name: ${event.name}\n` +
+            `🏠 Flat: ${event.flatNumber}\n` +
+            `${daysInfo}` +
+            `👥 Guests: ${event.guests}\n` +
+            `🎉 Purpose: ${event.purpose}\n` +
+            `📌 Status: ${event.status}`
+          );
+        } else {
+          // Format for single-day booking
+          const timeDisplay = event.startTime && event.endTime ? 
+            `${event.startTime} - ${event.endTime}` : 
+            (event.time || 'Time not specified');
+          
+          alert(
+            `Banquet Hall Booking:\n\n` +
+            `🔹 Name: ${event.name}\n` +
+            `🏠 Flat: ${event.flatNumber}\n` +
+            `📅 Date: ${event.date || info.event.start.toISOString().split("T")[0]}\n` +
+            `⏰ Time: ${timeDisplay}\n` +
+            `👥 Guests: ${event.guests}\n` +
+            `🎉 Purpose: ${event.purpose}\n` +
+            `📌 Status: ${event.status}`
+          );
+        }
       } else if (event.type === "guestroom") {
         alert(
           `Guest Room Booking:\n\n` +
@@ -471,7 +654,7 @@ function initializeCalendar() {
                  `${formatTime(info.event.end.toISOString().split("T")[1].substring(0,5))}\n` +
           `🏨 Type: ${event.bookingType === 'room' ? 'Room' + (event.roomCount > 1 ? 's (' + event.roomCount + ')' : '') : 'Full Lobby'}\n` +
           `👥 Guests: ${event.guests}\n` +
-          `📌 Status: ${event.status}` // Added status to the alert
+          `📌 Status: ${event.status}`
         );
       }
     }
@@ -489,6 +672,7 @@ document.addEventListener("DOMContentLoaded", function () {
   
   // Initialize UI components
   initializeUI();
+  initializeBanquetForm();
   
   // Initialize calendar
   initializeCalendar();

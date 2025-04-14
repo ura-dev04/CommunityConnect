@@ -87,17 +87,25 @@
     <div id="banquet-tab" class="tab-content">
       <div id="banquet-booking-section">
         <form id="banquetForm">
-          <label for="banquet-date">Date:</label>
-          <input type="date" id="banquet-date" required>
+          <label for="banquet-start-date">Start Date:</label>
+          <input type="date" id="banquet-start-date" required>
           
-          <label for="banquet-time">Time:</label>
-          <input type="time" id="banquet-time" required>
+          <label for="banquet-duration">Number of Days:</label>
+          <select id="banquet-duration" required>
+            <option value="1">1 Day</option>
+            <option value="2">2 Days</option>
+            <option value="3">3 Days</option>
+            <option value="4">4 Days</option>
+          </select>
           
-          <label for="banquet-purpose">Purpose:</label>
-          <textarea id="banquet-purpose" placeholder="Purpose of booking" required></textarea>
+          <!-- Dynamic fields for each day will be added here -->
+          <div id="banquet-days-container"></div>
           
           <label for="banquet-guests">Guest Count:</label>
           <input type="number" id="banquet-guests" placeholder="Number of guests" required>
+          
+          <label for="banquet-purpose">Purpose:</label>
+          <textarea id="banquet-purpose" placeholder="Purpose of booking" required></textarea>
           
           <button type="submit">Book Now</button>
         </form>
