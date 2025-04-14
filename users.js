@@ -100,6 +100,8 @@ document.addEventListener("DOMContentLoaded", function() {
 
             // Get input values
             const name = document.getElementById('Owner_Name').value;
+            const email = document.getElementById('email').value;
+            const phone = document.getElementById('phone').value;
             const flatNumber = document.getElementById('flatNumber').value;
             const floor = document.getElementById('floor').value;
             const wing = document.getElementById('wing').value;
@@ -107,7 +109,7 @@ document.addEventListener("DOMContentLoaded", function() {
             const subRole = role === 'MC' ? document.getElementById('sub_role').value : null;
 
             // Check if all fields are filled
-            if (!name || !flatNumber || !floor || !wing) {
+            if (!name || !email || !phone || !flatNumber || !floor || !wing) {
                 document.getElementById('message').innerText = "Please fill in all fields.";
                 return;
             }
@@ -115,6 +117,8 @@ document.addEventListener("DOMContentLoaded", function() {
             // Prepare resident data
             const residentData = {
                 Owner_Name: name,
+                email: email,
+                phone: phone,
                 flatNumber: flatNumber,
                 floor: floor,
                 wing: wing,
@@ -176,17 +180,13 @@ document.addEventListener("DOMContentLoaded", function() {
                     const residentCard = document.createElement('div');
                     residentCard.className = 'resident-card';
                     
-                    let roleDisplay = resident.role;
-                    if (resident.sub_role) {
-                        roleDisplay += ` (${resident.sub_role})`;
-                    }
-                    
                     residentCard.innerHTML = `
                         <h3>Flat ${resident.flatNumber}</h3>
                         <p><strong>Name:</strong> ${resident.Owner_Name}</p>
+                        <p><strong>Email:</strong> ${resident.email || 'Not provided'}</p>
+                        <p><strong>Phone:</strong> ${resident.phone || 'Not provided'}</p>
                         <p><strong>Wing:</strong> ${resident.wing}</p>
                         <p><strong>Floor:</strong> ${resident.floor}</p>
-                        <p><strong>Role:</strong> ${roleDisplay}</p>
                     `;
                     
                     residentsGrid.appendChild(residentCard);
