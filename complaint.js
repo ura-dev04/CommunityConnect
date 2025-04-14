@@ -1,5 +1,5 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-app.js";
-import { getDatabase, ref, push, update, get, query, orderByChild, equalTo } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-database.js";
+import { getDatabase, ref, push, update, get, child } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-database.js";
 
 // Firebase Configuration
 const firebaseConfig = {
@@ -31,6 +31,9 @@ document.addEventListener('DOMContentLoaded', () => {
     
     // Apply role-based access control
     applyRoleBasedAccess(userData);
+    
+    // Initialize navbar and common elements
+    initializeNavbar(userData);
     
     // Move form event handler inside DOMContentLoaded to ensure elements exist
     const complaintForm = document.getElementById('complaintForm');
@@ -64,7 +67,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     complaint_content: complaintText,
                     status: "Pending",
                     timestamp: new Date().toISOString(),
-                    resident_name: loggedInUser.Owner_Name || 'Unknown'
+                    resident_name: loggedInUser.name || loggedInUser.Owner_Name || 'Unknown'
                 };
                 
                 // Get reference to the complaints node under the resident
@@ -93,6 +96,7 @@ document.addEventListener('DOMContentLoaded', () => {
     
     if (viewComplaintsBtn) {
         viewComplaintsBtn.addEventListener('click', async () => {
+            // ... existing code ...
             const loggedInUser = JSON.parse(sessionStorage.getItem('loggedInUser'));
             if (!loggedInUser || !loggedInUser.apartment) {
                 document.getElementById('complaintMessage').innerText = "Error: User information not found.";
@@ -171,6 +175,7 @@ document.addEventListener('DOMContentLoaded', () => {
     
     if (viewAllComplaintsBtn) {
         viewAllComplaintsBtn.addEventListener('click', async () => {
+            // ... existing code ...
             if (allComplaintsContainer.classList.contains('hidden')) {
                 // Show container
                 allComplaintsContainer.classList.remove('hidden');
@@ -321,4 +326,40 @@ function applyRoleBasedAccess(userData) {
             element.classList.add('role-restricted');
         }
     });
+}
+
+// Function to initialize the navbar with user data and event listeners
+function initializeNavbar(userData) {
+    // Set welcome message and role
+    const welcomeMessage = document.getElementById('welcome-message');
+    const userRole = document.getElementById('user-role');
+    
+    if (welcomeMessage && userData) {
+        welcomeMessage.textContent = `Hi ${userData.name || userData.Owner_Name || 'User'}`;
+    }
+    
+    if (userRole && userData) {
+        let roleText = `${userData.role || 'Resident'}`;
+        if (userData.sub_role) {
+            roleText += ` (${userData.sub_role})`;
+        }
+        userRole.textContent = roleText;
+    }
+    
+    // Handle logout button
+    const logoutBtn = document.querySelector('.logout-btn');
+    
+    if (logoutBtn) {
+        logoutBtn.addEventListener('click', () => {
+            logout();
+        });
+    }
+}
+
+// Function to logout
+function logout() {
+    // Remove user data from session storage
+    sessionStorage.removeItem('loggedInUser');
+    // Redirect to homepage after logout
+    window.location.href = 'homepage.html';
 }

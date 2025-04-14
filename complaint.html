@@ -3,12 +3,31 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lodge Complaint</title>
+    <title>CommunityConnect | Complaints</title>
+    <link rel="stylesheet" href="dashboard.css">
     <link rel="stylesheet" href="complaint.css">
 </head>
 <body>
-    <div class="container">
+    <header class="navbar">
+        <div class="logo">CommunityConnect</div>
+        <div class="user-welcome-container">
+            <div id="welcome-message">Welcome</div>
+            <div id="user-role">Loading...</div>
+        </div>
+        <nav class="nav-links">
+            <a href="dashboard.html">Home</a>
+        </nav>
+        <div class="auth-buttons">
+            <button class="logout-btn">Logout</button>
+        </div>
+    </header>
+
+    <section class="dashboard-header">
         <h1>Complaint Box</h1>
+        <p>Lodge and track your complaints</p>
+    </section>
+
+    <div class="container">
         <form id="complaintForm">
             <label for="complaintType">Complaint Type:</label>
             <select id="complaintType" required>
@@ -24,8 +43,10 @@
         </form>
         <p id="complaintMessage"></p>
 
-        <button id="viewComplaintsBtn" type="button">View My Complaints</button>
-        <button id="viewAllComplaintsBtn" type="button" class="role-restricted admin-only">View All Pending Complaints</button>
+        <div class="action-buttons">
+            <button id="viewComplaintsBtn" type="button">View My Complaints</button>
+            <button id="viewAllComplaintsBtn" type="button" class="role-restricted admin-only">View All Pending Complaints</button>
+        </div>
         
         <div id="complaintsContainer" class="complaints-container hidden">
             <h2>My Complaints</h2>
@@ -36,11 +57,11 @@
             <h2>All Pending Complaints</h2>
             <div id="allComplaintsList"></div>
         </div>
-
-        <a href="dashboard.html">
-            <button type="button">Back to Home</button>
-        </a>
     </div>
+
+    <footer>
+        <p>&copy; 2025 CommunityConnect. All rights reserved.</p>
+    </footer>
 
     <script type="module" src="complaint.js"></script>
 </body>
