@@ -247,3 +247,42 @@ h2 {
 .section-header h2 {
     margin: 0;
 }
+
+/* Calendar Legend Styles */
+#calendar-legend {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 15px;
+    gap: 25px;
+    background-color: rgba(26, 26, 37, 0.5);
+    border-radius: 8px;
+    padding: 10px;
+    border: 1px solid rgba(100, 255, 218, 0.1);
+}
+
+.legend-item {
+    display: flex;
+    align-items: center;
+    font-size: 0.9rem;
+    color: #ffffff;
+}
+
+.color-box {
+    display: inline-block;
+    width: 15px;
+    height: 15px;
+    margin-right: 6px;
+    border-radius: 3px;
+}
+
+.color-box.pending {
+    background-color: #FFD700; /* Yellow for pending */
+}
+
+.color-box.confirmed {
+    background-color: #4ec0b7; /* Teal for confirmed */
+}
+
+.color-box.rejected {
+    background-color: #FF0000; /* Red for rejected */
+}

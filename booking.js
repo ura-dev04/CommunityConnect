@@ -134,7 +134,16 @@ function loadGuestroomBookings() {
       for (let key in bookings) {
         const b = bookings[key];
         const li = document.createElement('li');
-        li.textContent = `${b.date} | ${formatTime(b.startTime)} - ${formatTime(b.endTime)} | ${b.type.toUpperCase()}${b.roomCount ? ' x' + b.roomCount : ''} | ${b.flat}`;
+        // Add status to the displayed booking info
+        li.textContent = `${b.date} | ${formatTime(b.startTime)} - ${formatTime(b.endTime)} | ${b.type.toUpperCase()}${b.roomCount ? ' x' + b.roomCount : ''} | ${b.flat} | ${b.status}`;
+        // Add color coding based on status
+        if (b.status === 'Pending') {
+          li.style.borderColor = '#FFD700'; // Yellow for pending
+        } else if (b.status === 'Confirmed') {
+          li.style.borderColor = '#64ffda'; // Default teal for confirmed
+        } else if (b.status === 'Rejected') {
+          li.style.borderColor = '#FF0000'; // Red for rejected
+        }
         bookedList.appendChild(li);
       }
     }
@@ -190,7 +199,7 @@ function handleGuestroomBooking(e) {
         endTime,
         guests,
         type,
-        status: "Confirmed",
+        status: "Pending", // Changed from "Confirmed" to "Pending"
         timestamp: new Date().toISOString()
       };
 
@@ -200,8 +209,8 @@ function handleGuestroomBooking(e) {
 
       set(bookingRef, bookingData)
         .then(() => {
-          guestroomMessage.textContent = "Booking confirmed!";
-          guestroomMessage.style.color = "lightgreen";
+          guestroomMessage.textContent = "Booking request submitted! Status: Pending";
+          guestroomMessage.style.color = "#FFD700"; // Yellow color for pending status
           loadGuestroomBookings();
           guestroomForm.reset();
           roomCountDiv.style.display = 'none';
@@ -402,12 +411,18 @@ function initializeCalendar() {
             guestroomSnapshot.forEach((childSnapshot) => {
               let booking = childSnapshot.val();
               
+              // Set color based on status
+              let color = '#4ec0b7'; // Default color
+              if (booking.status === 'Pending') color = "#FFD700"; // Yellow for pending
+              if (booking.status === 'Confirmed') color = "#4ec0b7"; // Teal for confirmed
+              if (booking.status === 'Rejected') color = "#FF0000"; // Red for rejected
+              
               events.push({
                 title: `${booking.type === 'room' ? 'Room' : 'Lobby'}: ${booking.name}`,
                 start: `${booking.date}T${booking.startTime}`,
                 end: `${booking.date}T${booking.endTime}`,
-                backgroundColor: '#4ec0b7',
-                borderColor: '#4ec0b7',
+                backgroundColor: color,
+                borderColor: color,
                 extendedProps: {
                   type: "guestroom",
                   bookingType: booking.type,
@@ -455,7 +470,8 @@ function initializeCalendar() {
           `⏰ Time: ${formatTime(info.event.start.toISOString().split("T")[1].substring(0,5))} - ` +
                  `${formatTime(info.event.end.toISOString().split("T")[1].substring(0,5))}\n` +
           `🏨 Type: ${event.bookingType === 'room' ? 'Room' + (event.roomCount > 1 ? 's (' + event.roomCount + ')' : '') : 'Full Lobby'}\n` +
-          `👥 Guests: ${event.guests}`
+          `👥 Guests: ${event.guests}\n` +
+          `📌 Status: ${event.status}` // Added status to the alert
         );
       }
     }
