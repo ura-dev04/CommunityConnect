@@ -24,6 +24,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const userRole = document.getElementById('user-role');
     const logoutBtn = document.querySelector('.logout-btn');
     const changePasswordBtn = document.querySelector('.change-password-btn');
+    const registerTabButton = document.querySelector('.tab-btn[data-tab="register"]');
+    const registerTabPane = document.getElementById('register-tab');
     
     // Check if user is logged in
     const loggedInUser = sessionStorage.getItem('loggedInUser');
@@ -46,6 +48,27 @@ document.addEventListener('DOMContentLoaded', () => {
     }
     
     userRole.textContent = roleText;
+    
+    // Check if user has permission to register maids
+    const allowedRoles = ['admin', 'president', 'secretary', 'treasurer', 'building-manager'];
+    const hasPermission = userData.sub_role && allowedRoles.includes(userData.sub_role);
+    
+    // Hide register tab if user doesn't have permission
+    if (!hasPermission) {
+        // Hide the register tab button
+        if (registerTabButton) {
+            registerTabButton.style.display = 'none';
+        }
+        
+        // Hide the register tab content
+        if (registerTabPane) {
+            registerTabPane.style.display = 'none';
+        }
+        
+        // Ensure search tab is active
+        document.querySelector('.tab-btn[data-tab="search"]').classList.add('active');
+        document.getElementById('search-tab').classList.add('active');
+    }
     
     // Handle logout button
     logoutBtn.addEventListener('click', () => {
