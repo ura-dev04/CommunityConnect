@@ -389,6 +389,87 @@ function loadBanquetBookings() {
   });
 }
 
+// Check if banquet hall is available for the requested dates and times
+async function checkBanquetAvailability(days) {
+  const result = {
+    isAvailable: true,
+    message: ""
+  };
+
+  try {
+    // Query Firebase for conflicting bookings
+    const bookingsRef = ref(db, "bookings/banquet");
+    const snapshot = await get(bookingsRef);
+    
+    if (!snapshot.exists()) {
+      return result; // No bookings exist yet
+    }
+    
+    const bookings = snapshot.val();
+    
+    // Check each requested day against existing bookings
+    for (const requestedDay of days) {
+      const requestedDate = requestedDay.date;
+      const requestedStartTime = requestedDay.startTime;
+      const requestedEndTime = requestedDay.endTime;
+      
+      for (const key in bookings) {
+        const booking = bookings[key];
+        
+        // Skip bookings that are not confirmed
+        if (booking.status !== "Confirmed") continue;
+        
+        // Check if booking has days array (new format)
+        if (booking.days && booking.days.length > 0) {
+          for (const bookedDay of booking.days) {
+            if (bookedDay.date === requestedDate) {
+              // Check for time overlap on the same day
+              const bookedStartTime = bookedDay.startTime;
+              const bookedEndTime = bookedDay.endTime;
+              
+              if (
+                (requestedStartTime >= bookedStartTime && requestedStartTime < bookedEndTime) ||
+                (requestedEndTime > bookedStartTime && requestedEndTime <= bookedEndTime) ||
+                (requestedStartTime <= bookedStartTime && requestedEndTime >= bookedEndTime)
+              ) {
+                result.isAvailable = false;
+                result.message = `There is a confirmed booking conflict on ${requestedDate} between ${bookedStartTime} and ${bookedEndTime}. Please check availability calendar and select a different time.`;
+                return result;
+              }
+            }
+          }
+        } 
+        // Check legacy format support
+        else if (booking.date === requestedDate) {
+          const bookedTime = booking.time || "00:00";
+          // For legacy bookings without end time, assume it's a 2-hour booking
+          const bookedStartTime = bookedTime;
+          const bookedEndTimeParts = bookedTime.split(':');
+          let bookedEndHour = parseInt(bookedEndTimeParts[0]) + 2;
+          const bookedEndTime = `${bookedEndHour.toString().padStart(2, '0')}:${bookedEndTimeParts[1]}`;
+          
+          if (
+            (requestedStartTime >= bookedStartTime && requestedStartTime < bookedEndTime) ||
+            (requestedEndTime > bookedStartTime && requestedEndTime <= bookedEndTime) ||
+            (requestedStartTime <= bookedStartTime && requestedEndTime >= bookedEndTime)
+          ) {
+            result.isAvailable = false;
+            result.message = `There is a confirmed booking conflict on ${requestedDate} around ${bookedStartTime}. Please check availability calendar and select a different time.`;
+            return result;
+          }
+        }
+      }
+    }
+    
+    return result;
+  } catch (error) {
+    console.error("Error checking banquet availability:", error);
+    result.isAvailable = false;
+    result.message = "An error occurred while checking availability. Please try again.";
+    return result;
+  }
+}
+
 // Banquet booking form submission
 function handleBanquetBooking(e) {
   e.preventDefault();
@@ -443,39 +524,57 @@ function handleBanquetBooking(e) {
     banquetMessage.style.color = "red";
     return;
   }
-  
-  // Create booking object
-  let bookingData = {
-    name: name,
-    flatNumber: flatNumber,
-    startDate: startDate,
-    duration: duration,
-    days: days,
-    guests: guests,
-    purpose: purpose,
-    status: "Pending",
-    timestamp: new Date().toISOString()
-  };
 
-  // Push booking to Firebase
-  const bookingsRef = ref(db, "bookings/banquet");
-  const newBookingRef = push(bookingsRef);
-  set(newBookingRef, bookingData)
-    .then(() => {
-      banquetMessage.textContent = "Booking submitted! Status: Pending";
-      banquetMessage.style.color = "lightgreen";
-      banquetForm.reset();
-      document.getElementById('banquet-days-container').innerHTML = '';
-      loadBanquetBookings();
-      
-      // Refresh calendar
-      if (window.calendar) {
-        window.calendar.refetchEvents();
+  // Check for availability/conflicts
+  banquetMessage.textContent = "Checking availability...";
+  banquetMessage.style.color = "white";
+  
+  checkBanquetAvailability(days)
+    .then(availabilityResult => {
+      if (!availabilityResult.isAvailable) {
+        banquetMessage.textContent = availabilityResult.message;
+        banquetMessage.style.color = "red";
+        return;
       }
+      
+      // Create booking object
+      let bookingData = {
+        name: name,
+        flatNumber: flatNumber,
+        startDate: startDate,
+        duration: duration,
+        days: days,
+        guests: guests,
+        purpose: purpose,
+        status: "Pending",
+        timestamp: new Date().toISOString()
+      };
+
+      // Push booking to Firebase
+      const bookingsRef = ref(db, "bookings/banquet");
+      const newBookingRef = push(bookingsRef);
+      set(newBookingRef, bookingData)
+        .then(() => {
+          banquetMessage.textContent = "Booking submitted! Status: Pending";
+          banquetMessage.style.color = "lightgreen";
+          banquetForm.reset();
+          document.getElementById('banquet-days-container').innerHTML = '';
+          loadBanquetBookings();
+          
+          // Refresh calendar
+          if (window.calendar) {
+            window.calendar.refetchEvents();
+          }
+        })
+        .catch((error) => {
+          console.error("Error adding booking:", error);
+          banquetMessage.textContent = "Failed to book. Please try again.";
+          banquetMessage.style.color = "red";
+        });
     })
-    .catch((error) => {
-      console.error("Error adding booking:", error);
-      banquetMessage.textContent = "Failed to book. Please try again.";
+    .catch(error => {
+      console.error("Error checking availability:", error);
+      banquetMessage.textContent = "An error occurred while checking availability. Please try again.";
       banquetMessage.style.color = "red";
     });
 }
