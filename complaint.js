@@ -18,6 +18,9 @@ const database = getDatabase(app);
 // Roles that can access admin features
 const ADMIN_ROLES = ['admin', 'president', 'secretary', 'treasurer', 'building-manager'];
 
+// Global variables for modal handling
+let currentActionData = null;
+
 // Check if user is logged in
 document.addEventListener('DOMContentLoaded', () => {
     const loggedInUser = sessionStorage.getItem('loggedInUser');
@@ -96,7 +99,6 @@ document.addEventListener('DOMContentLoaded', () => {
     
     if (viewComplaintsBtn) {
         viewComplaintsBtn.addEventListener('click', async () => {
-            // ... existing code ...
             const loggedInUser = JSON.parse(sessionStorage.getItem('loggedInUser'));
             if (!loggedInUser || !loggedInUser.apartment) {
                 document.getElementById('complaintMessage').innerText = "Error: User information not found.";
@@ -138,6 +140,17 @@ document.addEventListener('DOMContentLoaded', () => {
                             
                             const complaintCard = document.createElement('div');
                             complaintCard.className = 'complaint-card';
+                            
+                            let closingReasonHtml = '';
+                            if (complaint.status !== 'Pending' && complaint.closingReason) {
+                                closingReasonHtml = `
+                                    <div class="complaint-closing-reason">
+                                        <span class="closing-reason-label">Closing Reason:</span>
+                                        ${complaint.closingReason}
+                                    </div>
+                                `;
+                            }
+                            
                             complaintCard.innerHTML = `
                                 <div class="complaint-header">
                                     <div class="complaint-type">${formatComplaintType(complaint.complaint_type)}</div>
@@ -145,6 +158,7 @@ document.addEventListener('DOMContentLoaded', () => {
                                 </div>
                                 <div class="complaint-status ${statusClass}">${complaint.status}</div>
                                 <div class="complaint-content">${complaint.complaint_content}</div>
+                                ${closingReasonHtml}
                             `;
                             complaintsList.appendChild(complaintCard);
                         });
@@ -175,7 +189,6 @@ document.addEventListener('DOMContentLoaded', () => {
     
     if (viewAllComplaintsBtn) {
         viewAllComplaintsBtn.addEventListener('click', async () => {
-            // ... existing code ...
             if (allComplaintsContainer.classList.contains('hidden')) {
                 // Show container
                 allComplaintsContainer.classList.remove('hidden');
@@ -242,8 +255,8 @@ document.addEventListener('DOMContentLoaded', () => {
                                 </div>
                                 <div class="complaint-content">${complaint.complaint_content}</div>
                                 <div class="complaint-actions">
-                                    <button class="resolve-btn" data-apartment="${complaint.apartmentId}" data-complaint="${complaint.complaintId}">Resolve</button>
-                                    <button class="reject-btn" data-apartment="${complaint.apartmentId}" data-complaint="${complaint.complaintId}">Reject</button>
+                                    <button class="resolve-btn" data-apartment="${complaint.apartmentId}" data-complaint="${complaint.complaintId}" data-action="Resolved">Resolve</button>
+                                    <button class="reject-btn" data-apartment="${complaint.apartmentId}" data-complaint="${complaint.complaintId}" data-action="Rejected">Reject</button>
                                 </div>
                             `;
                             allComplaintsList.appendChild(complaintItem);
@@ -251,36 +264,21 @@ document.addEventListener('DOMContentLoaded', () => {
                         
                         // Add event listeners to resolve and reject buttons
                         document.querySelectorAll('.resolve-btn, .reject-btn').forEach(button => {
-                            button.addEventListener('click', async (e) => {
+                            button.addEventListener('click', (e) => {
                                 const apartment = e.target.getAttribute('data-apartment');
                                 const complaintId = e.target.getAttribute('data-complaint');
-                                const action = e.target.classList.contains('resolve-btn') ? 'Resolved' : 'Rejected';
+                                const action = e.target.getAttribute('data-action');
                                 
-                                try {
-                                    // Update complaint status
-                                    const updates = {};
-                                    updates[`residents/${apartment}/complaints/${complaintId}/status`] = action;
-                                    await update(ref(database), updates);
-                                    
-                                    // Remove the complaint item from the list
-                                    const complaintItem = e.target.closest('.complaint-item');
-                                    complaintItem.style.opacity = '0.5';
-                                    
-                                    // Add a note that it was updated
-                                    const note = document.createElement('div');
-                                    note.style.color = '#64ffda';
-                                    note.style.marginTop = '10px';
-                                    note.textContent = `Status updated to ${action}`;
-                                    complaintItem.appendChild(note);
-                                    
-                                    // Disable buttons
-                                    complaintItem.querySelectorAll('button').forEach(btn => {
-                                        btn.disabled = true;
-                                    });
-                                } catch (error) {
-                                    console.error("Error updating complaint status:", error);
-                                    alert(`Error updating status: ${error.message}`);
-                                }
+                                // Store current action data for modal
+                                currentActionData = {
+                                    apartment,
+                                    complaintId,
+                                    action
+                                };
+                                
+                                // Show the modal to enter closing reason
+                                const modal = document.getElementById('closingReasonModal');
+                                modal.style.display = 'block';
                             });
                         });
                         
@@ -303,6 +301,9 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
     }
+
+    // Modal event listeners
+    setupModalEventHandlers();
 });
 
 // Helper function to format complaint type for display
@@ -362,4 +363,99 @@ function logout() {
     sessionStorage.removeItem('loggedInUser');
     // Redirect to homepage after logout
     window.location.href = 'homepage.html';
+}
+
+// Setup event handlers for the closing reason modal
+function setupModalEventHandlers() {
+    const modal = document.getElementById('closingReasonModal');
+    const closeBtn = document.querySelector('.close-modal');
+    const submitBtn = document.getElementById('submitReasonBtn');
+    const cancelBtn = document.getElementById('cancelReasonBtn');
+    
+    // Close modal when clicking X
+    if (closeBtn) {
+        closeBtn.addEventListener('click', () => {
+            modal.style.display = 'none';
+        });
+    }
+    
+    // Close modal when clicking cancel
+    if (cancelBtn) {
+        cancelBtn.addEventListener('click', () => {
+            modal.style.display = 'none';
+        });
+    }
+    
+    // Close modal when clicking outside
+    window.addEventListener('click', (e) => {
+        if (e.target === modal) {
+            modal.style.display = 'none';
+        }
+    });
+    
+    // Handle form submission
+    if (submitBtn) {
+        submitBtn.addEventListener('click', async () => {
+            if (!currentActionData) {
+                console.error("No action data available");
+                return;
+            }
+            
+            const { apartment, complaintId, action } = currentActionData;
+            const closingReason = document.getElementById('closingReasonText').value.trim();
+            
+            if (!closingReason) {
+                alert("Please provide a reason for closing this complaint.");
+                return;
+            }
+            
+            try {
+                // Update complaint status and add closing reason
+                const updates = {};
+                updates[`residents/${apartment}/complaints/${complaintId}/status`] = action;
+                updates[`residents/${apartment}/complaints/${complaintId}/closingReason`] = closingReason;
+                updates[`residents/${apartment}/complaints/${complaintId}/closedAt`] = new Date().toISOString();
+                
+                await update(ref(database), updates);
+                
+                // Find and update the complaint item in the UI
+                const complaintItem = document.querySelector(`.complaint-item button[data-apartment="${apartment}"][data-complaint="${complaintId}"]`).closest('.complaint-item');
+                
+                if (complaintItem) {
+                    complaintItem.style.opacity = '0.5';
+                    
+                    // Add a note that it was updated
+                    const note = document.createElement('div');
+                    note.style.color = '#64ffda';
+                    note.style.marginTop = '10px';
+                    note.innerHTML = `Status updated to <strong>${action}</strong>`;
+                    
+                    // Add the closing reason to the UI
+                    const reasonDisplay = document.createElement('div');
+                    reasonDisplay.className = 'complaint-closing-reason';
+                    reasonDisplay.innerHTML = `
+                        <span class="closing-reason-label">Closing Reason:</span>
+                        ${closingReason}
+                    `;
+                    
+                    complaintItem.appendChild(reasonDisplay);
+                    complaintItem.appendChild(note);
+                    
+                    // Disable buttons
+                    complaintItem.querySelectorAll('button').forEach(btn => {
+                        btn.disabled = true;
+                    });
+                }
+                
+                // Reset and close the modal
+                document.getElementById('closingReasonText').value = '';
+                modal.style.display = 'none';
+                currentActionData = null;
+                
+            } catch (error) {
+                console.error("Error updating complaint status:", error);
+                alert(`Error updating status: ${error.message}`);
+            }
+        });
+    }
 }

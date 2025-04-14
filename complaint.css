@@ -319,3 +319,80 @@ a button:hover {
         transform: rotate(360deg);
     }
 }
+
+/* Modal styles */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.7);
+    backdrop-filter: blur(8px);
+}
+
+.modal-content {
+    background: rgba(26, 26, 37, 0.95);
+    margin: 15% auto;
+    padding: 25px;
+    border: 1px solid rgba(100, 255, 218, 0.3);
+    border-radius: 12px;
+    width: 80%;
+    max-width: 600px;
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
+}
+
+.close-modal {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.close-modal:hover,
+.close-modal:focus {
+    color: #64ffda;
+    text-decoration: none;
+}
+
+.modal h3 {
+    color: #64ffda;
+    margin-top: 0;
+    margin-bottom: 15px;
+}
+
+.modal textarea {
+    width: 100%;
+    margin-bottom: 20px;
+}
+
+.modal-buttons {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+}
+
+.modal-buttons button {
+    padding: 10px 15px;
+}
+
+/* Closing reason styles */
+.complaint-closing-reason {
+    margin-top: 10px;
+    padding: 10px;
+    background: rgba(50, 50, 65, 0.7);
+    border-radius: 6px;
+    font-style: italic;
+}
+
+.closing-reason-label {
+    color: #64ffda;
+    font-weight: bold;
+    font-size: 0.9rem;
+    display: block;
+    margin-bottom: 5px;
+}
