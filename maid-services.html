@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Maid Services | CommunityConnect</title>
+    <link rel="stylesheet" href="homepage.css">
+    <link rel="stylesheet" href="maid-services.css">
+    <!-- Firebase SDKs -->
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-database-compat.js"></script>
+</head>
+<body>
+    <header class="navbar">
+        <div class="logo">CommunityConnect</div>
+        <div class="user-welcome-container">
+            <div id="welcome-message">Welcome</div>
+            <div id="user-role">Loading...</div>
+        </div>
+        <nav class="nav-links">
+            <a href="dashboard.html">Home</a>
+        </nav>
+        <div class="auth-buttons">
+            <button class="logout-btn">Logout</button>
+        </div>
+    </header>
+
+    <main class="services-container">
+        <h1>Maid Services</h1>
+        
+        <!-- Tab navigation -->
+        <div class="tabs">
+            <button class="tab-btn active" data-tab="search">Find a Maid</button>
+            <button class="tab-btn" data-tab="register">Register Maid</button>
+        </div>
+        
+        <!-- Tab content -->
+        <div class="tab-content">
+            <!-- Find Maid Tab -->
+            <div id="search-tab" class="tab-pane active">
+                <div class="time-slot-selector">
+                    <h2>Select Time Slot</h2>
+                    <div class="time-slots">
+                        <button class="time-slot-btn" data-slot="6-8">6 AM - 8 AM</button>
+                        <button class="time-slot-btn" data-slot="8-10">8 AM - 10 AM</button>
+                        <button class="time-slot-btn" data-slot="10-12">10 AM - 12 PM</button>
+                        <button class="time-slot-btn" data-slot="12-2">12 PM - 2 PM</button>
+                        <button class="time-slot-btn" data-slot="2-4">2 PM - 4 PM</button>
+                        <button class="time-slot-btn" data-slot="4-6">4 PM - 6 PM</button>
+                    </div>
+                </div>
+
+                <div id="searchResults" class="search-results">
+                    <!-- Results will be displayed here -->
+                    <div class="initial-message">Select a time slot to find available maids</div>
+                </div>
+            </div>
+
+            <!-- Register Maid Tab -->
+            <div id="register-tab" class="tab-pane">
+                <form id="maidRegistrationForm" class="registration-form">
+                    <div class="form-group">
+                        <label for="maidId">Maid ID</label>
+                        <input type="text" id="maidId" name="maidId" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="name">Full Name</label>
+                        <input type="text" id="name" name="name" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="mobile">Mobile Number</label>
+                        <input type="tel" id="mobile" name="mobile" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="wing">Current Working Wing</label>
+                        <select id="wing" name="wing" required>
+                            <option value="">Select Wing</option>
+                            <option value="A">Wing A</option>
+                            <option value="B">Wing B</option>
+                            <option value="C">Wing C</option>
+                            <option value="D">Wing D</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="flatNumber">Flat Number</label>
+                        <input type="text" id="flatNumber" name="flatNumber" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Available Time Slots</label>
+                        <div class="time-slots-checkbox">
+                            <label><input type="checkbox" name="timeSlot" value="6-8"> 6 AM - 8 AM</label>
+                            <label><input type="checkbox" name="timeSlot" value="8-10"> 8 AM - 10 AM</label>
+                            <label><input type="checkbox" name="timeSlot" value="10-12"> 10 AM - 12 PM</label>
+                            <label><input type="checkbox" name="timeSlot" value="12-2"> 12 PM - 2 PM</label>
+                            <label><input type="checkbox" name="timeSlot" value="2-4"> 2 PM - 4 PM</label>
+                            <label><input type="checkbox" name="timeSlot" value="4-6"> 4 PM - 6 PM</label>
+                        </div>
+                    </div>
+
+                    <button type="submit" class="submit-btn">Register</button>
+                </form>
+            </div>
+        </div>
+    </main>
+
+    <div class="loading" id="loadingIndicator">Processing...</div>
+
+    <script src="maid-services.js"></script>
+</body>
+</html>
