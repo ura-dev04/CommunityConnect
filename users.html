@@ -74,6 +74,37 @@
                     <input type="text" id="wing" placeholder="Enter wing" required>
                 </div>
 
+                <!-- New Parking Section -->
+                <div class="form-section">
+                    <h3>Parking Information</h3>
+                    <div id="parking-container">
+                        <div class="parking-form-group" data-index="0">
+                            <div class="parking-inputs">
+                                <div class="form-group">
+                                    <label for="parkingId-0">Parking ID:</label>
+                                    <input type="text" id="parkingId-0" placeholder="e.g. F1" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="vehicleType-0">Vehicle Type:</label>
+                                    <select id="vehicleType-0">
+                                        <option value="2">2-Wheeler</option>
+                                        <option value="4">4-Wheeler</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="slotStatus-0">Status:</label>
+                                    <select id="slotStatus-0">
+                                        <option value="available">Available</option>
+                                        <option value="full">Full</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <button type="button" class="remove-parking-btn" style="display:none;">&times;</button>
+                        </div>
+                    </div>
+                    <button type="button" id="add-parking-btn" class="add-btn parking-btn">+ Add Another Parking Slot</button>
+                </div>
+
                 <div class="form-group">
                     <label for="role">Select Role:</label>
                     <select id="role">
