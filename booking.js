@@ -85,10 +85,9 @@ function initializeUI() {
     });
   });
 
-  // Show/Hide Calendar functionality
-  document.getElementById('showCalendar').addEventListener('click', function() {
-    document.getElementById('banquet-booking-section').style.display = 'none';
-    document.getElementById('calendar-section').style.display = 'block';
+  // Availability section toggle
+  document.getElementById('checkAvailability').addEventListener('click', function() {
+    document.getElementById('availability-section').style.display = 'block';
     
     // Force refresh calendar size
     if (window.calendar) {
@@ -96,9 +95,8 @@ function initializeUI() {
     }
   });
 
-  document.getElementById('hideCalendar').addEventListener('click', function() {
-    document.getElementById('calendar-section').style.display = 'none';
-    document.getElementById('banquet-booking-section').style.display = 'block';
+  document.getElementById('hideAvailability').addEventListener('click', function() {
+    document.getElementById('availability-section').style.display = 'none';
   });
 
   // Show/hide room count input
@@ -207,6 +205,11 @@ function handleGuestroomBooking(e) {
           loadGuestroomBookings();
           guestroomForm.reset();
           roomCountDiv.style.display = 'none';
+          
+          // Refresh calendar
+          if (window.calendar) {
+            window.calendar.refetchEvents();
+          }
         })
         .catch(error => {
           console.error("Firebase error:", error);
@@ -344,7 +347,7 @@ function handleBanquetBooking(e) {
     });
 }
 
-// Initialize FullCalendar for banquet availability
+// Initialize FullCalendar for facility availability
 function initializeCalendar() {
   var calendarEl = document.getElementById("calendar");
 
@@ -354,56 +357,107 @@ function initializeCalendar() {
     headerToolbar: {
       left: "prev,next",
       center: "title",
-      right: "dayGridMonth"
+      right: "dayGridMonth,timeGridWeek,timeGridDay"
     },
     locale: "en",
 
     events: function (fetchInfo, successCallback, failureCallback) {
-      const bookingsRef = ref(db, "bookings/banquet");
+      const events = [];
+      
+      // Fetch banquet hall bookings
+      const banquetRef = ref(db, "bookings/banquet");
+      get(banquetRef).then((banquetSnapshot) => {
+        if (banquetSnapshot.exists()) {
+          banquetSnapshot.forEach((childSnapshot) => {
+            let booking = childSnapshot.val();
+            
+            let status = booking.status.toLowerCase();
+            let color = "#FFD700"; // Default: Yellow (Pending)
+            if (status === "approved") color = "#008000"; // Green (Approved)
+            if (status === "rejected") color = "#FF0000"; // Red (Rejected)
+            if (status === "cancelled") color = "#808080"; // Grey (Cancelled)
 
-      onValue(bookingsRef, (snapshot) => {
-        let events = [];
-        snapshot.forEach((childSnapshot) => {
-          let booking = childSnapshot.val();
-
-          let status = booking.status.toLowerCase();
-          let color = "#FFD700"; // Default: Yellow (Pending)
-          if (status === "approved") color = "#008000"; // Green (Approved)
-          if (status === "rejected") color = "#FF0000"; // Red (Rejected)
-          if (status === "cancelled") color = "#808080"; // Grey (Cancelled)
-
-          events.push({
-            title: `(${booking.status})`,
-            start: booking.date,
-            backgroundColor: color,
-            borderColor: color,
-            extendedProps: {
-              name: booking.name,
-              flatNumber: booking.flatNumber,
-              time: booking.time,
-              guests: booking.guests,
-              purpose: booking.purpose,
-              status: booking.status
-            }
+            events.push({
+              title: `Banquet: ${booking.name}`,
+              start: `${booking.date}T${booking.time}`,
+              backgroundColor: color,
+              borderColor: color,
+              extendedProps: {
+                type: "banquet",
+                name: booking.name,
+                flatNumber: booking.flatNumber,
+                time: booking.time,
+                guests: booking.guests,
+                purpose: booking.purpose,
+                status: booking.status
+              }
+            });
           });
+        }
+        
+        // Fetch guestroom bookings
+        const guestroomRef = ref(db, "bookings/guestroom");
+        get(guestroomRef).then((guestroomSnapshot) => {
+          if (guestroomSnapshot.exists()) {
+            guestroomSnapshot.forEach((childSnapshot) => {
+              let booking = childSnapshot.val();
+              
+              events.push({
+                title: `${booking.type === 'room' ? 'Room' : 'Lobby'}: ${booking.name}`,
+                start: `${booking.date}T${booking.startTime}`,
+                end: `${booking.date}T${booking.endTime}`,
+                backgroundColor: '#4ec0b7',
+                borderColor: '#4ec0b7',
+                extendedProps: {
+                  type: "guestroom",
+                  bookingType: booking.type,
+                  name: booking.name,
+                  flat: booking.flat,
+                  roomCount: booking.roomCount || 1,
+                  guests: booking.guests,
+                  status: booking.status
+                }
+              });
+            });
+          }
+          
+          successCallback(events);
+        }).catch((error) => {
+          console.error("Error fetching guestroom bookings:", error);
+          failureCallback(error);
         });
-
-        successCallback(events);
+      }).catch((error) => {
+        console.error("Error fetching banquet bookings:", error);
+        failureCallback(error);
       });
     },
 
     eventClick: function (info) {
       let event = info.event.extendedProps;
-      alert(
-        `Booking Details:\n\n` +
-        `🔹 Name: ${event.name}\n` +
-        `🏠 Flat: ${event.flatNumber}\n` +
-        `📅 Date: ${info.event.start.toISOString().split("T")[0]}\n` +
-        `⏰ Time: ${event.time}\n` +
-        `👥 Guests: ${event.guests}\n` +
-        `🎉 Purpose: ${event.purpose}\n` +
-        `📌 Status: ${event.status}`
-      );
+      
+      if (event.type === "banquet") {
+        alert(
+          `Banquet Hall Booking:\n\n` +
+          `🔹 Name: ${event.name}\n` +
+          `🏠 Flat: ${event.flatNumber}\n` +
+          `📅 Date: ${info.event.start.toISOString().split("T")[0]}\n` +
+          `⏰ Time: ${event.time}\n` +
+          `👥 Guests: ${event.guests}\n` +
+          `🎉 Purpose: ${event.purpose}\n` +
+          `📌 Status: ${event.status}`
+        );
+      } else if (event.type === "guestroom") {
+        alert(
+          `Guest Room Booking:\n\n` +
+          `🔹 Name: ${event.name}\n` +
+          `🏠 Flat: ${event.flat}\n` +
+          `📅 Date: ${info.event.start.toISOString().split("T")[0]}\n` +
+          `⏰ Time: ${formatTime(info.event.start.toISOString().split("T")[1].substring(0,5))} - ` +
+                 `${formatTime(info.event.end.toISOString().split("T")[1].substring(0,5))}\n` +
+          `🏨 Type: ${event.bookingType === 'room' ? 'Room' + (event.roomCount > 1 ? 's (' + event.roomCount + ')' : '') : 'Full Lobby'}\n` +
+          `👥 Guests: ${event.guests}`
+        );
+      }
     }
   });
 

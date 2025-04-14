@@ -21,6 +21,20 @@
       <button class="tab-button" data-tab="banquet">Banquet Hall</button>
     </div>
     
+    <!-- Common Availability Button -->
+    <div class="availability-button-container">
+      <button id="checkAvailability" class="availability-button">Check Availability</button>
+    </div>
+    
+    <!-- Availability Calendar Section (Hidden by Default) -->
+    <div id="availability-section" style="display: none;">
+      <div class="section-header">
+        <h2>Availability Calendar</h2>
+        <button id="hideAvailability" class="view-toggle-button">Back to Form</button>
+      </div>
+      <div id="calendar"></div>
+    </div>
+    
     <!-- Guest Room Booking Form -->
     <div id="guestroom-tab" class="tab-content active">
       <form id="guestroomForm">
@@ -81,13 +95,6 @@
         </form>
         
         <div id="banquet-message" class="message"></div>
-        <button id="showCalendar" class="view-toggle-button">Check Availability</button>
-      </div>
-      
-      <div id="calendar-section" style="display: none;">
-        <h2>Availability Calendar</h2>
-        <button id="hideCalendar" class="view-toggle-button">Back to Form</button>
-        <div id="calendar"></div>
       </div>
       
       <h2>Banquet Hall Bookings</h2>

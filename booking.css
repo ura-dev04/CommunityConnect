@@ -34,7 +34,7 @@ h1 {
     display: flex;
     justify-content: center;
     gap: 1rem;
-    margin-bottom: 2rem;
+    margin-bottom: 1rem;
 }
 
 .tab-button {
@@ -203,4 +203,47 @@ h2 {
 
 .view-toggle-button:hover {
     background-color: rgba(100, 255, 218, 0.2);
+}
+
+.availability-button-container {
+    display: flex;
+    justify-content: center;
+    margin: 1rem 0 2rem;
+}
+
+.availability-button {
+    background: linear-gradient(to right, #64d8cb, #4ec0b7);
+    color: #0e0e15;
+    padding: 0.85rem 1.5rem;
+    border-radius: 10px;
+    border: none;
+    font-weight: 600;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 8px rgba(100, 255, 218, 0.2);
+}
+
+.availability-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 12px rgba(100, 255, 218, 0.3);
+}
+
+#availability-section {
+    background: rgba(26, 26, 37, 0.7);
+    border-radius: 15px;
+    padding: 1.5rem;
+    margin-bottom: 2rem;
+    border: 1px solid rgba(100, 255, 218, 0.3);
+}
+
+.section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+}
+
+.section-header h2 {
+    margin: 0;
 }
