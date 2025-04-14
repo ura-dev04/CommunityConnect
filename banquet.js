@@ -6,7 +6,7 @@ const firebaseConfig = {
     apiKey: "AIzaSyAjWn47KqOzJ2cMM7t74EE86XxWvOA_OOA",
     authDomain: "societymanagement-df579.firebaseapp.com",
     projectId: "societymanagement-df579",
-    storageBucket: "societymanagement-df579.firebasestorage.app",
+    storageBucket: "societymanagement-df579.appspot.com",
     messagingSenderId: "526280568230",
     appId: "1:526280568230:web:c5c01cf4f30591be437367"
 };
@@ -15,11 +15,14 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const database = getDatabase(app);
 
-//  Show Calendar Section
 document.getElementById("showCalendar").addEventListener("click", function () {
     document.getElementById("bookingSection").style.display = "none";
     document.getElementById("calendarSection").style.display = "block";
+
+    // ✅ Optional: force refresh if user keeps coming back
+    setTimeout(() => calendar.updateSize(), 10);
 });
+
 
 //  Handle Booking Submission
 document.getElementById("bookingForm").addEventListener("submit", function (e) {
@@ -115,4 +118,7 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 
     calendar.render();
+    calendar.render();
+calendar.updateSize(); // ✅ Force size update after showing calendar
+
 });
