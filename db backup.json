@@ -348,7 +348,10 @@
       "password": "123456",
       "password_set": true,
       "role": "resident",
-      "wing": "V"
+      "wing": "V",
+      "email": "example@example.com",
+      "phone": "1234567890"
+
     },
     "304": {
       "Owner_Name": "urmi",
@@ -357,8 +360,10 @@
       "notification_viewed": false,
       "password": "123456",
       "role": "MC",
-      "sub_role": "Society Manager",
-      "wing": "A"
+      "sub_role": "building-manager",
+      "wing": "A",
+      "email": "example@example.com",
+      "phone": "1234567890"
     },
     "405": {
       "Owner_Name": "gayatri ",
@@ -368,7 +373,9 @@
       "password": "123456",
       "role": "MC",
       "sub_role": "president",
-      "wing": "g"
+      "wing": "g",
+      "email": "example@example.com",
+      "phone": "1234567890"
     },
     "703": {
       "Owner_Name": "shawar khan",
@@ -377,7 +384,9 @@
       "notification_viewed": false,
       "password": "123456",
       "role": "resident",
-      "wing": "J"
+      "wing": "J",
+      "email": "example@example.com",
+      "phone": "1234567890"
     },
     "909": {
       "Owner_Name": "kajol kapoor",
@@ -386,7 +395,9 @@
       "notification_viewed": false,
       "password": "123456",
       "role": "resident",
-      "wing": "B"
+      "wing": "B",
+      "email": "example@example.com",
+      "phone": "1234567890"
     },
     "1503": {
       "Owner_Name": "Armaan",
@@ -420,7 +431,9 @@
       "password_set": true,
       "role": "MC",
       "sub_role": "secretary",
-      "wing": "A"
+      "wing": "A",
+      "email": "example@example.com",
+      "phone": "1234567890"
     },
     "1703": {
       "Owner_Name": "Saima",
@@ -430,7 +443,9 @@
       "password": "123456",
       "role": "MC",
       "sub_role": "treasurer",
-      "wing": "C"
+      "wing": "C",
+      "email": "example@example.com",
+      "phone": "1234567890"
     }
   }
 }
