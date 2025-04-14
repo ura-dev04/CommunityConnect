@@ -370,12 +370,12 @@ document.addEventListener('DOMContentLoaded', () => {
   function applySubRoleBasedAccess(subRole) {
     // Define permissions for each feature based on sub-role
     const subRolePermissions = {
-      'admin': ['users.html', 'complaint.html', 'parking.html', 'events.html', 'notice.html', 'contact.html', 'maid-services.html', 'banquet-hall.html'],
-      'president': ['users.html', 'complaint.html', 'parking.html', 'events.html', 'notice.html', 'contact.html', 'maid-services.html', 'banquet-hall.html'],
-      'secretary': ['users.html', 'complaint.html', 'parking.html', 'events.html', 'notice.html', 'contact.html', 'maid-services.html', 'banquet-hall.html'],
-      'treasurer': ['users.html', 'complaint.html', 'parking.html', 'events.html', 'notice.html', 'contact.html', 'maid-services.html', 'banquet-hall.html'],
-      'resident': ['users.html', 'complaint.html', 'parking.html', 'events.html', 'notice.html', 'contact.html', 'maid-services.html', 'banquet-hall.html'],
-      'building-manager': ['users.html', 'complaint.html', 'parking.html', 'events.html', 'notice.html', 'contact.html', 'maid-services.html', 'banquet-hall.html'],
+      'admin': ['users.html', 'complaint.html', 'parking.html', 'events.html', 'notice.html', 'contact.html', 'maid-services.html', 'booking.html', 'maintenance.html', 'Face-Detection-JavaScript-master/index.html'],
+      'president': ['users.html', 'complaint.html', 'parking.html', 'events.html', 'notice.html', 'contact.html', 'maid-services.html', 'booking.html', 'maintenance.html', 'Face-Detection-JavaScript-master/index.html'],
+      'secretary': ['users.html', 'complaint.html', 'parking.html', 'events.html', 'notice.html', 'contact.html', 'maid-services.html', 'booking.html', 'maintenance.html', 'Face-Detection-JavaScript-master/index.html'],
+      'treasurer': ['users.html', 'complaint.html', 'parking.html', 'events.html', 'notice.html', 'contact.html', 'maid-services.html', 'booking.html', 'maintenance.html', 'Face-Detection-JavaScript-master/index.html'],
+      'resident': ['users.html', 'complaint.html', 'parking.html', 'events.html', 'notice.html', 'contact.html', 'maid-services.html', 'booking.html', 'maintenance.html', 'Face-Detection-JavaScript-master/index.html'],
+      'building-manager': ['users.html', 'complaint.html', 'parking.html', 'events.html', 'notice.html', 'contact.html', 'maid-services.html', 'booking.html', 'maintenance.html', 'Face-Detection-JavaScript-master/index.html'],
     };
 
     // Get all feature boxes

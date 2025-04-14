@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CommunityConnect | Events</title>
+  <link rel="stylesheet" href="events.css" />
+</head>
+<body>
+  <header class="navbar">
+    <div class="logo">CommunityConnect</div>
+    <div class="user-welcome-container">
+      <div id="welcome-message">Welcome</div>
+      <div id="user-role">Loading...</div>
+    </div>
+    <nav class="nav-links">
+      <a href="dashboard.html">Home</a>
+    </nav>
+    <div class="auth-buttons">
+      <button class="logout-btn">Logout</button>
+    </div>
+  </header>
+
+  <section class="page-header">
+    <h1>Community Events</h1>
+    <p>Stay updated with upcoming events in our community</p>
+  </section>
+
+  <div class="admin-controls">
+    <!-- Admin controls will be displayed here for authorized users -->
+  </div>
+
+  <section class="events-container">
+    <div class="events-list">
+      <!-- Events will be loaded here dynamically -->
+      <div class="loading-spinner">Loading events...</div>
+    </div>
+  </section>
+
+  <!-- Event Form Modal -->
+  <div class="modal-overlay" id="event-modal" style="display: none;">
+    <div class="modal-content">
+      <h2 id="modal-title">Add New Event</h2>
+      <form id="event-form">
+        <input type="hidden" id="event-id">
+        <div class="form-group">
+          <label for="event-name">Event Name</label>
+          <input type="text" id="event-name" required placeholder="Enter event name">
+        </div>
+        <div class="form-group">
+          <label for="event-description">Event Description</label>
+          <textarea id="event-description" required placeholder="Enter event details"></textarea>
+        </div>
+        <div class="form-group">
+          <label for="event-date">Date</label>
+          <input type="date" id="event-date" required>
+        </div>
+        <div class="form-group">
+          <label for="event-time">Time</label>
+          <input type="time" id="event-time" required>
+        </div>
+        <div class="form-group">
+          <label for="event-location">Location</label>
+          <input type="text" id="event-location" required placeholder="Enter event location">
+        </div>
+        <div class="error-message" id="event-form-error"></div>
+        <div class="button-group">
+          <button type="submit" class="save-btn">Save Event</button>
+          <button type="button" class="cancel-btn" id="cancel-event-btn">Cancel</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Confirmation Modal -->
+  <div class="modal-overlay" id="confirm-modal" style="display: none;">
+    <div class="modal-content">
+      <h2>Confirm Deletion</h2>
+      <p>Are you sure you want to delete this event? This action cannot be undone.</p>
+      <div class="button-group">
+        <button id="confirm-delete-btn" class="delete-btn">Delete</button>
+        <button id="cancel-delete-btn" class="cancel-btn">Cancel</button>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    <p>&copy; 2025 CommunityConnect. All rights reserved.</p>
+  </footer>
+
+  <script type="module" src="events.js"></script>
+</body>
+</html>
