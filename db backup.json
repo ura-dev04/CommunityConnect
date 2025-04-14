@@ -1,133 +1,77 @@
 {
   "bookings": {
-    "-OLTu3S5-UgDgffjZcgt": {
-      "date": "2025-03-18",
-      "flatNumber": "603",
-      "guests": "30",
-      "name": "urmi",
-      "purpose": "Butrhday",
-      "status": "rejected",
-      "time": "14:52"
+    "banquet": {
+      "-ONoMGorrhy5iBGtr1nq": {
+        "date": "2025-04-16",
+        "flatNumber": "1503",
+        "guests": "69",
+        "name": "Armaan",
+        "purpose": "gangbang",
+        "status": "confirmed",
+        "time": "14:30",
+        "timestamp": "2025-04-14T12:53:59.860Z"
+      },
+      "-ONoX9NcYR4pow2ftv0V": {
+        "days": [
+          {
+            "date": "2025-04-15",
+            "endTime": "15:30",
+            "startTime": "12:30"
+          },
+          {
+            "date": "2025-04-16",
+            "endTime": "15:30",
+            "startTime": "12:30"
+          },
+          {
+            "date": "2025-04-17",
+            "endTime": "15:30",
+            "startTime": "12:30"
+          }
+        ],
+        "duration": 3,
+        "flatNumber": "1503",
+        "guests": "100",
+        "name": "Armaan",
+        "purpose": "100 people anal challenge",
+        "startDate": "2025-04-15",
+        "status": "Confirmed",
+        "timestamp": "2025-04-14T13:41:32.971Z"
+      }
     },
-    "-OLUAulk2Rtxn_ek5-Zr": {
-      "date": "2025-03-20",
-      "flatNumber": "607",
-      "guests": "20",
-      "name": "Uru",
-      "purpose": "Birthday party ",
-      "status": "Cancelled",
-      "time": "20:12"
-    },
-    "-OLV50O83XEfLcxMkrDS": {
-      "date": "2025-03-26",
-      "flatNumber": "709",
-      "guests": "16",
-      "name": "Saima",
-      "purpose": "Birthday",
-      "status": "Pending",
-      "time": "16:30"
-    },
-    "-OLV6t9OrBY7V9CeWId1": {
-      "date": "2025-03-29",
-      "flatNumber": "604",
-      "guests": "15",
-      "name": "Saimi",
-      "purpose": "Birthday ",
-      "status": "Pending",
-      "time": "16:20"
-    },
-    "-OLV7WCWAGcxY-eERA5j": {
-      "date": "2025-03-18",
-      "flatNumber": "602",
-      "guests": "10",
-      "name": "Heyyyy",
-      "purpose": "Pooja",
-      "status": "Pending",
-      "time": "18:45"
-    },
-    "-OLcNSMB2oSrfjQBzH1O": {
-      "date": "2025-03-31",
-      "flatNumber": "909",
-      "guests": "10",
-      "name": "sofian bday",
-      "purpose": "bday",
-      "status": "approved",
-      "time": "01:01"
-    },
-    "-OLcfOSfmR8rdGUXdBW6": {
-      "date": "2025-05-01",
-      "flatNumber": "108",
-      "guests": "1",
-      "name": "Vrishab Shenvi",
-      "purpose": "Get together",
-      "status": "Pending",
-      "time": "12:23"
-    },
-    "-OLcjLIsmQmPuxNnfSyC": {
-      "date": "2025-03-28",
-      "flatNumber": "304",
-      "guests": "50",
-      "name": "Vrishab Shenvi",
-      "purpose": "bbday",
-      "status": "Pending",
-      "time": "17:43"
+    "guestroom": {
+      "-ONoMAj-W1QI86N1KvWQ": {
+        "date": "2025-04-17",
+        "endTime": "20:00",
+        "flat": "1503",
+        "guests": "50",
+        "name": "Armaan",
+        "roomCount": 4,
+        "startTime": "12:00",
+        "status": "Confirmed",
+        "timestamp": "2025-04-14T12:53:34.910Z",
+        "type": "room"
+      }
     }
   },
-  "guestroomBookings": {
-    "-ONkbjmE6MUJTFiyeOzK": {
+  "events": {
+    "-ONn7SDafpuvYY44SKOQ": {
+      "createdAt": "2025-04-14T07:09:37.194Z",
+      "createdBy": "Armaan",
       "date": "2025-04-15",
-      "endTime": "11:40",
-      "flat": "603",
-      "guests": "11",
-      "name": "Urmi",
-      "roomCount": 1,
-      "startTime": "11:25",
-      "timestamp": "2025-04-13T19:27:30.587Z",
-      "type": "room"
+      "description": "I dont know I dont host dinners",
+      "location": "basement in the corner",
+      "name": "Pav Bhaji dinner",
+      "time": "19:30"
     },
-    "-ONkbtM1WK-OmgF2huMD": {
+    "-ONn8WwHN5FAjYI3ugxt": {
+      "createdAt": "2025-04-14T07:14:18.643Z",
+      "createdBy": "Armaan",
       "date": "2025-04-15",
-      "endTime": "10:40",
-      "flat": "607",
-      "guests": "11",
-      "name": "saima",
-      "roomCount": 2,
-      "startTime": "10:25",
-      "timestamp": "2025-04-13T19:28:09.806Z",
-      "type": "room"
-    },
-    "-ONkcGE2eUHXCl36aov1": {
-      "date": "2025-04-15",
-      "endTime": "09:40",
-      "flat": "608",
-      "guests": "11",
-      "name": "vedashree",
-      "roomCount": 4,
-      "startTime": "09:25",
-      "timestamp": "2025-04-13T19:29:47.599Z",
-      "type": "room"
-    },
-    "-ONkxHM5VkbOZMMIAv_N": {
-      "date": "2025-04-15",
-      "endTime": "20:55",
-      "flat": "607",
-      "guests": "9",
-      "name": "saima",
-      "roomCount": 3,
-      "startTime": "19:55",
-      "timestamp": "2025-04-13T21:01:37.219Z",
-      "type": "room"
-    },
-    "-ONkxb16F6vnoXTnNew9": {
-      "date": "2025-04-15",
-      "endTime": "09:40",
-      "flat": "609",
-      "guests": "4",
-      "name": "armaan",
-      "roomCount": 1,
-      "startTime": "09:25",
-      "timestamp": "2025-04-13T21:03:01.892Z",
-      "type": "room"
+      "description": "new classes for the new generation",
+      "location": "podium",
+      "name": "Ganja making class",
+      "time": "23:30"
     }
   },
   "images": {
@@ -184,6 +128,18 @@
       ],
       "wing": "B"
     },
+    "5100": {
+      "createdAt": 1744618775855,
+      "flatNumber": "505",
+      "maidId": "5100",
+      "mobile": "7267286232",
+      "name": "Sameena tai",
+      "timeSlots": [
+        "8-10",
+        "2-4"
+      ],
+      "wing": "C"
+    },
     "5555": {
       "createdAt": 1744562028879,
       "flatNumber": "703",
@@ -234,10 +190,10 @@
       "timestamp": "2025-04-03T02:36:02.415Z",
       "title": "Power Cut"
     },
-    "-ONkvpitgNVIm8PnYv78": {
-      "body": "Saima only does timepass and when she is asked to do work she wants to sleep",
-      "timestamp": "2025-04-13T20:55:15.260Z",
-      "title": "Saima Kuch Kam nahi karti hai"
+    "-ONn8X-h6gHtbyG825m-": {
+      "body": "A new event has been scheduled: \"Ganja making class\" on Tuesday, April 15, 2025 at 11:30 PM, location: podium. new classes for the new generation",
+      "timestamp": "2025-04-14T07:14:18.926Z",
+      "title": "New Event: Ganja making class"
     }
   },
   "parkings": {
@@ -321,6 +277,15 @@
       "timestamp": 1743674804512,
       "vehicleType": "4",
       "wing": "B"
+    },
+    "-ONnN2daiS20oeZfxE7W": {
+      "buildingName": "Azziano",
+      "flatNumber": "505",
+      "parkingId": "J10",
+      "slotNumber": 10,
+      "timestamp": 1744618669184,
+      "vehicleType": "2",
+      "wing": "J"
     }
   },
   "residents": {
@@ -342,62 +307,89 @@
           "timestamp": "2025-04-14T02:43:42.313Z"
         }
       },
+      "email": "example@example.com",
       "flatNumber": "108",
       "floor": "1",
-      "notification_viewed": false,
+      "notification_viewed": true,
       "password": "123456",
       "password_set": true,
+      "phone": "1234567890",
       "role": "resident",
-      "wing": "V",
-      "email": "example@example.com",
-      "phone": "1234567890"
-
+      "wing": "V"
     },
     "304": {
       "Owner_Name": "urmi",
+      "email": "example@example.com",
       "flatNumber": "304",
       "floor": "3",
-      "notification_viewed": false,
+      "notification_viewed": true,
       "password": "123456",
+      "password_set": true,
+      "phone": "1234567890",
       "role": "MC",
       "sub_role": "building-manager",
-      "wing": "A",
-      "email": "example@example.com",
-      "phone": "1234567890"
+      "wing": "A"
     },
     "405": {
       "Owner_Name": "gayatri ",
+      "email": "example@example.com",
       "flatNumber": "405",
       "floor": "6",
       "notification_viewed": false,
       "password": "123456",
+      "phone": "1234567890",
       "role": "MC",
       "sub_role": "president",
-      "wing": "g",
-      "email": "example@example.com",
-      "phone": "1234567890"
+      "wing": "g"
     },
     "703": {
       "Owner_Name": "shawar khan",
+      "email": "example@example.com",
       "flatNumber": "703",
       "floor": "7",
+      "maintenance": {
+        "-ONn83juJBBQlWNg0s_q": {
+          "billDate": "2025-05-12",
+          "breakdown": [
+            {
+              "amount": 5000,
+              "description": "maintenance amount for may"
+            }
+          ],
+          "dueDate": "2025-05-30",
+          "generatedAt": 1744614739241,
+          "totalAmount": 5000
+        },
+        "-ONnD-yZXxINFv7gJiBU": {
+          "billDate": "2025-04-05",
+          "breakdown": [
+            {
+              "amount": 2000,
+              "description": "april pending bill"
+            }
+          ],
+          "dueDate": "2025-04-30",
+          "generatedAt": 1744616034493,
+          "totalAmount": 2000
+        }
+      },
       "notification_viewed": false,
-      "password": "123456",
+      "password": "SHAWAR123",
+      "password_set": true,
+      "phone": "1234567890",
       "role": "resident",
-      "wing": "J",
-      "email": "example@example.com",
-      "phone": "1234567890"
+      "wing": "J"
     },
     "909": {
       "Owner_Name": "kajol kapoor",
+      "email": "example@example.com",
       "flatNumber": "909",
       "floor": "9",
       "notification_viewed": false,
       "password": "123456",
+      "phone": "1234567890",
       "role": "resident",
-      "wing": "B",
-      "email": "example@example.com",
-      "phone": "1234567890"
+      "wing": "B"
     },
     "1503": {
       "Owner_Name": "Armaan",
@@ -424,28 +416,42 @@
           "timestamp": "2025-04-14T02:56:08.613Z"
         }
       },
+      "email": "example@example.com",
       "flatNumber": "1503",
       "floor": "15",
+      "maintenance": {
+        "-ONn70SvpDFJyAUzg2wg": {
+          "billDate": "2025-05-12",
+          "breakdown": [
+            {
+              "amount": 5000,
+              "description": "MAINTENANCE DUE FOR MAY"
+            }
+          ],
+          "dueDate": "2025-05-30",
+          "generatedAt": 1744614463637,
+          "totalAmount": 5000
+        }
+      },
       "notification_viewed": true,
       "password": "Armaan1234",
       "password_set": true,
+      "phone": "1234567890",
       "role": "MC",
       "sub_role": "secretary",
-      "wing": "A",
-      "email": "example@example.com",
-      "phone": "1234567890"
+      "wing": "A"
     },
     "1703": {
       "Owner_Name": "Saima",
+      "email": "example@example.com",
       "flatNumber": "1703",
       "floor": "17",
       "notification_viewed": false,
       "password": "123456",
+      "phone": "1234567890",
       "role": "MC",
       "sub_role": "treasurer",
-      "wing": "C",
-      "email": "example@example.com",
-      "phone": "1234567890"
+      "wing": "C"
     }
   }
 }
