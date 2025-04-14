@@ -326,10 +326,27 @@
   "residents": {
     "108": {
       "Owner_Name": "Vrishab Shenvi",
+      "complaints": {
+        "-ONm42SOvGhu959FumMp": {
+          "complaint_content": "vrishab bada harami insaan hai",
+          "complaint_type": "member_related",
+          "resident_name": "Vrishab Shenvi",
+          "status": "Resolved",
+          "timestamp": "2025-04-14T02:15:07.863Z"
+        },
+        "-ONmAa0d352LQqlJ2FVz": {
+          "complaint_content": "saima kung is karaning",
+          "complaint_type": "member_related",
+          "resident_name": "Vrishab Shenvi",
+          "status": "Resolved",
+          "timestamp": "2025-04-14T02:43:42.313Z"
+        }
+      },
       "flatNumber": "108",
       "floor": "1",
       "notification_viewed": false,
       "password": "123456",
+      "password_set": true,
       "role": "resident",
       "wing": "V"
     },
@@ -374,11 +391,26 @@
     "1503": {
       "Owner_Name": "Armaan",
       "complaints": {
-        "-ONlykQ82F8uW9ODtO3F": {
-          "complaint_content": "saima is very dumb dumb",
+        "-ONm0XGQIxMQRTk7WOuI": {
+          "complaint_content": "saima is dumb dumb",
           "complaint_type": "member_related",
-          "status": "Pending",
-          "timestamp": "2025-04-14T01:47:37.032Z"
+          "status": "Resolved",
+          "timestamp": "2025-04-14T01:59:45.628Z"
+        },
+        "-ONm0dANa_DlvDTci9iO": {
+          "complaint_content": "why is this bugging out I have no clue",
+          "complaint_type": "society_related",
+          "status": "Resolved",
+          "timestamp": "2025-04-14T02:00:13.783Z"
+        },
+        "-ONmDRD_QTasjvhZl4Nb": {
+          "closedAt": "2025-04-14T02:56:22.636Z",
+          "closingReason": "because Im me",
+          "complaint_content": "this is weird",
+          "complaint_type": "member_related",
+          "resident_name": "Armaan",
+          "status": "Resolved",
+          "timestamp": "2025-04-14T02:56:08.613Z"
         }
       },
       "flatNumber": "1503",
