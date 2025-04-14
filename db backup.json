@@ -73,51 +73,6 @@
       "time": "17:43"
     }
   },
-  "complaints": {
-    "108": {
-      "-OLcg16gUIYkehYGnkCY": {
-        "complaint": "there is no proper water supply in the building. please look into this matter as soon as possible.\n",
-        "status": "Pending",
-        "timestamp": "2025-03-18T09:57:50.183Z"
-      }
-    },
-    "703": {
-      "-OLJzEF7QJG3Xic-hK_v": {
-        "complaint": "water has been cut for today",
-        "status": "Pending",
-        "timestamp": "2025-03-14T14:09:20.388Z"
-      },
-      "-OLJzEIPElzz1dIw3E4Z": {
-        "complaint": "water has been cut for today",
-        "status": "Pending",
-        "timestamp": "2025-03-14T14:09:20.602Z"
-      }
-    },
-    "809": {
-      "-OL5S0ReRBHD9hWV9Y5b": {
-        "complaint": "armaan is imbucile",
-        "status": "Pending",
-        "timestamp": "2025-03-11T18:25:09.926Z"
-      }
-    },
-    "909": {
-      "-OLcMbp5jSWqdDgOUw_G": {
-        "complaint": "i have a complain\n",
-        "status": "Pending",
-        "timestamp": "2025-03-18T08:28:39.622Z"
-      },
-      "-OLcMgHJE5dLJhokg96B": {
-        "complaint": "i have a complain\n",
-        "status": "Pending",
-        "timestamp": "2025-03-18T08:28:58.206Z"
-      },
-      "-OLcdgffHZPtIeFNQ7q8": {
-        "complaint": "i have a complaint\n",
-        "status": "Pending",
-        "timestamp": "2025-03-18T09:47:38.091Z"
-      }
-    }
-  },
   "guestroomBookings": {
     "-ONkbjmE6MUJTFiyeOzK": {
       "date": "2025-04-15",
@@ -261,18 +216,6 @@
         "2-4"
       ],
       "wing": "D"
-    }
-  },
-  "notices": {
-    "-OLVCYrlVFXGaPHq6RUx": {
-      "content": "hi",
-      "timestamp": "16/3/2025, 11:57:46 pm",
-      "title": "hiii"
-    },
-    "-OLcdI49zLVYk4YvdehK": {
-      "content": "No water supply from 8 am - 11 am for all wings.",
-      "timestamp": "3/18/2025, 3:15:54 PM",
-      "title": "No water supply today"
     }
   },
   "notifications": {
@@ -430,9 +373,17 @@
     },
     "1503": {
       "Owner_Name": "Armaan",
+      "complaints": {
+        "-ONlykQ82F8uW9ODtO3F": {
+          "complaint_content": "saima is very dumb dumb",
+          "complaint_type": "member_related",
+          "status": "Pending",
+          "timestamp": "2025-04-14T01:47:37.032Z"
+        }
+      },
       "flatNumber": "1503",
       "floor": "15",
-      "notification_viewed": false,
+      "notification_viewed": true,
       "password": "Armaan1234",
       "password_set": true,
       "role": "MC",
