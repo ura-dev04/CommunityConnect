@@ -293,6 +293,9 @@ document.addEventListener('DOMContentLoaded', () => {
         // Add new event
         eventRef = push(ref(database, 'events'));
         await set(eventRef, eventData);
+        
+        // Create notification for the new event
+        await createEventNotification(name, description, date, time, location);
       }
       
       hideModal(eventModal);
@@ -300,6 +303,39 @@ document.addEventListener('DOMContentLoaded', () => {
     } catch (error) {
       console.error('Error saving event:', error);
       document.getElementById('event-form-error').textContent = 'Error saving event. Please try again.';
+    }
+  }
+  
+  // Function to create a notification for a new event
+  async function createEventNotification(eventName, description, eventDate, eventTime, location) {
+    try {
+      const date = new Date(eventDate + 'T' + eventTime);
+      const formattedDate = date.toLocaleDateString('en-US', { 
+        weekday: 'long',
+        year: 'numeric', 
+        month: 'long', 
+        day: 'numeric' 
+      });
+      const formattedTime = date.toLocaleTimeString('en-US', { 
+        hour: '2-digit', 
+        minute: '2-digit'
+      });
+      
+      // Create notification content
+      const title = `New Event: ${eventName}`;
+      const body = `A new event has been scheduled: "${eventName}" on ${formattedDate} at ${formattedTime}, location: ${location}. ${description}`;
+      
+      // Add notification to database
+      const newNotification = {
+        title,
+        body,
+        timestamp: new Date().toISOString()
+      };
+      
+      await push(ref(database, 'notifications'), newNotification);
+      console.log('Event notification created successfully');
+    } catch (error) {
+      console.error('Error creating event notification:', error);
     }
   }
 
