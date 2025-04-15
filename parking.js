@@ -346,15 +346,23 @@ async function submitParkingRequest() {
     const reason = document.getElementById('request-reason').value;
     const vehicleNumber = document.getElementById('vehicle-number').value;
     
-    // Create a new parking request
-    const parkingRequestsRef = ref(database, 'parkingRequests');
-    const newRequestRef = push(parkingRequestsRef);
+    // Get requester's user ID (use flat number as user ID if no other ID available)
+    const userId = currentUser.id || currentUser.flatNumber || currentUser.apartment;
+    
+    if (!userId) {
+      throw new Error("Could not identify user ID for request");
+    }
+    
+    // Create a new parking request under the resident's ID
+    const userRequestsRef = ref(database, `residents/${userId}/parkingrequests`);
+    const newRequestRef = push(userRequestsRef);
     
     await set(newRequestRef, {
       parkingId,
       ownerFlat,
       requesterFlat: currentUser.apartment || currentUser.flatNumber, // Get flat from user data
       requesterName: currentUser.name || 'Unknown',
+      requesterUserId: userId,
       date,
       startTime,
       endTime,
@@ -406,21 +414,28 @@ async function loadPendingRequests() {
     `;
     
     try {
-      // Get parking requests with status = pending
-      const requestsRef = ref(database, 'parkingRequests');
-      const snapshot = await get(requestsRef);
+      // Get all residents data to find parking requests
+      const residentsRef = ref(database, 'residents');
+      const snapshot = await get(residentsRef);
       
       if (snapshot.exists()) {
-        const requests = snapshot.val();
+        const residents = snapshot.val();
         const pendingRequests = [];
         
-        // Filter for pending requests and convert to array
-        for (const [requestId, requestData] of Object.entries(requests)) {
-          if (requestData.status === 'pending') {
-            pendingRequests.push({
-              id: requestId,
-              ...requestData
-            });
+        // Iterate through all residents
+        for (const [userId, userData] of Object.entries(residents)) {
+          // Check if resident has parking requests
+          if (userData.parkingrequests) {
+            // Iterate through this resident's parking requests
+            for (const [requestId, requestData] of Object.entries(userData.parkingrequests)) {
+              if (requestData.status === 'pending') {
+                pendingRequests.push({
+                  id: requestId,
+                  userId: userId, // Store the user ID with the request for reference
+                  ...requestData
+                });
+              }
+            }
           }
         }
         
@@ -437,6 +452,12 @@ async function loadPendingRequests() {
         displayPendingRequests(pendingRequests);
       } else {
         requestsContainer.innerHTML = '<p>No pending requests found.</p>';
+        
+        // Update count display if it exists
+        const requestCountDisplay = document.getElementById('request-count');
+        if (requestCountDisplay) {
+          requestCountDisplay.textContent = '0 pending requests';
+        }
       }
     } catch (error) {
       console.error("Error loading pending requests:", error);
@@ -502,10 +523,10 @@ function displayPendingRequests(requests) {
         <span class="value reason-text">${request.reason}</span>
       </div>
       <div class="request-actions">
-        <button class="btn primary-btn approve-btn" data-request-id="${request.id}" data-owner-flat="${request.ownerFlat}" data-parking-number="${request.parkingNumber}">
+        <button class="btn primary-btn approve-btn" data-request-id="${request.id}" data-user-id="${request.userId}" data-owner-flat="${request.ownerFlat}" data-parking-number="${request.parkingNumber}">
           Approve
         </button>
-        <button class="btn secondary-btn reject-btn" data-request-id="${request.id}">
+        <button class="btn secondary-btn reject-btn" data-request-id="${request.id}" data-user-id="${request.userId}">
           Reject
         </button>
       </div>
@@ -519,20 +540,20 @@ function displayPendingRequests(requests) {
     const rejectBtn = requestCard.querySelector('.reject-btn');
     
     approveBtn.addEventListener('click', () => {
-      approveRequest(request.id, request.ownerFlat, request.parkingNumber, request);
+      approveRequest(request.userId, request.id, request.ownerFlat, request.parkingNumber, request);
     });
     
     rejectBtn.addEventListener('click', () => {
-      rejectRequest(request.id, request);
+      rejectRequest(request.userId, request.id, request);
     });
   });
 }
 
 // Function to approve a parking request
-async function approveRequest(requestId, ownerFlat, parkingNumber, requestData) {
+async function approveRequest(userId, requestId, ownerFlat, parkingNumber, requestData) {
   try {
     // 1. Update the request status to approved
-    const requestRef = ref(database, `parkingRequests/${requestId}`);
+    const requestRef = ref(database, `residents/${userId}/parkingrequests/${requestId}`);
     await update(requestRef, { status: 'approved' });
     
     // 2. Change the parking spot status to temp_hold
@@ -563,10 +584,10 @@ async function approveRequest(requestId, ownerFlat, parkingNumber, requestData) 
 }
 
 // Function to reject a parking request
-async function rejectRequest(requestId, requestData) {
+async function rejectRequest(userId, requestId, requestData) {
   try {
     // 1. Update the request status to rejected
-    const requestRef = ref(database, `parkingRequests/${requestId}`);
+    const requestRef = ref(database, `residents/${userId}/parkingrequests/${requestId}`);
     await update(requestRef, { status: 'rejected' });
     
     // 2. Create notification for the requester
