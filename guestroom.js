@@ -128,25 +128,25 @@ form.addEventListener('submit', async (e) => {
   if (type === 'room') {
     if (!roomCount || roomCount <= 0 || roomCount > TOTAL_ROOMS) {
       message.textContent = "Invalid number of rooms selected.";
-      message.style.color = "red";
+      message.style.color = "var(--accent)";
       return;
     }
     // Extra check: reject if no rooms are available
     if (roomsBooked >= TOTAL_ROOMS) {
       message.textContent = "No rooms available for the selected time slot.";
-      message.style.color = "red";
+      message.style.color = "var(--accent)";
       return;
     }
     if (roomsBooked + roomCount > TOTAL_ROOMS) {
       message.textContent = `Only ${TOTAL_ROOMS - roomsBooked} room(s) left for the selected time slot.`;
-      message.style.color = "red";
+      message.style.color = "var(--accent)";
       return;
     }
   }
 
   if (startTime >= endTime) {
     message.textContent = "End time must be after start time.";
-    message.style.color = "red";
+    message.style.color = "var(--accent)";
     return;
   }
 
@@ -168,13 +168,13 @@ form.addEventListener('submit', async (e) => {
 
     await set(bookingRef, bookingData);
     message.textContent = "Booking confirmed!";
-    message.style.color = "lightgreen";
+    message.style.color = "var(--accent)";
     loadBookings();
     form.reset();
     roomCountDiv.style.display = 'none';
   } catch (error) {
     console.error("Firebase error:", error);
     message.textContent = "Failed to book. Please try again.";
-    message.style.color = "red";
+    message.style.color = "var(--accent)";
   }
 });

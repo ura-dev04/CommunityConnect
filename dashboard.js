@@ -313,6 +313,8 @@ document.addEventListener('DOMContentLoaded', () => {
         
         // Update notification badge count
         notificationBadge.textContent = notificationsArray.length;
+        notificationBadge.style.background = "var(--accent)";
+        notificationBadge.style.color = "#ffffff";
         
         // Clear existing notifications
         notificationsList.innerHTML = '';

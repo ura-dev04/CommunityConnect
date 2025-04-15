@@ -46,9 +46,7 @@
 
 .contact-card:hover {
   transform: translateY(-10px);
-  background: rgba(255, 255, 255, 0.15);
-  border-color: #64ffda;
-  box-shadow: 0 8px 32px 0 rgba(100, 255, 218, 0.2);
+  box-shadow: 0 8px 20px var(--shadow-dark);
 }
 
 .contact-avatar {

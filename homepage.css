@@ -6,9 +6,9 @@
   }
   
   body {
-    font-family: 'Segoe UI', sans-serif;
-    background-color: #0e0e15;
-    color: #ffffff;
+    font-family: 'Poppins', 'Segoe UI', sans-serif;
+    background: linear-gradient(135deg, var(--bg-light), var(--primary-light));
+    color: var(--text-dark);
   }
   
   /* Navbar */
@@ -17,14 +17,18 @@
     justify-content: space-between;
     align-items: center;
     padding: 1rem 3rem;
-    background: rgba(20, 20, 35, 0.9);
+    background: var(--primary-light);
+    box-shadow: 0 4px 15px var(--shadow-dark);
+    border-bottom: 2px solid var(--primary);
     backdrop-filter: blur(8px);
   }
   
   .logo {
     font-size: 1.5rem;
     font-weight: bold;
-    color: #64ffda;
+    color: var(--primary-dark);
+    text-shadow: 0 2px 5px var(--shadow-dark);
+    letter-spacing: 1px;
   }
   
   .nav-links a {
@@ -36,7 +40,8 @@
   }
   
   .nav-links a:hover {
-    color: #64ffda;
+    background-color: var(--primary-light);
+    color: var(--primary-dark);
     transform: translateY(-2px);
   }
   
@@ -56,7 +61,7 @@
   /* Hero Section */
   .hero {
     height: 60vh;
-    background-image: url('images/image.png'); /* Use your uploaded background image */
+    background: linear-gradient(135deg, var(--primary-light), var(--accent-light));
     background-size: cover;
     background-position: center;
     display: flex;
@@ -68,16 +73,19 @@
   .hero-content h1 {
     font-size: 3rem;
     margin-bottom: 1rem;
+    color: var(--primary-dark);
+    text-shadow: 0 2px 5px var(--shadow-dark);
   }
   
   .hero-content p {
     font-size: 1.2rem;
     margin-bottom: 1.5rem;
+    color: var(--text-muted);
   }
   
   .cta-btn {
     padding: 0.75rem 2rem;
-    background-color: #64ffda;
+    background: var(--primary);
     border: none;
     border-radius: 10px;
     font-size: 1rem;
@@ -86,13 +94,13 @@
   }
   
   .cta-btn:hover {
-    background-color: #52e0c4;
+    background: var(--primary-dark);
   }
 
   /* Footer */
   footer {
     text-align: center;
     padding: 1rem;
-    background-color: #0e0e15;
-    color: #888888;
+    background: var(--primary-dark);
+    color: #ffffff;
   }

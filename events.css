@@ -138,9 +138,7 @@ body {
 
 .event-card:hover {
   transform: translateY(-5px);
-  background: rgba(255, 255, 255, 0.15);
-  border-color: #008B8B;
-  box-shadow: 0 8px 32px 0 rgba(0, 139, 139, 0.2);
+  box-shadow: 0 8px 20px var(--shadow-dark);
 }
 
 .event-card h3 {

@@ -12,7 +12,7 @@ export async function uploadImage(file) {
 
     try {
         const snapshot = await uploadBytes(storageRef, file);
-        const url = await getDownloadURL(snapshot.ref);  // ✅ Get direct Firebase URL
+        const url = await getDownloadURL(snapshot.ref);  //  Get direct Firebase URL
 
         // ✅ Store the correct URL in Realtime Database
         const imageRef = push(dbRef(database, "images"));
