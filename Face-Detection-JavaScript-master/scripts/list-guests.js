@@ -5,6 +5,19 @@ document.addEventListener('DOMContentLoaded', () => {
     const guestsList = document.getElementById('guests-list');
     const addGuestBtn = document.getElementById('add-guest-btn');
     const verifyBtn = document.getElementById('verify-guest-btn');
+    
+    // Get the logged-in user's apartment from session storage
+    const loggedInUser = JSON.parse(sessionStorage.getItem('loggedInUser') || '{}');
+    const userApartment = loggedInUser.apartment || 'unknown';
+    
+    // Add apartment display in the guests list header
+    const apartmentDisplay = document.createElement('div');
+    apartmentDisplay.className = 'apartment-display';
+    apartmentDisplay.textContent = `Guests for Apartment: ${userApartment}`;
+    const headerElement = document.querySelector('.guests-container h1');
+    if (headerElement && headerElement.nextSibling) {
+        headerElement.parentNode.insertBefore(apartmentDisplay, headerElement.nextSibling);
+    }
 
     // Navigate to add guest page
     addGuestBtn.addEventListener('click', () => {
@@ -34,10 +47,17 @@ document.addEventListener('DOMContentLoaded', () => {
                 const guestArray = Object.entries(guests).map(([id, data]) => ({
                     id,
                     ...data
-                }));
+                }))
+                // Filter guests to only show ones from the current user's apartment
+                .filter(guest => guest.apartment === userApartment);
                 
                 // Sort guests alphabetically by name
                 guestArray.sort((a, b) => a.name.localeCompare(b.name));
+                
+                if (guestArray.length === 0) {
+                    guestsList.innerHTML = '<p class="loading-text">No guests found for your apartment. Add your first guest!</p>';
+                    return;
+                }
                 
                 // Create a card for each guest
                 guestArray.forEach(guest => {

@@ -15,6 +15,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
     let capturedImageBlob = null;
     let modelsLoaded = false;
+    
+    // Get the logged-in user's apartment from session storage
+    const loggedInUser = JSON.parse(sessionStorage.getItem('loggedInUser') || '{}');
+    const userApartment = loggedInUser.apartment || 'unknown';
 
     // Start the camera and load models
     async function initialize() {
@@ -100,14 +104,15 @@ document.addEventListener('DOMContentLoaded', () => {
                 return;
             }
             
-            // 3. Store guest data in Firebase Realtime Database
+            // 3. Store guest data in Firebase Realtime Database with apartment info
             const guestRef = push(dbRef(database, "guests"));
             await set(guestRef, {
                 name,
                 phone,
                 imageUrl,
                 faceDescriptor: Array.from(faceFeatures.descriptor), // Convert Float32Array to regular array for storage
-                timestamp: new Date().toISOString()
+                timestamp: new Date().toISOString(),
+                apartment: userApartment // Add apartment information to track which flat added this guest
             });
             
             // Success message

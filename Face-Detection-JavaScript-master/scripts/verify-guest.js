@@ -7,6 +7,43 @@ document.addEventListener('DOMContentLoaded', async () => {
     const verifyBtn = document.getElementById('verify-btn');
     const resultContainer = document.getElementById('result-container');
     const statusDiv = document.getElementById('status');
+    
+    // Check if user is logged in
+    const loggedInUser = JSON.parse(sessionStorage.getItem('loggedInUser') || '{}');
+    const isLoggedIn = loggedInUser.apartment ? true : false;
+    const userApartment = loggedInUser.apartment || null;
+    
+    // Add user context UI indicator
+    const contextDisplay = document.createElement('div');
+    contextDisplay.className = 'verification-context';
+    
+    if (isLoggedIn) {
+        // Logged-in mode - only checking specific apartment's guests
+        contextDisplay.textContent = `Verifying guests for apartment: ${userApartment}`;
+        contextDisplay.classList.add('apartment-specific');
+    } else {
+        // Public mode - checking all guests
+        contextDisplay.textContent = 'Public verification mode - All guests';
+        contextDisplay.classList.add('public-mode');
+        
+        // Add a return to homepage link for public mode
+        const homeLink = document.createElement('a');
+        homeLink.href = '../homepage.html';
+        homeLink.className = 'back-btn home-btn';
+        homeLink.textContent = 'Return to Homepage';
+        
+        // Replace the existing back link to avoid confusion
+        const backLink = document.querySelector('.back-btn');
+        if (backLink && backLink.parentNode) {
+            backLink.parentNode.replaceChild(homeLink, backLink);
+        }
+    }
+    
+    // Add the context display to the page
+    const headerElement = document.querySelector('.guests-container h1');
+    if (headerElement && headerElement.nextSibling) {
+        headerElement.parentNode.insertBefore(contextDisplay, headerElement.nextSibling);
+    }
 
     let modelsLoaded = false;
 
@@ -76,21 +113,26 @@ document.addEventListener('DOMContentLoaded', async () => {
             
             // Compare with all registered guests
             Object.entries(guests).forEach(([id, guest]) => {
-                if (guest.faceDescriptor) {
-                    // Convert stored descriptor back to Float32Array
-                    const storedDescriptor = new Float32Array(guest.faceDescriptor);
-                    const distance = compareDescriptors(currentFaceDescriptor, storedDescriptor);
-                    
-                    // Check if this is the best match so far
-                    if (distance < bestMatchDistance) {
-                        bestMatchDistance = distance;
-                        bestMatch = {
-                            id,
-                            name: guest.name,
-                            phone: guest.phone,
-                            imageUrl: guest.imageUrl,
-                            distance
-                        };
+                // In logged-in mode, only check guests registered for this apartment
+                // In public mode, check all guests
+                if ((isLoggedIn && guest.apartment === userApartment) || !isLoggedIn) {
+                    if (guest.faceDescriptor) {
+                        // Convert stored descriptor back to Float32Array
+                        const storedDescriptor = new Float32Array(guest.faceDescriptor);
+                        const distance = compareDescriptors(currentFaceDescriptor, storedDescriptor);
+                        
+                        // Check if this is the best match so far
+                        if (distance < bestMatchDistance) {
+                            bestMatchDistance = distance;
+                            bestMatch = {
+                                id,
+                                name: guest.name,
+                                phone: guest.phone,
+                                imageUrl: guest.imageUrl,
+                                apartment: guest.apartment || 'Unknown',
+                                distance
+                            };
+                        }
                     }
                 }
             });
@@ -122,31 +164,47 @@ document.addEventListener('DOMContentLoaded', async () => {
         if (success && matchData) {
             const matchDetails = document.createElement('div');
             matchDetails.className = 'match-details';
+            
+            // In public mode, show apartment information
+            const apartmentInfo = !isLoggedIn ? `<p>Apartment: ${matchData.apartment}</p>` : '';
+            
             matchDetails.innerHTML = `
                 <img src="${matchData.imageUrl}" alt="${matchData.name}" class="match-photo">
                 <div class="match-info">
                     <p><strong>${matchData.name}</strong></p>
                     <p>Phone: ${matchData.phone}</p>
+                    ${apartmentInfo}
                     <p>Confidence: ${Math.round((1 - matchData.distance) * 100)}%</p>
                 </div>
             `;
             resultContainer.appendChild(matchDetails);
             
-            // Log entry button
-            const logButton = document.createElement('button');
-            logButton.className = 'primary-btn';
-            logButton.textContent = 'Log Entry';
-            logButton.addEventListener('click', () => logGuestEntry(matchData.id, matchData.name));
-            resultContainer.appendChild(logButton);
+            // Only show the log entry button if logged in
+            if (isLoggedIn) {
+                // Log entry button
+                const logButton = document.createElement('button');
+                logButton.className = 'primary-btn';
+                logButton.textContent = 'Log Entry';
+                logButton.addEventListener('click', () => logGuestEntry(matchData.id, matchData.name));
+                resultContainer.appendChild(logButton);
+            }
         } else if (!success) {
-            // Add a "Register New Guest" button when no match is found
-            const registerButton = document.createElement('button');
-            registerButton.className = 'primary-btn';
-            registerButton.textContent = 'Register New Guest';
-            registerButton.addEventListener('click', () => {
-                window.location.href = 'add-guest.html';
-            });
-            resultContainer.appendChild(registerButton);
+            // Add a "Register New Guest" button when no match is found, but only if logged in
+            if (isLoggedIn) {
+                const registerButton = document.createElement('button');
+                registerButton.className = 'primary-btn';
+                registerButton.textContent = 'Register New Guest';
+                registerButton.addEventListener('click', () => {
+                    window.location.href = 'add-guest.html';
+                });
+                resultContainer.appendChild(registerButton);
+            } else {
+                // For public mode, just show a message about registration
+                const registerInfo = document.createElement('p');
+                registerInfo.textContent = 'Please contact your apartment owner to register as a guest.';
+                registerInfo.className = 'register-info';
+                resultContainer.appendChild(registerInfo);
+            }
         }
         
         statusDiv.textContent = success ? "Verification complete!" : "Verification failed. Try again.";
@@ -159,6 +217,7 @@ document.addEventListener('DOMContentLoaded', async () => {
             await set(entryRef, {
                 guestId,
                 guestName,
+                apartment: userApartment, // Add apartment information to the entry log
                 timestamp: new Date().toISOString(),
                 type: 'entry'
             });
