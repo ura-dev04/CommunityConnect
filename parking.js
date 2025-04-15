@@ -19,6 +19,7 @@ const database = getDatabase(app);
 // Global variables
 let currentUser = null;
 let isHigherRole = false; // Flag to track if user has higher-level permissions
+let activeTab = 'all'; // Default active tab for requests
 
 // DOM elements
 const welcomeMessage = document.getElementById('welcome-message');
@@ -31,13 +32,18 @@ const wingFilter = document.getElementById('wing-filter');
 const applyFiltersBtn = document.getElementById('apply-filters');
 const requestModal = document.getElementById('request-modal');
 const confirmationModal = document.getElementById('confirmation-modal');
-const closeModalBtn = document.querySelector('.close-btn');
+const myRequestsModal = document.getElementById('my-requests-modal');
+const allRequestsModal = document.getElementById('all-requests-modal');
+const myRequestsBtn = document.getElementById('my-requests-btn');
+const allRequestsBtn = document.getElementById('all-requests-btn');
+const closeModalBtns = document.querySelectorAll('.close-btn');
 const cancelRequestBtn = document.getElementById('cancel-request');
 const confirmOkBtn = document.getElementById('confirm-ok');
 const parkingRequestForm = document.getElementById('parking-request-form');
 const selectedSpotInfo = document.getElementById('selected-spot-info');
-const requestsContainer = document.getElementById('pending-requests-container');
-const pendingRequestsSection = document.getElementById('pending-requests-section');
+const myRequestsContainer = document.getElementById('my-requests-container');
+const allRequestsContainer = document.getElementById('all-requests-container');
+const pendingCountBadge = document.getElementById('pending-count');
 
 document.addEventListener('DOMContentLoaded', () => {
   // Check if user is logged in
@@ -74,17 +80,27 @@ document.addEventListener('DOMContentLoaded', () => {
   // Load available parking spots (with default filters)
   loadAvailableParkingSpots();
   
-  // Load pending requests if user has higher role
-  if (isHigherRole) {
-    loadPendingRequests();
-  }
+  // Initialize tab events for request modals
+  initTabButtons();
   
   // Add event listeners
   applyFiltersBtn.addEventListener('click', loadAvailableParkingSpots);
   logoutBtn.addEventListener('click', logout);
-  closeModalBtn.addEventListener('click', closeModals);
-  cancelRequestBtn.addEventListener('click', closeModals);
-  confirmOkBtn.addEventListener('click', closeModals);
+  myRequestsBtn.addEventListener('click', openMyRequestsModal);
+  
+  if (isHigherRole && allRequestsBtn) {
+    allRequestsBtn.addEventListener('click', openAllRequestsModal);
+  }
+  
+  // Close modal buttons
+  closeModalBtns.forEach(btn => {
+    btn.addEventListener('click', function() {
+      closeAllModals();
+    });
+  });
+  
+  cancelRequestBtn.addEventListener('click', closeAllModals);
+  confirmOkBtn.addEventListener('click', closeAllModals);
   
   // Handle parking request form submission
   parkingRequestForm.addEventListener('submit', (e) => {
@@ -94,8 +110,8 @@ document.addEventListener('DOMContentLoaded', () => {
   
   // Close modals when clicking outside of modal content
   window.addEventListener('click', (e) => {
-    if (e.target === requestModal || e.target === confirmationModal) {
-      closeModals();
+    if (e.target.classList.contains('modal')) {
+      closeAllModals();
     }
   });
   
@@ -103,6 +119,11 @@ document.addEventListener('DOMContentLoaded', () => {
   const dateInput = document.getElementById('request-date');
   const today = new Date().toISOString().split('T')[0];
   dateInput.setAttribute('min', today);
+  
+  // Count pending requests if admin
+  if (isHigherRole) {
+    countPendingRequests();
+  }
 });
 
 // Function to check if user has higher role permissions
@@ -113,9 +134,36 @@ function checkIfHigherRole(subRole) {
 
 // Function to toggle admin functions visibility based on role
 function toggleAdminFunctions() {
-  if (pendingRequestsSection) {
-    pendingRequestsSection.style.display = isHigherRole ? 'block' : 'none';
+  if (allRequestsBtn) {
+    allRequestsBtn.style.display = isHigherRole ? 'flex' : 'none';
   }
+}
+
+// Function to initialize tab buttons for requests modals
+function initTabButtons() {
+  const tabButtons = document.querySelectorAll('.tab-btn');
+  
+  tabButtons.forEach(button => {
+    button.addEventListener('click', () => {
+      // Get the status filter from the button's data attribute
+      const statusFilter = button.getAttribute('data-status');
+      
+      // Find the parent modal
+      const parentModal = button.closest('.modal');
+      
+      // Update active tab in the parent modal
+      const tabsInSameModal = parentModal.querySelectorAll('.tab-btn');
+      tabsInSameModal.forEach(tab => tab.classList.remove('active'));
+      button.classList.add('active');
+      
+      // Determine which container to update based on the parent modal
+      if (parentModal.id === 'my-requests-modal') {
+        loadMyRequests(statusFilter);
+      } else if (parentModal.id === 'all-requests-modal') {
+        loadAllRequests(statusFilter);
+      }
+    });
+  });
 }
 
 // Function to load unique wings from residents data
@@ -200,7 +248,6 @@ async function loadAvailableParkingSpots() {
     const wing = wingFilter.value;
     
     // Get all residents data since we need to filter on multiple criteria
-    // Note: We can't use the wing index directly because parking status is nested
     const dbRef = ref(database, 'residents');
     const snapshot = await get(dbRef);
     
@@ -334,6 +381,47 @@ function openRequestModal(spot) {
   requestModal.style.display = 'block';
 }
 
+// Function to open My Requests modal
+function openMyRequestsModal() {
+  // Reset active tab to 'all'
+  const tabButtons = myRequestsModal.querySelectorAll('.tab-btn');
+  tabButtons.forEach(tab => tab.classList.remove('active'));
+  const allTab = myRequestsModal.querySelector('.tab-btn[data-status="all"]');
+  if (allTab) allTab.classList.add('active');
+  
+  // Load user's requests
+  loadMyRequests('all');
+  
+  // Show modal
+  myRequestsModal.style.display = 'block';
+}
+
+// Function to open All Requests modal (admin only)
+function openAllRequestsModal() {
+  // Only proceed if user has higher role permissions
+  if (!isHigherRole) return;
+  
+  // Reset active tab to 'pending'
+  const tabButtons = allRequestsModal.querySelectorAll('.tab-btn');
+  tabButtons.forEach(tab => tab.classList.remove('active'));
+  const pendingTab = allRequestsModal.querySelector('.tab-btn[data-status="pending"]');
+  if (pendingTab) pendingTab.classList.add('active');
+  
+  // Load all requests
+  loadAllRequests('pending');
+  
+  // Show modal
+  allRequestsModal.style.display = 'block';
+}
+
+// Function to close all modals
+function closeAllModals() {
+  const allModals = document.querySelectorAll('.modal');
+  allModals.forEach(modal => {
+    modal.style.display = 'none';
+  });
+}
+
 // Function to submit parking request
 async function submitParkingRequest() {
   try {
@@ -390,121 +478,202 @@ async function submitParkingRequest() {
     // Reset form
     parkingRequestForm.reset();
     
+    // Update pending count for admins
+    if (isHigherRole) {
+      countPendingRequests();
+    }
+    
   } catch (error) {
     console.error("Error submitting parking request:", error);
     alert("Error submitting request. Please try again later.");
   }
 }
 
-// Function to close all modals
-function closeModals() {
-  requestModal.style.display = 'none';
-  confirmationModal.style.display = 'none';
-}
-
-// Function to load pending parking requests
-async function loadPendingRequests() {
+// Function to load all requests (for admins)
+async function loadAllRequests(statusFilter = 'pending') {
+  if (!allRequestsContainer) return;
+  
   // Show loading state
-  if (requestsContainer) {
-    requestsContainer.innerHTML = `
-      <div class="loading-container">
-        <div class="loading-spinner"></div>
-        <p>Loading pending requests...</p>
-      </div>
-    `;
+  allRequestsContainer.innerHTML = `
+    <div class="loading-container">
+      <div class="loading-spinner"></div>
+      <p>Loading requests...</p>
+    </div>
+  `;
+  
+  try {
+    // Get all residents data to find parking requests
+    const residentsRef = ref(database, 'residents');
+    const snapshot = await get(residentsRef);
     
-    try {
-      // Get all residents data to find parking requests
-      const residentsRef = ref(database, 'residents');
-      const snapshot = await get(residentsRef);
+    if (snapshot.exists()) {
+      const residents = snapshot.val();
+      const filteredRequests = [];
       
-      if (snapshot.exists()) {
-        const residents = snapshot.val();
-        const pendingRequests = [];
-        
-        // Iterate through all residents
-        for (const [userId, userData] of Object.entries(residents)) {
-          // Check if resident has parking requests
-          if (userData.parkingrequests) {
-            // Iterate through this resident's parking requests
-            for (const [requestId, requestData] of Object.entries(userData.parkingrequests)) {
-              if (requestData.status === 'pending') {
-                pendingRequests.push({
-                  id: requestId,
-                  userId: userId, // Store the user ID with the request for reference
-                  ...requestData
-                });
-              }
+      // Iterate through all residents
+      for (const [userId, userData] of Object.entries(residents)) {
+        // Check if resident has parking requests
+        if (userData.parkingrequests) {
+          // Iterate through this resident's parking requests
+          for (const [requestId, requestData] of Object.entries(userData.parkingrequests)) {
+            // Apply status filter
+            if (statusFilter === 'all' || requestData.status === statusFilter) {
+              filteredRequests.push({
+                id: requestId,
+                userId: userId, // Store the user ID with the request for reference
+                ...requestData
+              });
             }
           }
         }
-        
-        // Sort by date (newest first)
-        pendingRequests.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
-        
-        // Update count display if it exists
-        const requestCountDisplay = document.getElementById('request-count');
-        if (requestCountDisplay) {
-          requestCountDisplay.textContent = `${pendingRequests.length} pending requests`;
-        }
-        
-        // Display the pending requests
-        displayPendingRequests(pendingRequests);
-      } else {
-        requestsContainer.innerHTML = '<p>No pending requests found.</p>';
-        
-        // Update count display if it exists
-        const requestCountDisplay = document.getElementById('request-count');
-        if (requestCountDisplay) {
-          requestCountDisplay.textContent = '0 pending requests';
-        }
       }
-    } catch (error) {
-      console.error("Error loading pending requests:", error);
-      requestsContainer.innerHTML = `
-        <p>Error loading pending requests. Please try again later.</p>
-        <p class="error-details">${error.message}</p>
-      `;
+      
+      // Sort by date (newest first)
+      filteredRequests.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+      
+      // Display the filtered requests
+      displayRequestsInContainer(filteredRequests, allRequestsContainer, true);
+    } else {
+      allRequestsContainer.innerHTML = '<div class="no-results"><p>No requests found.</p></div>';
     }
+  } catch (error) {
+    console.error("Error loading requests:", error);
+    allRequestsContainer.innerHTML = `
+      <div class="no-results">
+        <p>Error loading requests. Please try again later.</p>
+        <p class="error-details">${error.message}</p>
+      </div>
+    `;
   }
 }
 
-// Function to display pending requests
-function displayPendingRequests(requests) {
-  if (!requestsContainer) return;
+// Function to load user's own requests
+async function loadMyRequests(statusFilter = 'all') {
+  if (!myRequestsContainer) return;
+  
+  // Show loading state
+  myRequestsContainer.innerHTML = `
+    <div class="loading-container">
+      <div class="loading-spinner"></div>
+      <p>Loading your requests...</p>
+    </div>
+  `;
+  
+  try {
+    // Get user ID (use flat number as user ID if no other ID available)
+    const userId = currentUser.id || currentUser.flatNumber || currentUser.apartment;
+    
+    if (!userId) {
+      throw new Error("Could not identify user ID");
+    }
+    
+    // Reference to user's parking requests
+    const userRequestsRef = ref(database, `residents/${userId}/parkingrequests`);
+    const snapshot = await get(userRequestsRef);
+    
+    if (snapshot.exists()) {
+      const requests = snapshot.val();
+      const filteredRequests = [];
+      
+      // Filter and format requests
+      for (const [requestId, requestData] of Object.entries(requests)) {
+        // Apply status filter
+        if (statusFilter === 'all' || requestData.status === statusFilter) {
+          filteredRequests.push({
+            id: requestId,
+            userId: userId,
+            ...requestData
+          });
+        }
+      }
+      
+      // Sort by date (newest first)
+      filteredRequests.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+      
+      // Display the filtered requests
+      displayRequestsInContainer(filteredRequests, myRequestsContainer, false);
+    } else {
+      myRequestsContainer.innerHTML = '<div class="no-results"><p>You have not made any parking requests yet.</p></div>';
+    }
+  } catch (error) {
+    console.error("Error loading user requests:", error);
+    myRequestsContainer.innerHTML = `
+      <div class="no-results">
+        <p>Error loading your requests. Please try again later.</p>
+        <p class="error-details">${error.message}</p>
+      </div>
+    `;
+  }
+}
+
+// Function to count pending requests for badge display
+async function countPendingRequests() {
+  try {
+    // Get all residents data to count parking requests
+    const residentsRef = ref(database, 'residents');
+    const snapshot = await get(residentsRef);
+    
+    if (snapshot.exists()) {
+      const residents = snapshot.val();
+      let pendingCount = 0;
+      
+      // Iterate through all residents
+      for (const [userId, userData] of Object.entries(residents)) {
+        // Check if resident has parking requests
+        if (userData.parkingrequests) {
+          // Count pending requests
+          for (const requestData of Object.values(userData.parkingrequests)) {
+            if (requestData.status === 'pending') {
+              pendingCount++;
+            }
+          }
+        }
+      }
+      
+      // Update the badge count
+      if (pendingCountBadge) {
+        pendingCountBadge.textContent = pendingCount;
+        pendingCountBadge.style.display = pendingCount > 0 ? 'inline' : 'none';
+      }
+    }
+  } catch (error) {
+    console.error("Error counting pending requests:", error);
+  }
+}
+
+// Function to display requests in a container (works for both my requests and all requests)
+function displayRequestsInContainer(requests, container, isAdminView = false) {
+  if (!container) return;
   
   if (requests.length === 0) {
-    requestsContainer.innerHTML = `
+    container.innerHTML = `
       <div class="no-results">
-        <p>No pending parking requests at this time.</p>
+        <p>No requests found matching the selected filter.</p>
       </div>
     `;
     return;
   }
   
   // Clear current content
-  requestsContainer.innerHTML = '';
+  container.innerHTML = '';
   
-  // Create a request card for each pending request
+  // Create a request card for each request
   requests.forEach(request => {
+    const statusClass = request.status;
+    const statusText = request.status.charAt(0).toUpperCase() + request.status.slice(1);
+    
     const requestCard = document.createElement('div');
     requestCard.className = 'request-card';
-    requestCard.innerHTML = `
+    
+    // Common request details HTML
+    let cardHTML = `
       <div class="request-header">
         <h3>Request #${request.id.slice(-6)}</h3>
-        <span class="status-badge pending">Pending</span>
-      </div>
-      <div class="request-detail">
-        <span class="label">Requested by:</span>
-        <span class="value">${request.requesterName} (Flat ${request.requesterFlat})</span>
+        <span class="status-badge ${statusClass}">${statusText}</span>
       </div>
       <div class="request-detail">
         <span class="label">Parking Spot:</span>
         <span class="value">${request.parkingId}</span>
-      </div>
-      <div class="request-detail">
-        <span class="label">Owner Flat:</span>
-        <span class="value">${request.ownerFlat}</span>
       </div>
       <div class="request-detail">
         <span class="label">Date:</span>
@@ -518,34 +687,74 @@ function displayPendingRequests(requests) {
         <span class="label">Vehicle Number:</span>
         <span class="value">${request.vehicleNumber}</span>
       </div>
+    `;
+    
+    // Add additional details for admin view
+    if (isAdminView) {
+      cardHTML += `
+        <div class="request-detail">
+          <span class="label">Requested by:</span>
+          <span class="value">${request.requesterName} (Flat ${request.requesterFlat})</span>
+        </div>
+        <div class="request-detail">
+          <span class="label">Owner Flat:</span>
+          <span class="value">${request.ownerFlat}</span>
+        </div>
+      `;
+    } else {
+      cardHTML += `
+        <div class="request-detail">
+          <span class="label">Owner Flat:</span>
+          <span class="value">${request.ownerFlat}</span>
+        </div>
+      `;
+    }
+    
+    // Add reason for the request
+    cardHTML += `
       <div class="request-detail">
         <span class="label">Reason:</span>
         <span class="value reason-text">${request.reason}</span>
       </div>
-      <div class="request-actions">
-        <button class="btn primary-btn approve-btn" data-request-id="${request.id}" data-user-id="${request.userId}" data-owner-flat="${request.ownerFlat}" data-parking-number="${request.parkingNumber}">
-          Approve
-        </button>
-        <button class="btn secondary-btn reject-btn" data-request-id="${request.id}" data-user-id="${request.userId}">
-          Reject
-        </button>
-      </div>
     `;
     
-    // Add request card to container
-    requestsContainer.appendChild(requestCard);
+    // Add action buttons for admin view and pending status
+    if (isAdminView && request.status === 'pending') {
+      cardHTML += `
+        <div class="request-actions">
+          <button class="btn approve-btn" data-request-id="${request.id}" data-user-id="${request.userId}" data-owner-flat="${request.ownerFlat}" data-parking-number="${request.parkingNumber}">
+            Approve
+          </button>
+          <button class="btn reject-btn" data-request-id="${request.id}" data-user-id="${request.userId}">
+            Reject
+          </button>
+        </div>
+      `;
+    }
     
-    // Add event listeners to approve/reject buttons
-    const approveBtn = requestCard.querySelector('.approve-btn');
-    const rejectBtn = requestCard.querySelector('.reject-btn');
+    // Set the card HTML
+    requestCard.innerHTML = cardHTML;
     
-    approveBtn.addEventListener('click', () => {
-      approveRequest(request.userId, request.id, request.ownerFlat, request.parkingNumber, request);
-    });
+    // Add the card to the container
+    container.appendChild(requestCard);
     
-    rejectBtn.addEventListener('click', () => {
-      rejectRequest(request.userId, request.id, request);
-    });
+    // Add event listeners to approve/reject buttons if present
+    if (isAdminView && request.status === 'pending') {
+      const approveBtn = requestCard.querySelector('.approve-btn');
+      const rejectBtn = requestCard.querySelector('.reject-btn');
+      
+      if (approveBtn) {
+        approveBtn.addEventListener('click', () => {
+          approveRequest(request.userId, request.id, request.ownerFlat, request.parkingNumber, request);
+        });
+      }
+      
+      if (rejectBtn) {
+        rejectBtn.addEventListener('click', () => {
+          rejectRequest(request.userId, request.id, request);
+        });
+      }
+    }
   });
 }
 
@@ -571,10 +780,13 @@ async function approveRequest(userId, requestId, ownerFlat, parkingNumber, reque
       targetUser: requestData.requesterFlat
     });
     
-    // 4. Reload pending requests to refresh the list
-    loadPendingRequests();
+    // 4. Reload the requests to refresh the list
+    loadAllRequests('pending');
     
-    // 5. Show success message
+    // 5. Update pending count badge
+    countPendingRequests();
+    
+    // 6. Show success message
     alert('Request approved successfully!');
     
   } catch (error) {
@@ -601,10 +813,13 @@ async function rejectRequest(userId, requestId, requestData) {
       targetUser: requestData.requesterFlat
     });
     
-    // 3. Reload pending requests to refresh the list
-    loadPendingRequests();
+    // 3. Reload the requests to refresh the list
+    loadAllRequests('pending');
     
-    // 4. Show success message
+    // 4. Update pending count badge
+    countPendingRequests();
+    
+    // 5. Show success message
     alert('Request rejected successfully!');
     
   } catch (error) {

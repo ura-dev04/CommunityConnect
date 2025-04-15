@@ -16,6 +16,47 @@
 .page-header p {
   font-size: 1.1rem;
   color: #cccccc;
+  margin-bottom: 1.5rem;
+}
+
+/* Request buttons in header */
+.request-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  margin-top: 1.5rem;
+}
+
+.request-btn {
+  background-color: rgba(100, 255, 218, 0.1);
+  color: #64ffda;
+  border: 1px solid #64ffda;
+  padding: 0.8rem 1.5rem;
+  border-radius: 30px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.request-btn:hover {
+  background-color: rgba(100, 255, 218, 0.2);
+  transform: translateY(-2px);
+}
+
+.request-btn .count-badge {
+  background-color: #64ffda;
+  color: #141428;
+  font-size: 0.8rem;
+  padding: 0.2rem 0.5rem;
+  border-radius: 10px;
+}
+
+/* Admin only elements */
+.admin-only {
+  display: none; /* Hidden by default, shown via JS for admin users */
 }
 
 .parking-container {
@@ -192,6 +233,37 @@
   border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
+.large-modal {
+  max-width: 800px;
+  max-height: 80vh;
+  overflow-y: auto;
+}
+
+.modal-body {
+  max-height: 65vh;
+  overflow-y: auto;
+  padding-right: 0.5rem;
+}
+
+/* Custom scrollbar for modal body */
+.modal-body::-webkit-scrollbar {
+  width: 8px;
+}
+
+.modal-body::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 10px;
+}
+
+.modal-body::-webkit-scrollbar-thumb {
+  background: rgba(100, 255, 218, 0.3);
+  border-radius: 10px;
+}
+
+.modal-body::-webkit-scrollbar-thumb:hover {
+  background: rgba(100, 255, 218, 0.5);
+}
+
 @keyframes modalFade {
   from {
     opacity: 0;
@@ -228,6 +300,54 @@
   border-radius: 5px;
   margin-bottom: 1.5rem;
   border-left: 4px solid #64ffda;
+}
+
+/* Request Tabs */
+.request-tabs {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  margin-bottom: 2rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  padding-bottom: 1rem;
+}
+
+.tab-btn {
+  background: transparent;
+  color: #cccccc;
+  border: none;
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: all 0.3s ease;
+  position: relative;
+}
+
+.tab-btn:hover {
+  color: #64ffda;
+}
+
+.tab-btn.active {
+  color: #64ffda;
+  font-weight: bold;
+}
+
+.tab-btn.active:after {
+  content: '';
+  position: absolute;
+  bottom: -1rem;
+  left: 0;
+  width: 100%;
+  height: 3px;
+  background-color: #64ffda;
+  border-radius: 3px 3px 0 0;
+}
+
+/* Requests Container */
+.requests-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+  gap: 1.5rem;
 }
 
 /* Form Styles */
@@ -303,21 +423,7 @@
   100% { transform: rotate(360deg); }
 }
 
-/* Pending Requests Section */
-.pending-requests-section {
-  margin-top: 2rem;
-  background: rgba(255, 255, 255, 0.05);
-  border-radius: 10px;
-  padding: 1.5rem;
-  display: none; /* Hidden by default, shown for higher roles */
-}
-
-.pending-requests-container {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
-  gap: 1.5rem;
-}
-
+/* Request Cards */
 .request-card {
   background: rgba(255, 255, 255, 0.08);
   border-radius: 10px;
@@ -348,6 +454,16 @@
 .status-badge.pending {
   background-color: rgba(255, 193, 7, 0.2);
   color: #ffc107;
+}
+
+.status-badge.approved {
+  background-color: rgba(76, 175, 80, 0.2);
+  color: #4CAF50;
+}
+
+.status-badge.rejected {
+  background-color: rgba(244, 67, 54, 0.2);
+  color: #f44336;
 }
 
 .request-detail {
@@ -398,6 +514,17 @@
   background-color: rgba(244, 67, 54, 0.1);
 }
 
+/* Empty state */
+.no-results {
+  text-align: center;
+  padding: 3rem 1rem;
+  color: #aaaaaa;
+}
+
+.no-results p {
+  margin-bottom: 0.5rem;
+}
+
 /* Responsive Design */
 @media (max-width: 768px) {
   .parking-container {
@@ -414,7 +541,17 @@
     gap: 0.5rem;
   }
   
-  .pending-requests-container {
+  .requests-container {
     grid-template-columns: 1fr;
+  }
+  
+  .request-tabs {
+    flex-wrap: wrap;
+    justify-content: flex-start;
+  }
+  
+  .request-buttons {
+    flex-direction: column;
+    align-items: center;
   }
 }

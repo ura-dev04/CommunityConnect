@@ -26,6 +26,11 @@
   <section class="page-header">
     <h1>Parking Management</h1>
     <p>View and request available parking spots</p>
+    
+    <div class="request-buttons">
+      <button id="my-requests-btn" class="btn request-btn">My Requests</button>
+      <button id="all-requests-btn" class="btn request-btn admin-only">All Requests <span id="pending-count" class="count-badge">0</span></button>
+    </div>
   </section>
 
   <div class="parking-container">
@@ -60,22 +65,6 @@
         <div class="loading-container">
           <div class="loading-spinner"></div>
           <p>Loading available parking spots...</p>
-        </div>
-      </div>
-    </div>
-
-    <!-- Admin section for pending requests - Only visible to higher roles -->
-    <div class="pending-requests-section" id="pending-requests-section">
-      <div class="section-header">
-        <h2>Pending Requests</h2>
-        <span id="request-count" class="count-badge">0 pending requests</span>
-      </div>
-      
-      <div class="pending-requests-container" id="pending-requests-container">
-        <!-- Pending requests will be displayed here dynamically -->
-        <div class="loading-container">
-          <div class="loading-spinner"></div>
-          <p>Loading pending requests...</p>
         </div>
       </div>
     </div>
@@ -125,6 +114,56 @@
           <button type="button" class="btn secondary-btn" id="cancel-request">Cancel</button>
         </div>
       </form>
+    </div>
+  </div>
+
+  <!-- My Requests Modal -->
+  <div id="my-requests-modal" class="modal">
+    <div class="modal-content large-modal">
+      <span class="close-btn" id="close-my-requests">&times;</span>
+      <h2>My Parking Requests</h2>
+      
+      <div class="modal-body">
+        <div class="request-tabs">
+          <button class="tab-btn active" data-status="all">All</button>
+          <button class="tab-btn" data-status="pending">Pending</button>
+          <button class="tab-btn" data-status="approved">Approved</button>
+          <button class="tab-btn" data-status="rejected">Rejected</button>
+        </div>
+        
+        <div id="my-requests-container" class="requests-container">
+          <!-- User requests will be displayed here dynamically -->
+          <div class="loading-container">
+            <div class="loading-spinner"></div>
+            <p>Loading your requests...</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- All Requests Modal (Admin only) -->
+  <div id="all-requests-modal" class="modal">
+    <div class="modal-content large-modal">
+      <span class="close-btn" id="close-all-requests">&times;</span>
+      <h2>All Parking Requests</h2>
+      
+      <div class="modal-body">
+        <div class="request-tabs">
+          <button class="tab-btn active" data-status="pending">Pending</button>
+          <button class="tab-btn" data-status="approved">Approved</button>
+          <button class="tab-btn" data-status="rejected">Rejected</button>
+          <button class="tab-btn" data-status="all">All</button>
+        </div>
+        
+        <div id="all-requests-container" class="requests-container">
+          <!-- All requests will be displayed here dynamically -->
+          <div class="loading-container">
+            <div class="loading-spinner"></div>
+            <p>Loading all requests...</p>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 
