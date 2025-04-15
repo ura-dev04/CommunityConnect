@@ -75,6 +75,12 @@
     margin-bottom: 1.5rem;
   }
   
+  .button-group {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+  }
+  
   .cta-btn {
     padding: 0.75rem 2rem;
     background-color: #64ffda;
@@ -82,11 +88,26 @@
     border-radius: 10px;
     font-size: 1rem;
     cursor: pointer;
+    color: #0e0e15;
     margin-right: 1rem;
   }
   
   .cta-btn:hover {
     background-color: #52e0c4;
+  }
+  
+  .verify-guest-btn {
+    padding: 0.75rem 2rem;
+    background-color: #008B8B;
+    border: none;
+    border-radius: 10px;
+    font-size: 1rem;
+    cursor: pointer;
+    color: #ffffff;
+  }
+  
+  .verify-guest-btn:hover {
+    background-color: #006666;
   }
 
   /* Footer */
