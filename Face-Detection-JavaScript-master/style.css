@@ -297,3 +297,14 @@ button:hover {
     border-radius: 50%;
     object-fit: cover;
 }
+
+/* Apartment display */
+.apartment-display {
+    margin-bottom: 20px;
+    padding: 10px;
+    background-color: rgba(100, 255, 218, 0.1);
+    border-radius: 8px;
+    color: #64ffda;
+    font-weight: 600;
+    text-align: center;
+}
