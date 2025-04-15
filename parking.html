@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Parking Management | CommunityConnect</title>
+  <link rel="stylesheet" href="dashboard.css">
+  <link rel="stylesheet" href="parking.css">
+</head>
+<body>
+  <header class="navbar">
+    <div class="logo">CommunityConnect</div>
+    <div class="user-welcome-container">
+      <div id="welcome-message">Welcome</div>
+      <div id="user-role">Loading...</div>
+    </div>
+    <nav class="nav-links">
+      <a href="dashboard.html">Home</a>
+    </nav>
+    <div class="auth-buttons">
+      <button class="change-password-btn" onclick="window.location.href='dashboard.html#change-password'">Change Password</button>
+      <button class="logout-btn" id="logout-btn">Logout</button>
+    </div>
+  </header>
+
+  <section class="page-header">
+    <h1>Parking Management</h1>
+    <p>View and request available parking spots</p>
+  </section>
+
+  <div class="parking-container">
+    <div class="filter-section">
+      <h2>Filter Options</h2>
+      <div class="filter-group">
+        <label for="vehicle-type">Vehicle Type:</label>
+        <select id="vehicle-type">
+          <option value="all">All Types</option>
+          <option value="2">Two Wheeler</option>
+          <option value="4">Four Wheeler</option>
+        </select>
+      </div>
+      <div class="filter-group">
+        <label for="wing-filter">Building Wing:</label>
+        <select id="wing-filter">
+          <option value="all">All Wings</option>
+          <!-- Wings will be populated dynamically -->
+        </select>
+      </div>
+      <button id="apply-filters" class="btn primary-btn">Apply Filters</button>
+    </div>
+
+    <div class="parking-list-section">
+      <div class="section-header">
+        <h2>Available Parking Spots</h2>
+        <span id="spot-count" class="count-badge">0 spots available</span>
+      </div>
+      
+      <div class="parking-spots-container" id="parking-spots-container">
+        <!-- Parking spots will be displayed here dynamically -->
+        <div class="loading-container">
+          <div class="loading-spinner"></div>
+          <p>Loading available parking spots...</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Request Parking Modal -->
+  <div id="request-modal" class="modal">
+    <div class="modal-content">
+      <span class="close-btn">&times;</span>
+      <h2>Request Parking Spot</h2>
+      <div id="selected-spot-info" class="selected-spot-info"></div>
+      
+      <form id="parking-request-form">
+        <input type="hidden" id="parking-id" name="parking-id">
+        
+        <div class="form-group">
+          <label for="request-date">Date:</label>
+          <input type="date" id="request-date" name="date" required>
+        </div>
+        
+        <div class="form-group time-slots">
+          <label>Time Slot:</label>
+          <div class="time-selection">
+            <div>
+              <label for="start-time">From:</label>
+              <input type="time" id="start-time" name="start-time" required>
+            </div>
+            <div>
+              <label for="end-time">To:</label>
+              <input type="time" id="end-time" name="end-time" required>
+            </div>
+          </div>
+        </div>
+        
+        <div class="form-group">
+          <label for="request-reason">Reason for Request:</label>
+          <textarea id="request-reason" name="reason" rows="3" required></textarea>
+        </div>
+        
+        <div class="form-group">
+          <label for="vehicle-number">Vehicle Number:</label>
+          <input type="text" id="vehicle-number" name="vehicle-number" required>
+        </div>
+        
+        <div class="form-actions">
+          <button type="submit" class="btn primary-btn">Submit Request</button>
+          <button type="button" class="btn secondary-btn" id="cancel-request">Cancel</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Confirmation Modal -->
+  <div id="confirmation-modal" class="modal">
+    <div class="modal-content">
+      <h2>Request Submitted</h2>
+      <p>Your parking request has been submitted successfully. You will be notified when your request is processed.</p>
+      <button class="btn primary-btn" id="confirm-ok">OK</button>
+    </div>
+  </div>
+
+  <footer>
+    <p>&copy; 2025 CommunityConnect. All rights reserved.</p>
+  </footer>
+
+  <script type="module" src="parking.js"></script>
+</body>
+</html>
