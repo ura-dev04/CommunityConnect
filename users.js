@@ -32,6 +32,7 @@ document.addEventListener("DOMContentLoaded", function() {
     const subRoleGroup = document.getElementById('sub-role-group');
     const addParkingBtn = document.getElementById('add-parking-btn');
     const parkingContainer = document.getElementById('parking-container');
+    const messageElement = document.getElementById('message');
     let parkingCounter = 1; // Start from 1 since we already have slot 0
 
     // Show/hide sub-role dropdown based on role selection
@@ -94,6 +95,11 @@ document.addEventListener("DOMContentLoaded", function() {
         
         parkingContainer.appendChild(newParkingGroup);
         parkingCounter++;
+        
+        // Scroll to show the newly added parking slot
+        setTimeout(() => {
+            newParkingGroup.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        }, 100);
     }
 
     // Check if user is logged in
@@ -131,7 +137,8 @@ document.addEventListener("DOMContentLoaded", function() {
     closeFormBtn.addEventListener('click', () => {
         formContainer.style.display = 'none';
         overlay.style.display = 'none';
-        document.getElementById('message').innerText = '';
+        messageElement.textContent = '';
+        messageElement.style.display = 'none';
         form.reset();
         subRoleGroup.style.display = 'none';
     });
@@ -139,6 +146,8 @@ document.addEventListener("DOMContentLoaded", function() {
     overlay.addEventListener('click', () => {
         formContainer.style.display = 'none';
         overlay.style.display = 'none';
+        messageElement.textContent = '';
+        messageElement.style.display = 'none';
     });
 
     // Handle logout button click
@@ -166,7 +175,10 @@ document.addEventListener("DOMContentLoaded", function() {
 
             // Check if all fields are filled
             if (!name || !email || !phone || !flatNumber || !floor || !wing) {
-                document.getElementById('message').innerText = "Please fill in all fields.";
+                messageElement.textContent = "Please fill in all fields.";
+                messageElement.style.display = 'block';
+                // Ensure message is visible by scrolling to it
+                messageElement.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
                 return;
             }
 
@@ -212,7 +224,10 @@ document.addEventListener("DOMContentLoaded", function() {
             // Save data to Firebase Realtime Database
             set(ref(database, 'residents/' + flatNumber), residentData)
             .then(() => {
-                document.getElementById('message').innerText = "Data saved successfully!";
+                messageElement.textContent = "Data saved successfully!";
+                messageElement.style.display = 'block';
+                // Scroll to see the success message
+                messageElement.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
                 form.reset();
                 subRoleGroup.style.display = 'none';
                 
@@ -251,11 +266,15 @@ document.addEventListener("DOMContentLoaded", function() {
                 setTimeout(() => {
                     formContainer.style.display = 'none';
                     overlay.style.display = 'none';
-                    document.getElementById('message').innerText = '';
+                    messageElement.textContent = '';
+                    messageElement.style.display = 'none';
                 }, 1500);
             })
             .catch((error) => {
-                document.getElementById('message').innerText = "Error: " + error.message;
+                messageElement.textContent = "Error: " + error.message;
+                messageElement.style.display = 'block';
+                // Scroll to see the error message
+                messageElement.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
             });
         });
     }
@@ -278,7 +297,7 @@ document.addEventListener("DOMContentLoaded", function() {
                 );
                 
                 if (sortedResidents.length === 0) {
-                    residentsGrid.innerHTML = '<p>No residents found.</p>';
+                    residentsGrid.innerHTML = '<div class="loading">No residents found.</div>';
                     return;
                 }
                 
@@ -294,17 +313,18 @@ document.addEventListener("DOMContentLoaded", function() {
                         <p><strong>Phone:</strong> ${resident.phone || 'Not provided'}</p>
                         <p><strong>Wing:</strong> ${resident.wing}</p>
                         <p><strong>Floor:</strong> ${resident.floor}</p>
+                        <p><strong>Role:</strong> ${resident.role}${resident.sub_role ? ' (' + resident.sub_role + ')' : ''}</p>
                     `;
                     
                     residentCard.innerHTML = cardHTML;
                     residentsGrid.appendChild(residentCard);
                 });
             } else {
-                residentsGrid.innerHTML = '<p>No residents found.</p>';
+                residentsGrid.innerHTML = '<div class="loading">No residents found.</div>';
             }
         }).catch((error) => {
             loadingIndicator.style.display = 'none';
-            residentsGrid.innerHTML = `<p>Error loading residents: ${error.message}</p>`;
+            residentsGrid.innerHTML = `<div class="loading">Error loading residents: ${error.message}</div>`;
             console.error(error);
         });
     }
