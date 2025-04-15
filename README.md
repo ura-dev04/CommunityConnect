@@ -1,6 +1,6 @@
-# NestHub Society Management App
+# CommunityConnect Management App
 
-NestHub is a comprehensive society management application designed to streamline communication and management tasks for residential societies, apartment complexes, and gated communities.
+CommunityConnect is a comprehensive society management application designed to streamline communication and management tasks for residential societies, apartment complexes, and gated communities.
 
 ## Features
 
