@@ -63,6 +63,22 @@
         </div>
       </div>
     </div>
+
+    <!-- Admin section for pending requests - Only visible to higher roles -->
+    <div class="pending-requests-section" id="pending-requests-section">
+      <div class="section-header">
+        <h2>Pending Requests</h2>
+        <span id="request-count" class="count-badge">0 pending requests</span>
+      </div>
+      
+      <div class="pending-requests-container" id="pending-requests-container">
+        <!-- Pending requests will be displayed here dynamically -->
+        <div class="loading-container">
+          <div class="loading-spinner"></div>
+          <p>Loading pending requests...</p>
+        </div>
+      </div>
+    </div>
   </div>
 
   <!-- Request Parking Modal -->

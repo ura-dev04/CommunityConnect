@@ -16,8 +16,9 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const database = getDatabase(app);
 
-// Current user data
+// Global variables
 let currentUser = null;
+let isHigherRole = false; // Flag to track if user has higher-level permissions
 
 // DOM elements
 const welcomeMessage = document.getElementById('welcome-message');
@@ -35,6 +36,8 @@ const cancelRequestBtn = document.getElementById('cancel-request');
 const confirmOkBtn = document.getElementById('confirm-ok');
 const parkingRequestForm = document.getElementById('parking-request-form');
 const selectedSpotInfo = document.getElementById('selected-spot-info');
+const requestsContainer = document.getElementById('pending-requests-container');
+const pendingRequestsSection = document.getElementById('pending-requests-section');
 
 document.addEventListener('DOMContentLoaded', () => {
   // Check if user is logged in
@@ -49,6 +52,9 @@ document.addEventListener('DOMContentLoaded', () => {
   // Parse user data
   currentUser = JSON.parse(loggedInUser);
   
+  // Check if user has higher-level access
+  isHigherRole = checkIfHigherRole(currentUser.sub_role);
+  
   // Update welcome message and role
   welcomeMessage.textContent = `Hi ${currentUser.name || 'there'}`;
   
@@ -59,11 +65,19 @@ document.addEventListener('DOMContentLoaded', () => {
   
   userRole.textContent = roleText;
   
+  // Show or hide admin functions based on role
+  toggleAdminFunctions();
+  
   // Load available wings for filter
   loadWings();
   
   // Load available parking spots (with default filters)
   loadAvailableParkingSpots();
+  
+  // Load pending requests if user has higher role
+  if (isHigherRole) {
+    loadPendingRequests();
+  }
   
   // Add event listeners
   applyFiltersBtn.addEventListener('click', loadAvailableParkingSpots);
@@ -90,6 +104,19 @@ document.addEventListener('DOMContentLoaded', () => {
   const today = new Date().toISOString().split('T')[0];
   dateInput.setAttribute('min', today);
 });
+
+// Function to check if user has higher role permissions
+function checkIfHigherRole(subRole) {
+  const higherRoles = ['admin', 'president', 'secretary', 'treasurer', 'building-manager'];
+  return higherRoles.includes(subRole);
+}
+
+// Function to toggle admin functions visibility based on role
+function toggleAdminFunctions() {
+  if (pendingRequestsSection) {
+    pendingRequestsSection.style.display = isHigherRole ? 'block' : 'none';
+  }
+}
 
 // Function to load unique wings from residents data
 async function loadWings() {
@@ -365,6 +392,204 @@ async function submitParkingRequest() {
 function closeModals() {
   requestModal.style.display = 'none';
   confirmationModal.style.display = 'none';
+}
+
+// Function to load pending parking requests
+async function loadPendingRequests() {
+  // Show loading state
+  if (requestsContainer) {
+    requestsContainer.innerHTML = `
+      <div class="loading-container">
+        <div class="loading-spinner"></div>
+        <p>Loading pending requests...</p>
+      </div>
+    `;
+    
+    try {
+      // Get parking requests with status = pending
+      const requestsRef = ref(database, 'parkingRequests');
+      const snapshot = await get(requestsRef);
+      
+      if (snapshot.exists()) {
+        const requests = snapshot.val();
+        const pendingRequests = [];
+        
+        // Filter for pending requests and convert to array
+        for (const [requestId, requestData] of Object.entries(requests)) {
+          if (requestData.status === 'pending') {
+            pendingRequests.push({
+              id: requestId,
+              ...requestData
+            });
+          }
+        }
+        
+        // Sort by date (newest first)
+        pendingRequests.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+        
+        // Update count display if it exists
+        const requestCountDisplay = document.getElementById('request-count');
+        if (requestCountDisplay) {
+          requestCountDisplay.textContent = `${pendingRequests.length} pending requests`;
+        }
+        
+        // Display the pending requests
+        displayPendingRequests(pendingRequests);
+      } else {
+        requestsContainer.innerHTML = '<p>No pending requests found.</p>';
+      }
+    } catch (error) {
+      console.error("Error loading pending requests:", error);
+      requestsContainer.innerHTML = `
+        <p>Error loading pending requests. Please try again later.</p>
+        <p class="error-details">${error.message}</p>
+      `;
+    }
+  }
+}
+
+// Function to display pending requests
+function displayPendingRequests(requests) {
+  if (!requestsContainer) return;
+  
+  if (requests.length === 0) {
+    requestsContainer.innerHTML = `
+      <div class="no-results">
+        <p>No pending parking requests at this time.</p>
+      </div>
+    `;
+    return;
+  }
+  
+  // Clear current content
+  requestsContainer.innerHTML = '';
+  
+  // Create a request card for each pending request
+  requests.forEach(request => {
+    const requestCard = document.createElement('div');
+    requestCard.className = 'request-card';
+    requestCard.innerHTML = `
+      <div class="request-header">
+        <h3>Request #${request.id.slice(-6)}</h3>
+        <span class="status-badge pending">Pending</span>
+      </div>
+      <div class="request-detail">
+        <span class="label">Requested by:</span>
+        <span class="value">${request.requesterName} (Flat ${request.requesterFlat})</span>
+      </div>
+      <div class="request-detail">
+        <span class="label">Parking Spot:</span>
+        <span class="value">${request.parkingId}</span>
+      </div>
+      <div class="request-detail">
+        <span class="label">Owner Flat:</span>
+        <span class="value">${request.ownerFlat}</span>
+      </div>
+      <div class="request-detail">
+        <span class="label">Date:</span>
+        <span class="value">${request.date}</span>
+      </div>
+      <div class="request-detail">
+        <span class="label">Time:</span>
+        <span class="value">${request.startTime} - ${request.endTime}</span>
+      </div>
+      <div class="request-detail">
+        <span class="label">Vehicle Number:</span>
+        <span class="value">${request.vehicleNumber}</span>
+      </div>
+      <div class="request-detail">
+        <span class="label">Reason:</span>
+        <span class="value reason-text">${request.reason}</span>
+      </div>
+      <div class="request-actions">
+        <button class="btn primary-btn approve-btn" data-request-id="${request.id}" data-owner-flat="${request.ownerFlat}" data-parking-number="${request.parkingNumber}">
+          Approve
+        </button>
+        <button class="btn secondary-btn reject-btn" data-request-id="${request.id}">
+          Reject
+        </button>
+      </div>
+    `;
+    
+    // Add request card to container
+    requestsContainer.appendChild(requestCard);
+    
+    // Add event listeners to approve/reject buttons
+    const approveBtn = requestCard.querySelector('.approve-btn');
+    const rejectBtn = requestCard.querySelector('.reject-btn');
+    
+    approveBtn.addEventListener('click', () => {
+      approveRequest(request.id, request.ownerFlat, request.parkingNumber, request);
+    });
+    
+    rejectBtn.addEventListener('click', () => {
+      rejectRequest(request.id, request);
+    });
+  });
+}
+
+// Function to approve a parking request
+async function approveRequest(requestId, ownerFlat, parkingNumber, requestData) {
+  try {
+    // 1. Update the request status to approved
+    const requestRef = ref(database, `parkingRequests/${requestId}`);
+    await update(requestRef, { status: 'approved' });
+    
+    // 2. Change the parking spot status to temp_hold
+    const parkingRef = ref(database, `residents/${ownerFlat}/parking/${parkingNumber}`);
+    await update(parkingRef, { slot_status: 'temp_hold' });
+    
+    // 3. Create notification for the requester
+    const notificationsRef = ref(database, 'notifications');
+    const newNotificationRef = push(notificationsRef);
+    
+    await set(newNotificationRef, {
+      title: "Parking Request Approved",
+      body: `Your request to use parking spot ${requestData.parkingId} on ${requestData.date} from ${requestData.startTime} to ${requestData.endTime} has been approved.`,
+      timestamp: new Date().toISOString(),
+      targetUser: requestData.requesterFlat
+    });
+    
+    // 4. Reload pending requests to refresh the list
+    loadPendingRequests();
+    
+    // 5. Show success message
+    alert('Request approved successfully!');
+    
+  } catch (error) {
+    console.error("Error approving request:", error);
+    alert("Error approving request. Please try again later.");
+  }
+}
+
+// Function to reject a parking request
+async function rejectRequest(requestId, requestData) {
+  try {
+    // 1. Update the request status to rejected
+    const requestRef = ref(database, `parkingRequests/${requestId}`);
+    await update(requestRef, { status: 'rejected' });
+    
+    // 2. Create notification for the requester
+    const notificationsRef = ref(database, 'notifications');
+    const newNotificationRef = push(notificationsRef);
+    
+    await set(newNotificationRef, {
+      title: "Parking Request Rejected",
+      body: `Your request to use parking spot ${requestData.parkingId} on ${requestData.date} has been rejected.`,
+      timestamp: new Date().toISOString(),
+      targetUser: requestData.requesterFlat
+    });
+    
+    // 3. Reload pending requests to refresh the list
+    loadPendingRequests();
+    
+    // 4. Show success message
+    alert('Request rejected successfully!');
+    
+  } catch (error) {
+    console.error("Error rejecting request:", error);
+    alert("Error rejecting request. Please try again later.");
+  }
 }
 
 // Function for logging out
