@@ -5,7 +5,7 @@ CommunityConnect is a comprehensive society management application designed to s
 ## Features
 
 ### User Management
-- **Multi-role Authentication**: Supports different user roles (managing commeeitte and Resident)
+- **Multi-role Authentication**: Supports different user roles (managing committee and Resident)
 - **User Profiles**: Complete user profiles with personal information and apartment details
 - **Password Recovery**: Secure password reset functionality
 
