@@ -27,37 +27,12 @@
     <main class="maintenance-container">
         <!-- MC Role View -->
         <div id="mcView" class="mc-view hidden">
-            <h2>Generate Maintenance Bill</h2>
-            <form id="generateBillForm" class="bill-form">
-                <div class="form-group">
-                    <label for="flatNumber">Flat Number</label>
-                    <input type="text" id="flatNumber" required>
-                </div>
-                <div class="form-group">
-                    <label for="billDate">Bill Date</label>
-                    <input type="date" id="billDate" required>
-                </div>
-                <div class="form-group">
-                    <label for="dueDate">Due Date</label>
-                    <input type="date" id="dueDate" required>
-                </div>
-                <div class="bill-breakdown">
-                    <h3>Breakdown of Amount</h3>
-                    <div class="breakdown-item">
-                        <input type="text" placeholder="Description" class="breakdown-desc">
-                        <input type="number" placeholder="Amount" class="breakdown-amount">
-                    </div>
-                    <button type="button" id="addBreakdownItem" class="add-btn">+ Add Item</button>
-                </div>
-                <div class="form-group">
-                    <label for="totalAmount">Total Amount</label>
-                    <input type="number" id="totalAmount" readonly>
-                </div>
-                <button type="submit" class="submit-btn">Generate Bill</button>
-            </form>
-
-            <div class="bills-list">
+            <div class="bills-header">
                 <h2>All Maintenance Bills</h2>
+                <button id="openBillModal" class="action-btn">Generate Maintenance Bill</button>
+            </div>
+            
+            <div class="bills-list">
                 <div id="allBillsList"></div>
             </div>
         </div>
@@ -66,6 +41,41 @@
         <div id="residentView" class="resident-view hidden">
             <h2>Your Maintenance Bills</h2>
             <div id="residentBillsList" class="bills-list"></div>
+        </div>
+
+        <!-- Modal for bill generation -->
+        <div id="billModal" class="modal">
+            <div class="modal-content">
+                <span class="close-modal">&times;</span>
+                <h2>Generate Maintenance Bill</h2>
+                <form id="generateBillForm" class="bill-form">
+                    <div class="form-group">
+                        <label for="flatNumber">Flat Number</label>
+                        <input type="text" id="flatNumber" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="billDate">Bill Date</label>
+                        <input type="date" id="billDate" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="dueDate">Due Date</label>
+                        <input type="date" id="dueDate" required>
+                    </div>
+                    <div class="bill-breakdown">
+                        <h3>Breakdown of Amount</h3>
+                        <div class="breakdown-item">
+                            <input type="text" placeholder="Description" class="breakdown-desc">
+                            <input type="number" placeholder="Amount" class="breakdown-amount">
+                        </div>
+                        <button type="button" id="addBreakdownItem" class="add-btn">+ Add Item</button>
+                    </div>
+                    <div class="form-group">
+                        <label for="totalAmount">Total Amount</label>
+                        <input type="number" id="totalAmount" readonly>
+                    </div>
+                    <button type="submit" class="submit-btn">Generate Bill</button>
+                </form>
+            </div>
         </div>
     </main>
 

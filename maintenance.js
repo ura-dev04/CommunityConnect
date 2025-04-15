@@ -46,6 +46,9 @@ document.addEventListener('DOMContentLoaded', () => {
     if (higherRoles.includes(userSubRole)) {
         document.getElementById('mcView').classList.remove('hidden');
         loadAllBills();
+        
+        // Setup modal for bill generation
+        setupBillModal();
     }
     
     // Setup logout button event
@@ -54,6 +57,60 @@ document.addEventListener('DOMContentLoaded', () => {
         window.location.href = 'homepage.html';
     });
 });
+
+// Setup modal functionality
+function setupBillModal() {
+    const modal = document.getElementById('billModal');
+    const openModalBtn = document.getElementById('openBillModal');
+    const closeBtn = document.querySelector('.close-modal');
+    
+    // Open modal
+    openModalBtn.addEventListener('click', () => {
+        modal.style.display = 'block';
+        
+        // Set default dates
+        const today = new Date().toISOString().split('T')[0];
+        document.getElementById('billDate').value = today;
+        
+        // Set default due date (30 days from now)
+        const dueDate = new Date();
+        dueDate.setDate(dueDate.getDate() + 30);
+        document.getElementById('dueDate').value = dueDate.toISOString().split('T')[0];
+    });
+    
+    // Close modal
+    closeBtn.addEventListener('click', () => {
+        modal.style.display = 'none';
+    });
+    
+    // Close modal when clicking outside
+    window.addEventListener('click', (event) => {
+        if (event.target === modal) {
+            modal.style.display = 'none';
+        }
+    });
+    
+    // Add input event listeners to initial breakdown item
+    document.querySelector('.breakdown-amount')?.addEventListener('input', updateTotal);
+    
+    // Add breakdown item button
+    document.getElementById('addBreakdownItem').addEventListener('click', () => {
+        const container = document.querySelector('.bill-breakdown');
+        const newItem = document.createElement('div');
+        newItem.className = 'breakdown-item';
+        newItem.innerHTML = `
+            <input type="text" class="breakdown-desc" placeholder="Description" required>
+            <input type="number" class="breakdown-amount" placeholder="Amount" required>
+            <button type="button" class="remove-item" onclick="this.parentElement.remove(); updateTotal();">×</button>
+        `;
+        
+        // Insert before the Add Item button
+        container.insertBefore(newItem, document.getElementById('addBreakdownItem'));
+        
+        // Add event listeners to new amount input
+        newItem.querySelector('.breakdown-amount').addEventListener('input', updateTotal);
+    });
+}
 
 // MC Functions
 document.getElementById('generateBillForm')?.addEventListener('submit', async (e) => {
@@ -116,6 +173,9 @@ document.getElementById('generateBillForm')?.addEventListener('submit', async (e
         alert('Bill generated successfully!');
         e.target.reset();
         
+        // Close modal after successful submission
+        document.getElementById('billModal').style.display = 'none';
+        
         // Reset breakdown items
         const container = document.querySelector('.bill-breakdown');
         container.innerHTML = `
@@ -166,9 +226,6 @@ function updateTotal() {
     const total = amounts.reduce((sum, amount) => sum + amount, 0);
     document.getElementById('totalAmount').value = total.toFixed(2);
 }
-
-// Add input event listeners to initial breakdown item
-document.querySelector('.breakdown-amount')?.addEventListener('input', updateTotal);
 
 // Load bills for resident
 async function loadResidentBills(apartmentNumber) {
