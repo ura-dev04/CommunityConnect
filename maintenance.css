@@ -5,9 +5,9 @@
 }
 
 .bill-form {
-    background: var(--bg-card);
-    border-radius: 12px;
+    background: linear-gradient(145deg, rgba(26, 26, 45, 0.9), rgba(20, 20, 35, 0.95));
     padding: 2rem;
+    border-radius: 15px;
     margin-bottom: 2rem;
 }
 
@@ -105,8 +105,8 @@
 }
 
 .submit-btn:hover {
-    background-color: var(--primary-dark);
     transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(100, 255, 218, 0.3);
 }
 
 .bills-list {

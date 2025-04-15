@@ -211,7 +211,7 @@ button:hover {
 
 .notification-item:hover {
   transform: translateY(-5px);
-  box-shadow: 0 8px 20px var(--shadow-dark);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
   border-color: #008B8B;
 }
 

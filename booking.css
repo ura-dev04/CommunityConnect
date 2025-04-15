@@ -52,7 +52,8 @@ body {
   }
   
   .fancy-button:hover {
-    background-color: var(--primary);
+    color: #0e0e15;
+    background-color: #64ffda;
     transform: translateY(-2px);
   }
   

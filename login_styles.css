@@ -82,10 +82,7 @@ body {
   transition: background-color 0.3s ease;
 }
 
-.login-btn:hover {
-  background-color: var(--primary-dark);
-}
-
+.login-btn:hover,
 #logout-btn:hover {
   background-color: #52e0c4;
 }
