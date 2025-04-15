@@ -67,3 +67,233 @@ button:hover {
     border: 2px solid rgba(100, 255, 218, 0.2);
     display: none; /* Initially hidden */
 }
+
+/* Status message */
+#status {
+    margin: 15px 0;
+    padding: 10px;
+    background-color: rgba(100, 255, 218, 0.1);
+    border-radius: 8px;
+    color: #64ffda;
+}
+
+/* Camera section */
+.camera-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+/* Back button */
+.back-btn {
+    display: inline-block;
+    margin-top: 20px;
+    padding: 0.8rem 1.5rem;
+    background-color: #333344;
+    color: #fff;
+    text-decoration: none;
+    border-radius: 8px;
+    transition: background-color 0.3s ease;
+}
+
+.back-btn:hover {
+    background-color: #444455;
+}
+
+/* New styles for guest list and forms */
+
+/* Controls section for buttons */
+.controls {
+    display: flex;
+    justify-content: center;
+    margin: 20px 0;
+}
+
+.top-controls {
+    margin-bottom: 30px;
+    justify-content: flex-end;
+}
+
+/* Top controls section for buttons */
+.top-controls {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    margin-bottom: 30px;
+}
+
+/* Primary button */
+.primary-btn {
+    background-color: #64ffda;
+    color: #0e0e15;
+    padding: 0.8rem 1.5rem;
+    border: none;
+    border-radius: 8px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-decoration: none;
+    display: inline-block;
+}
+
+.primary-btn:hover {
+    background-color: #52e0c4;
+    transform: translateY(-2px);
+}
+
+/* Verify button styling */
+.verify-btn {
+    background-color: #7064ff;
+}
+
+.verify-btn:hover {
+    background-color: #5d52e0;
+}
+
+/* Guest list styling */
+.guests-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 20px;
+    margin: 30px 0;
+}
+
+.guest-card {
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
+    padding: 15px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    transition: transform 0.3s ease;
+}
+
+.guest-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+}
+
+.guest-photo {
+    width: 100%;
+    height: 150px;
+    object-fit: cover;
+    border-radius: 8px;
+    margin-bottom: 10px;
+}
+
+.guest-info {
+    text-align: center;
+    width: 100%;
+}
+
+.guest-name {
+    font-weight: bold;
+    font-size: 1.1rem;
+    margin-bottom: 5px;
+}
+
+.guest-phone {
+    color: #aaa;
+    font-size: 0.9rem;
+}
+
+.guest-actions {
+    margin-top: 10px;
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+}
+
+.action-btn {
+    padding: 5px 10px;
+    border-radius: 5px;
+    font-size: 0.8rem;
+    cursor: pointer;
+    background: rgba(100, 255, 218, 0.2);
+    color: #64ffda;
+    border: none;
+}
+
+.action-btn.delete {
+    background: rgba(255, 100, 100, 0.2);
+    color: #ff6464;
+}
+
+/* Form styling */
+.guest-form {
+    max-width: 500px;
+    margin: 0 auto;
+    text-align: left;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 600;
+    color: #64ffda;
+}
+
+.form-group input {
+    width: 100%;
+    padding: 10px;
+    border-radius: 8px;
+    border: 1px solid rgba(100, 255, 218, 0.3);
+    background-color: rgba(255, 255, 255, 0.1);
+    color: white;
+    font-size: 1rem;
+}
+
+.form-controls {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 30px;
+}
+
+.preview-container {
+    margin: 15px 0;
+    width: 100%;
+}
+
+.loading-text {
+    grid-column: 1 / -1;
+    text-align: center;
+    color: #aaa;
+}
+
+/* Verification results */
+.result-container {
+    margin: 20px 0;
+    padding: 15px;
+    border-radius: 8px;
+    text-align: center;
+}
+
+.result-success {
+    background-color: rgba(100, 255, 100, 0.2);
+    color: #64ff64;
+}
+
+.result-failure {
+    background-color: rgba(255, 100, 100, 0.2);
+    color: #ff6464;
+}
+
+.match-details {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+    margin-top: 20px;
+}
+
+.match-photo {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    object-fit: cover;
+}
