@@ -123,3 +123,22 @@
 .hidden {
     display: none;
 }
+
+/* Status indicators */
+.status-paid {
+    color: #64ffda;
+    font-weight: bold;
+}
+
+.status-unpaid {
+    color: #ff5757;
+    font-weight: bold;
+}
+
+/* Responsive layout for smaller screens */
+@media (max-width: 768px) {
+    .breakdown-item {
+        grid-template-columns: 1fr;
+        gap: 0.5rem;
+    }
+}
