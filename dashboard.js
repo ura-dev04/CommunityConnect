@@ -28,6 +28,9 @@ document.addEventListener('DOMContentLoaded', () => {
   const changePasswordModal = document.getElementById('change-password-modal');
   const changePasswordForm = document.getElementById('change-password-form');
   const cancelChangePasswordBtn = document.getElementById('cancel-change-password');
+  // Add tab buttons reference
+  const tabButtons = document.querySelectorAll('.tab-btn');
+  const clearNotificationsBtn = document.querySelector('.clear-notifications-btn');
   
   let userData;
   
@@ -106,6 +109,32 @@ document.addEventListener('DOMContentLoaded', () => {
   document.querySelector('.logout-btn').addEventListener('click', () => {
     logout();
   });
+
+  // Add tab buttons event listeners
+  tabButtons.forEach(button => {
+    button.addEventListener('click', () => {
+      // Remove active class from all buttons
+      tabButtons.forEach(btn => btn.classList.remove('active'));
+      
+      // Add active class to clicked button
+      button.classList.add('active');
+      
+      // Display corresponding notifications
+      const tabType = button.getAttribute('data-tab');
+      
+      // Show or hide clear button based on tab
+      if (tabType === 'personal') {
+        clearNotificationsBtn.style.display = 'inline-block';
+      } else {
+        clearNotificationsBtn.style.display = 'none';
+      }
+      
+      filterNotificationsByType(tabType);
+    });
+  });
+
+  // Add clear notifications event listener
+  clearNotificationsBtn.addEventListener('click', clearPersonalNotifications);
 
   // Function to check if user has set a password
   async function checkPasswordSetup(user) {
@@ -309,7 +338,7 @@ document.addEventListener('DOMContentLoaded', () => {
       if (generalNotificationsSnapshot.exists()) {
         const notifications = generalNotificationsSnapshot.val();
         
-        // Convert to array and sort by timestamp (newest first)
+        // Convert to array and add type
         generalNotifications = Object.entries(notifications).map(([id, data]) => {
           return { id, ...data, type: 'general' };
         });
@@ -320,49 +349,36 @@ document.addEventListener('DOMContentLoaded', () => {
       if (personalNotificationsSnapshot.exists()) {
         const notifications = personalNotificationsSnapshot.val();
         
-        // Convert to array
+        // Convert to array and add type
         personalNotifications = Object.entries(notifications).map(([id, data]) => {
           return { id, ...data, type: 'personal' };
         });
       }
       
-      // Combine and sort all notifications by timestamp (newest first)
-      const allNotifications = [...generalNotifications, ...personalNotifications].sort(
+      // Store all notifications in a global variable to be accessed by tab functions
+      window.allNotifications = [...generalNotifications, ...personalNotifications].sort(
         (a, b) => new Date(b.timestamp) - new Date(a.timestamp)
       );
       
       // Update notification badge count
-      notificationBadge.textContent = allNotifications.length;
+      notificationBadge.textContent = window.allNotifications.length;
       
-      // Clear existing notifications
-      notificationsList.innerHTML = '';
+      // Display all notifications by default (or maintain current tab)
+      const activeTab = document.querySelector('.tab-btn.active');
+      const tabType = activeTab ? activeTab.getAttribute('data-tab') : 'all';
       
-      if (allNotifications.length > 0) {
-        // Add notifications to panel
-        allNotifications.forEach(notification => {
-          const notificationItem = document.createElement('div');
-          notificationItem.className = `notification-item ${notification.type}-notification`;
-          
-          const formattedDate = new Date(notification.timestamp).toLocaleString();
-          
-          notificationItem.innerHTML = `
-            <div class="notification-badge-${notification.type}">${notification.type === 'general' ? 'General' : 'Personal'}</div>
-            <div class="notification-title">${notification.title}</div>
-            <div class="notification-body">${notification.body}</div>
-            <div class="notification-time">${formattedDate}</div>
-          `;
-          
-          notificationsList.appendChild(notificationItem);
-        });
-        
-        // Show notifications panel automatically if not viewed before
-        if (!notificationViewed && allNotifications.length > 0) {
-          notificationsPanel.classList.add('show');
-        }
+      // Show or hide clear button based on active tab
+      if (tabType === 'personal') {
+        clearNotificationsBtn.style.display = 'inline-block';
       } else {
-        // No notifications
-        notificationsList.innerHTML = '<p>No notifications at this time.</p>';
-        notificationBadge.textContent = '0';
+        clearNotificationsBtn.style.display = 'none';
+      }
+      
+      filterNotificationsByType(tabType);
+      
+      // Show notifications panel automatically if not viewed before
+      if (!notificationViewed && window.allNotifications.length > 0) {
+        notificationsPanel.classList.add('show');
       }
     } catch (error) {
       console.error('Error loading notifications:', error);
@@ -370,6 +386,64 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
   
+  // Function to filter and display notifications by type
+  function filterNotificationsByType(type) {
+    // Clear existing notifications
+    notificationsList.innerHTML = '';
+    
+    if (!window.allNotifications || window.allNotifications.length === 0) {
+      notificationsList.innerHTML = '<p>No notifications at this time.</p>';
+      return;
+    }
+    
+    // Filter notifications based on selected tab
+    let filteredNotifications;
+    if (type === 'all') {
+      filteredNotifications = window.allNotifications;
+    } else if (type === 'general') {
+      filteredNotifications = window.allNotifications.filter(notification => 
+        notification.type === 'general'
+      );
+    } else if (type === 'personal') {
+      filteredNotifications = window.allNotifications.filter(notification => 
+        notification.type === 'personal'
+      );
+    }
+    
+    if (filteredNotifications.length === 0) {
+      let message;
+      switch(type) {
+        case 'personal':
+          message = 'You have no personal notifications.';
+          break;
+        case 'general':
+          message = 'There are no general notifications at this time.';
+          break;
+        default:
+          message = 'No notifications at this time.';
+      }
+      notificationsList.innerHTML = `<p>${message}</p>`;
+      return;
+    }
+    
+    // Add filtered notifications to panel
+    filteredNotifications.forEach(notification => {
+      const notificationItem = document.createElement('div');
+      notificationItem.className = `notification-item ${notification.type}-notification`;
+      
+      const formattedDate = new Date(notification.timestamp).toLocaleString();
+      
+      notificationItem.innerHTML = `
+        <div class="notification-badge-${notification.type}">${notification.type === 'general' ? 'General' : 'Personal'}</div>
+        <div class="notification-title">${notification.title}</div>
+        <div class="notification-body">${notification.body}</div>
+        <div class="notification-time">${formattedDate}</div>
+      `;
+      
+      notificationsList.appendChild(notificationItem);
+    });
+  }
+
   // Function to mark notifications as viewed
   async function markNotificationsAsViewed(apartment) {
     try {
@@ -385,6 +459,52 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     } catch (error) {
       console.error('Error marking notifications as viewed:', error);
+    }
+  }
+
+  // Function to clear personal notifications
+  async function clearPersonalNotifications() {
+    try {
+      if (!window.confirm('Are you sure you want to clear all your personal notifications?')) {
+        return;
+      }
+      
+      const dbRef = ref(database);
+      
+      // Delete all personal notifications for this user
+      await update(ref(database), {
+        [`residents/${userData.apartment}/notifications`]: null
+      });
+      
+      // Remove personal notifications from the global notifications array
+      if (window.allNotifications) {
+        window.allNotifications = window.allNotifications.filter(
+          notification => notification.type !== 'personal'
+        );
+      }
+      
+      // Update notification badge count
+      notificationBadge.textContent = window.allNotifications.length;
+      
+      // Refresh the current tab
+      const activeTab = document.querySelector('.tab-btn.active');
+      const tabType = activeTab ? activeTab.getAttribute('data-tab') : 'all';
+      filterNotificationsByType(tabType);
+      
+      // Show success message
+      const notificationsList = document.querySelector('.notifications-list');
+      const successMessage = document.createElement('div');
+      successMessage.className = 'notification-success';
+      successMessage.textContent = 'All personal notifications have been cleared.';
+      
+      if (tabType === 'personal') {
+        notificationsList.innerHTML = '';
+        notificationsList.appendChild(successMessage);
+      }
+      
+    } catch (error) {
+      console.error('Error clearing personal notifications:', error);
+      alert('Failed to clear notifications. Please try again later.');
     }
   }
 
