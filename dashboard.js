@@ -300,31 +300,53 @@ document.addEventListener('DOMContentLoaded', () => {
       const notificationViewed = userSnapshot.exists() ? 
         userSnapshot.val().notification_viewed || false : false;
       
-      // Get all notifications from database
-      const notificationsSnapshot = await get(child(dbRef, 'notifications'));
+      // Initialize arrays for both types of notifications
+      let generalNotifications = [];
+      let personalNotifications = [];
       
-      if (notificationsSnapshot.exists()) {
-        const notifications = notificationsSnapshot.val();
+      // Get general notifications from database
+      const generalNotificationsSnapshot = await get(child(dbRef, 'notifications'));
+      if (generalNotificationsSnapshot.exists()) {
+        const notifications = generalNotificationsSnapshot.val();
         
         // Convert to array and sort by timestamp (newest first)
-        const notificationsArray = Object.entries(notifications).map(([id, data]) => {
-          return { id, ...data };
-        }).sort((a, b) => new Date(b.timestamp) - new Date(a.timestamp));
+        generalNotifications = Object.entries(notifications).map(([id, data]) => {
+          return { id, ...data, type: 'general' };
+        });
+      }
+      
+      // Get personal notifications for this user
+      const personalNotificationsSnapshot = await get(child(dbRef, `residents/${userData.apartment}/notifications`));
+      if (personalNotificationsSnapshot.exists()) {
+        const notifications = personalNotificationsSnapshot.val();
         
-        // Update notification badge count
-        notificationBadge.textContent = notificationsArray.length;
-        
-        // Clear existing notifications
-        notificationsList.innerHTML = '';
-        
+        // Convert to array
+        personalNotifications = Object.entries(notifications).map(([id, data]) => {
+          return { id, ...data, type: 'personal' };
+        });
+      }
+      
+      // Combine and sort all notifications by timestamp (newest first)
+      const allNotifications = [...generalNotifications, ...personalNotifications].sort(
+        (a, b) => new Date(b.timestamp) - new Date(a.timestamp)
+      );
+      
+      // Update notification badge count
+      notificationBadge.textContent = allNotifications.length;
+      
+      // Clear existing notifications
+      notificationsList.innerHTML = '';
+      
+      if (allNotifications.length > 0) {
         // Add notifications to panel
-        notificationsArray.forEach(notification => {
+        allNotifications.forEach(notification => {
           const notificationItem = document.createElement('div');
-          notificationItem.className = 'notification-item';
+          notificationItem.className = `notification-item ${notification.type}-notification`;
           
           const formattedDate = new Date(notification.timestamp).toLocaleString();
           
           notificationItem.innerHTML = `
+            <div class="notification-badge-${notification.type}">${notification.type === 'general' ? 'General' : 'Personal'}</div>
             <div class="notification-title">${notification.title}</div>
             <div class="notification-body">${notification.body}</div>
             <div class="notification-time">${formattedDate}</div>
@@ -334,7 +356,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
         
         // Show notifications panel automatically if not viewed before
-        if (!notificationViewed && notificationsArray.length > 0) {
+        if (!notificationViewed && allNotifications.length > 0) {
           notificationsPanel.classList.add('show');
         }
       } else {

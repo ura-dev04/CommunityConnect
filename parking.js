@@ -464,14 +464,16 @@ async function submitParkingRequest() {
       parkingNumber
     });
     
-    // Create notification for the owner
-    const notificationsRef = ref(database, 'notifications');
-    const newNotificationRef = push(notificationsRef);
+    // Create notification for the owner - MODIFIED to store under resident's notifications
+    const ownerNotificationsRef = ref(database, `residents/${ownerFlat}/notifications`);
+    const newNotificationRef = push(ownerNotificationsRef);
     
     await set(newNotificationRef, {
       title: "New Parking Request",
       body: `${currentUser.name || 'A resident'} has requested to use your parking spot (${parkingId}) on ${date} from ${startTime} to ${endTime}.`,
-      timestamp: new Date().toISOString()
+      timestamp: new Date().toISOString(),
+      read: false,
+      type: "parking_request"
     });
     
     // Close request modal and show confirmation
@@ -848,15 +850,16 @@ async function closeRequest(userId, requestId, ownerFlat, parkingNumber, request
     const parkingRef = ref(database, `residents/${ownerFlat}/parking/${parkingNumber}`);
     await update(parkingRef, { slot_status: 'available' });
     
-    // 3. Create notification for the owner
-    const notificationsRef = ref(database, 'notifications');
-    const newNotificationRef = push(notificationsRef);
+    // 3. Create notification for the owner - MODIFIED to store under owner's notifications
+    const ownerNotificationsRef = ref(database, `residents/${ownerFlat}/notifications`);
+    const newNotificationRef = push(ownerNotificationsRef);
     
     await set(newNotificationRef, {
       title: "Parking Spot Released",
       body: `${requestData.requesterName} has released your parking spot (${requestData.parkingId}) that was used on ${requestData.date}.`,
       timestamp: new Date().toISOString(),
-      targetUser: ownerFlat
+      read: false,
+      type: "parking_release"
     });
     
     // 4. Reload the user's requests to refresh the list
@@ -888,15 +891,16 @@ async function approveRequest(userId, requestId, ownerFlat, parkingNumber, reque
     const parkingRef = ref(database, `residents/${ownerFlat}/parking/${parkingNumber}`);
     await update(parkingRef, { slot_status: 'temp_hold' });
     
-    // 3. Create notification for the requester
-    const notificationsRef = ref(database, 'notifications');
-    const newNotificationRef = push(notificationsRef);
+    // 3. Create notification for the requester - MODIFIED to store under requester's notifications
+    const requesterNotificationsRef = ref(database, `residents/${requestData.requesterFlat}/notifications`);
+    const newNotificationRef = push(requesterNotificationsRef);
     
     await set(newNotificationRef, {
       title: "Parking Request Approved",
       body: `Your request to use parking spot ${requestData.parkingId} on ${requestData.date} from ${requestData.startTime} to ${requestData.endTime} has been approved.`,
       timestamp: new Date().toISOString(),
-      targetUser: requestData.requesterFlat
+      read: false,
+      type: "parking_approval"
     });
     
     // 4. Reload the requests to refresh the list
@@ -921,15 +925,16 @@ async function rejectRequest(userId, requestId, requestData) {
     const requestRef = ref(database, `residents/${userId}/parkingrequests/${requestId}`);
     await update(requestRef, { status: 'rejected' });
     
-    // 2. Create notification for the requester
-    const notificationsRef = ref(database, 'notifications');
-    const newNotificationRef = push(notificationsRef);
+    // 2. Create notification for the requester - MODIFIED to store under requester's notifications
+    const requesterNotificationsRef = ref(database, `residents/${requestData.requesterFlat}/notifications`);
+    const newNotificationRef = push(requesterNotificationsRef);
     
     await set(newNotificationRef, {
       title: "Parking Request Rejected",
       body: `Your request to use parking spot ${requestData.parkingId} on ${requestData.date} has been rejected.`,
       timestamp: new Date().toISOString(),
-      targetUser: requestData.requesterFlat
+      read: false,
+      type: "parking_rejection"
     });
     
     // 3. Reload the requests to refresh the list

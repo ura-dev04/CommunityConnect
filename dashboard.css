@@ -239,6 +239,43 @@ body {
   font-weight: bold;
 }
 
+/* Notification Types */
+.general-notification {
+  background: rgba(255, 255, 255, 0.1);
+  margin-bottom: 1rem;
+  padding: 1rem;
+  border-radius: 8px;
+  border-left: 4px solid #64ffda;
+}
+
+.personal-notification {
+  background: rgba(255, 255, 255, 0.15);
+  margin-bottom: 1rem;
+  padding: 1rem;
+  border-radius: 8px;
+  border-left: 4px solid #ff9d00;
+}
+
+.notification-badge-general,
+.notification-badge-personal {
+  display: inline-block;
+  padding: 0.2rem 0.5rem;
+  border-radius: 4px;
+  font-size: 0.75rem;
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+}
+
+.notification-badge-general {
+  background-color: rgba(100, 255, 218, 0.2);
+  color: #64ffda;
+}
+
+.notification-badge-personal {
+  background-color: rgba(255, 157, 0, 0.2);
+  color: #ff9d00;
+}
+
 /* Password Setup Modal */
 .password-modal-overlay {
   position: fixed;
