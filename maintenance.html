@@ -25,7 +25,13 @@
     </header>
 
     <main class="maintenance-container">
-        <!-- MC Role View -->
+        <!-- Resident View (Everyone sees this) -->
+        <div id="residentView" class="resident-view hidden">
+            <h2>Your Maintenance Bills</h2>
+            <div id="residentBillsList" class="bills-list"></div>
+        </div>
+
+        <!-- MC Role View (Only shown to authorized roles) -->
         <div id="mcView" class="mc-view hidden">
             <div class="bills-header">
                 <h2>All Maintenance Bills</h2>
@@ -35,12 +41,6 @@
             <div class="bills-list">
                 <div id="allBillsList"></div>
             </div>
-        </div>
-
-        <!-- Resident View -->
-        <div id="residentView" class="resident-view hidden">
-            <h2>Your Maintenance Bills</h2>
-            <div id="residentBillsList" class="bills-list"></div>
         </div>
 
         <!-- Modal for bill generation -->

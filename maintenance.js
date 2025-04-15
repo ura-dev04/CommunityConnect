@@ -38,11 +38,11 @@ document.addEventListener('DOMContentLoaded', () => {
     // Show appropriate view based on role/sub-role
     const userSubRole = loggedInUser.sub_role || 'resident';
     
-    // Everyone can see their own bills
+    // Everyone can see their own bills - show first
     document.getElementById('residentView').classList.remove('hidden');
     loadResidentBills(loggedInUser.apartment);
     
-    // Only higher roles can generate bills
+    // Only higher roles can generate bills - show second
     if (higherRoles.includes(userSubRole)) {
         document.getElementById('mcView').classList.remove('hidden');
         loadAllBills();
