@@ -256,6 +256,131 @@ body {
   box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
 }
 
+/* Notification Types */
+.general-notification {
+  background: rgba(255, 255, 255, 0.1);
+  margin-bottom: 1rem;
+  padding: 1rem;
+  border-radius: 8px;
+  border-left: 4px solid #64ffda;
+}
+
+.personal-notification {
+  background: rgba(255, 255, 255, 0.15);
+  margin-bottom: 1rem;
+  padding: 1rem;
+  border-radius: 8px;
+  border-left: 4px solid #ff9d00;
+}
+
+.notification-badge-general,
+.notification-badge-personal {
+  display: inline-block;
+  padding: 0.2rem 0.5rem;
+  border-radius: 4px;
+  font-size: 0.75rem;
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+}
+
+.notification-badge-general {
+  background-color: rgba(100, 255, 218, 0.2);
+  color: #64ffda;
+}
+
+.notification-badge-personal {
+  background-color: rgba(255, 157, 0, 0.2);
+  color: #ff9d00;
+}
+
+/* Notification Tabs */
+.notification-tabs {
+  display: flex;
+  justify-content: space-between;
+  padding: 0.5rem 1rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.tab-btn {
+  background: none;
+  border: none;
+  color: #cccccc;
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+  font-size: 0.9rem;
+  transition: all 0.3s ease;
+  border-radius: 4px;
+  flex: 1;
+  margin: 0 0.25rem;
+}
+
+.tab-btn:hover {
+  background-color: rgba(255, 255, 255, 0.05);
+  color: #ffffff;
+}
+
+.tab-btn.active {
+  background-color: rgba(100, 255, 218, 0.1);
+  color: #64ffda;
+  font-weight: bold;
+}
+
+.tab-btn[data-tab="general"].active {
+  background-color: rgba(100, 255, 218, 0.1);
+  color: #64ffda;
+}
+
+.tab-btn[data-tab="personal"].active {
+  background-color: rgba(255, 157, 0, 0.1);
+  color: #ff9d00;
+}
+
+/* Clear Notifications Button */
+.clear-notifications-container {
+  padding: 0.5rem 1rem;
+  text-align: right;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.clear-notifications-btn {
+  background-color: rgba(255, 100, 100, 0.2);
+  color: #ff6464;
+  border: 1px solid rgba(255, 100, 100, 0.3);
+  padding: 0.4rem 0.8rem;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 0.8rem;
+  transition: all 0.3s ease;
+}
+
+.clear-notifications-btn:hover {
+  background-color: rgba(255, 100, 100, 0.3);
+}
+
+/* Password Setup Modal */
+.password-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.8);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 2000;
+}
+
+.password-modal-content {
+  background-color: #1a1a25;
+  border-radius: 15px;
+  padding: 2rem;
+  width: 90%;
+  max-width: 500px;
+  box-shadow: 0 5px 30px rgba(0, 0, 0, 0.5);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
 /* Close Notifications Button */
 .close-notifications {
   background: var(--primary-light);

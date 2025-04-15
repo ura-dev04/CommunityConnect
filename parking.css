@@ -1,123 +1,584 @@
-/* Base Styles */
-body {
-    background-color: #0e0e15;
-    color: #ffffff;
-    font-family: 'Segoe UI', system-ui, sans-serif;
-    line-height: 1.6;
+/* Parking Management Styles */
+
+.page-header {
+  padding: 3rem 2rem;
+  text-align: center;
+  background-color: #141428;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.page-header h1 {
+  font-size: 2.5rem;
+  margin-bottom: 0.5rem;
+  color: #64ffda;
+}
+
+.page-header p {
+  font-size: 1.1rem;
+  color: #cccccc;
+  margin-bottom: 1.5rem;
+}
+
+/* Request buttons in header */
+.request-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  margin-top: 1.5rem;
+}
+
+.request-btn {
+  background-color: rgba(100, 255, 218, 0.1);
+  color: #64ffda;
+  border: 1px solid #64ffda;
+  padding: 0.8rem 1.5rem;
+  border-radius: 30px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.request-btn:hover {
+  background-color: rgba(100, 255, 218, 0.2);
+  transform: translateY(-2px);
+}
+
+.request-btn .count-badge {
+  background-color: #64ffda;
+  color: #141428;
+  font-size: 0.8rem;
+  padding: 0.2rem 0.5rem;
+  border-radius: 10px;
+}
+
+/* Admin only elements */
+.admin-only {
+  display: none; /* Hidden by default, shown via JS for admin users */
 }
 
 .parking-container {
-    max-width: 1200px;
-    margin: 2rem auto;
-    padding: 0 20px;
+  display: flex;
+  flex-direction: row;
+  gap: 2rem;
+  padding: 2rem;
+  background-color: #1a1a25;
+  min-height: calc(100vh - 300px);
 }
 
-/* Card Styles */
-.parking-stats, .booking-form, .assigned-parking, .booked-slots {
-    background: linear-gradient(145deg, #232333, #1a1a25);
-    padding: 2rem;
-    border-radius: 16px;
-    margin-bottom: 2rem;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+/* Filter Section */
+.filter-section {
+  flex: 0 0 250px;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 10px;
+  padding: 1.5rem;
+  height: fit-content;
 }
 
-/* Statistics Cards */
-.stats {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 1.5rem;
-    margin-top: 1.5rem;
+.filter-section h2 {
+  color: #64ffda;
+  margin-bottom: 1rem;
+  font-size: 1.3rem;
 }
 
-.stat-card {
-    background: #1a1a25;
-    padding: 1.5rem;
-    border-radius: 12px;
-    text-align: center;
-    border: 1px solid rgba(100, 255, 218, 0.1);
-    transition: transform 0.3s ease;
+.filter-group {
+  margin-bottom: 1.2rem;
 }
 
-.stat-card:hover {
-    transform: translateY(-5px);
+.filter-group label {
+  display: block;
+  color: #ffffff;
+  margin-bottom: 0.5rem;
 }
 
-.stat-value {
-    font-size: 2.5rem;
-    font-weight: bold;
-    color: #64ffda;
-    margin-bottom: 0.5rem;
+.filter-group select,
+.filter-group input[type="text"] {
+  width: 100%;
+  padding: 0.7rem;
+  background-color: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 5px;
+  color: #ffffff;
 }
 
-.stat-value.low-availability {
-    color: #ff6464;
+/* Parking List Section */
+.parking-list-section {
+  flex: 1;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 10px;
+  padding: 1.5rem;
 }
 
-.stat-label {
-    font-size: 0.9rem;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    opacity: 0.8;
+.section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.5rem;
+}
+
+.section-header h2 {
+  color: #64ffda;
+  font-size: 1.5rem;
+}
+
+.count-badge {
+  background-color: rgba(100, 255, 218, 0.2);
+  color: #64ffda;
+  padding: 0.4rem 0.8rem;
+  border-radius: 20px;
+  font-size: 0.9rem;
+}
+
+/* Parking Spots Display */
+.parking-spots-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 1.5rem;
+}
+
+.parking-spot {
+  background: rgba(255, 255, 255, 0.08);
+  border-radius: 10px;
+  padding: 1.5rem;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  cursor: pointer;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.parking-spot:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+  border-color: rgba(100, 255, 218, 0.5);
+}
+
+.parking-spot h3 {
+  color: #64ffda;
+  margin-bottom: 1rem;
+  font-size: 1.3rem;
+}
+
+.spot-detail {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 0.7rem;
+  font-size: 0.95rem;
+}
+
+.spot-detail .label {
+  color: #aaaaaa;
+}
+
+.spot-detail .value {
+  color: #ffffff;
+  font-weight: bold;
+}
+
+.spot-actions {
+  margin-top: 1.2rem;
+  text-align: right;
+}
+
+/* Buttons */
+.btn {
+  padding: 0.7rem 1.2rem;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: background-color 0.3s ease;
+}
+
+.primary-btn {
+  background-color: #64ffda;
+  color: #0e0e15;
+}
+
+.primary-btn:hover {
+  background-color: #52e0c4;
+}
+
+.secondary-btn {
+  background-color: transparent;
+  border: 1px solid #64ffda;
+  color: #64ffda;
+}
+
+.secondary-btn:hover {
+  background-color: rgba(100, 255, 218, 0.1);
+}
+
+/* Modal Styles */
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 1000;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.8);
+  overflow: auto;
+}
+
+.modal-content {
+  background-color: #1a1a25;
+  margin: 10% auto;
+  padding: 2rem;
+  border-radius: 10px;
+  width: 90%;
+  max-width: 500px;
+  animation: modalFade 0.3s ease;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.large-modal {
+  max-width: 800px;
+  max-height: 80vh;
+  overflow-y: auto;
+}
+
+.modal-body {
+  max-height: 65vh;
+  overflow-y: auto;
+  padding-right: 0.5rem;
+}
+
+/* Custom scrollbar for modal body */
+.modal-body::-webkit-scrollbar {
+  width: 8px;
+}
+
+.modal-body::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 10px;
+}
+
+.modal-body::-webkit-scrollbar-thumb {
+  background: rgba(100, 255, 218, 0.3);
+  border-radius: 10px;
+}
+
+.modal-body::-webkit-scrollbar-thumb:hover {
+  background: rgba(100, 255, 218, 0.5);
+}
+
+@keyframes modalFade {
+  from {
+    opacity: 0;
+    transform: translateY(-30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.close-btn {
+  color: #aaaaaa;
+  float: right;
+  font-size: 1.8rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: color 0.3s ease;
+}
+
+.close-btn:hover {
+  color: #64ffda;
+}
+
+.modal h2 {
+  color: #64ffda;
+  margin-bottom: 1.5rem;
+  text-align: center;
+}
+
+.selected-spot-info {
+  background-color: rgba(255, 255, 255, 0.05);
+  padding: 1rem;
+  border-radius: 5px;
+  margin-bottom: 1.5rem;
+  border-left: 4px solid #64ffda;
+}
+
+/* Request Tabs */
+.request-tabs {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  margin-bottom: 2rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  padding-bottom: 1rem;
+}
+
+.tab-btn {
+  background: transparent;
+  color: #cccccc;
+  border: none;
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: all 0.3s ease;
+  position: relative;
+}
+
+.tab-btn:hover {
+  color: #64ffda;
+}
+
+.tab-btn.active {
+  color: #64ffda;
+  font-weight: bold;
+}
+
+.tab-btn.active:after {
+  content: '';
+  position: absolute;
+  bottom: -1rem;
+  left: 0;
+  width: 100%;
+  height: 3px;
+  background-color: #64ffda;
+  border-radius: 3px 3px 0 0;
+}
+
+/* Requests Container */
+.requests-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+  gap: 1.5rem;
 }
 
 /* Form Styles */
-.booking-form form {
-    display: flex;
+.form-group {
+  margin-bottom: 1.2rem;
+}
+
+.form-group label {
+  display: block;
+  color: #cccccc;
+  margin-bottom: 0.5rem;
+}
+
+.form-group input[type="text"],
+.form-group input[type="date"],
+.form-group input[type="time"],
+.form-group textarea,
+.form-group select {
+  width: 100%;
+  padding: 0.8rem;
+  background-color: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 5px;
+  color: #ffffff;
+  font-size: 1rem;
+}
+
+.form-group textarea {
+  resize: vertical;
+}
+
+.time-slots {
+  margin-bottom: 1.5rem;
+}
+
+.time-selection {
+  display: flex;
+  gap: 1rem;
+}
+
+.time-selection > div {
+  flex: 1;
+}
+
+.form-actions {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 2rem;
+}
+
+/* Loading Spinner */
+.loading-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 200px;
+  color: #aaaaaa;
+}
+
+.loading-spinner {
+  border: 4px solid rgba(255, 255, 255, 0.1);
+  border-top: 4px solid #64ffda;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  animation: spin 1s linear infinite;
+  margin-bottom: 1rem;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* Request Cards */
+.request-card {
+  background: rgba(255, 255, 255, 0.08);
+  border-radius: 10px;
+  padding: 1.5rem;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.request-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.request-header h3 {
+  color: #64ffda;
+  margin: 0;
+  font-size: 1.2rem;
+}
+
+.status-badge {
+  padding: 0.3rem 0.8rem;
+  border-radius: 20px;
+  font-size: 0.8rem;
+  font-weight: bold;
+}
+
+.status-badge.pending {
+  background-color: rgba(255, 193, 7, 0.2);
+  color: #ffc107;
+}
+
+.status-badge.approved {
+  background-color: rgba(76, 175, 80, 0.2);
+  color: #4CAF50;
+}
+
+.status-badge.rejected {
+  background-color: rgba(244, 67, 54, 0.2);
+  color: #f44336;
+}
+
+/* Status badges for additional states */
+.status-badge.closed {
+  background-color: rgba(128, 128, 128, 0.2);
+  color: #999999;
+}
+
+.request-detail {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 0.7rem;
+  font-size: 0.95rem;
+}
+
+.request-detail .label {
+  color: #aaaaaa;
+  flex: 0 0 35%;
+}
+
+.request-detail .value {
+  color: #ffffff;
+  text-align: right;
+  flex: 0 0 62%;
+}
+
+.reason-text {
+  white-space: normal;
+  word-break: break-word;
+}
+
+.request-actions {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 1.5rem;
+}
+
+.approve-btn {
+  background-color: #4CAF50;
+  color: white;
+}
+
+.approve-btn:hover {
+  background-color: #45a049;
+}
+
+.reject-btn {
+  background-color: transparent;
+  border: 1px solid #f44336;
+  color: #f44336;
+}
+
+.reject-btn:hover {
+  background-color: rgba(244, 67, 54, 0.1);
+}
+
+/* Request action buttons */
+.delete-btn {
+  background-color: transparent;
+  border: 1px solid #f44336;
+  color: #f44336;
+}
+
+.delete-btn:hover {
+  background-color: rgba(244, 67, 54, 0.1);
+}
+
+.close-btn-request {
+  background-color: transparent;
+  border: 1px solid #64ffda;
+  color: #64ffda;
+}
+
+.close-btn-request:hover {
+  background-color: rgba(100, 255, 218, 0.1);
+}
+
+/* Empty state */
+.no-results {
+  text-align: center;
+  padding: 3rem 1rem;
+  color: #aaaaaa;
+}
+
+.no-results p {
+  margin-bottom: 0.5rem;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .parking-container {
     flex-direction: column;
-    gap: 1rem;
-}
-
-.booking-form input,
-.booking-form select {
-    padding: 1rem;
-    border-radius: 8px;
-    border: 2px solid rgba(100, 255, 218, 0.2);
-    background-color: #1a1a25;
-    color: white;
-    font-size: 1rem;
-    transition: border-color 0.3s ease;
-}
-
-.booking-form input:focus,
-.booking-form select:focus {
-    border-color: #64ffda;
-    outline: none;
-}
-
-.booking-form button {
-    padding: 1rem;
-    background-color: #64ffda;
-    color: #0e0e15;
-    border: none;
-    border-radius: 8px;
-    font-size: 1rem;
-    font-weight: 600;
-    cursor: pointer;
-    transition: all 0.3s ease;
-}
-
-.booking-form button:hover {
-    background-color: #52e0c4;
-    transform: translateY(-2px);
-}
-
-/* Booked Slots */
-.booked-slots-list {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-    gap: 1rem;
-    margin-top: 1.5rem;
-}
-
-.booked-slot-card {
-    background: #1a1a25;
-    padding: 1.5rem;
-    border-radius: 12px;
-    border-left: 4px solid #64ffda;
-}
-
-.slot-id {
-    font-size: 1.5rem;
-    color: #64ffda;
-    margin-bottom: 1rem;
+  }
+  
+  .filter-section {
+    flex: none;
+    width: 100%;
+  }
+  
+  .time-selection {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+  
+  .requests-container {
+    grid-template-columns: 1fr;
+  }
+  
+  .request-tabs {
+    flex-wrap: wrap;
+    justify-content: flex-start;
+  }
+  
+  .request-buttons {
+    flex-direction: column;
+    align-items: center;
+  }
 }

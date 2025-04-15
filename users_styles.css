@@ -166,6 +166,60 @@ body {
     color: #ffffff;
 }
 
+/* Parking Section Styles */
+.parking-section {
+    margin-top: 1rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    padding-top: 0.8rem;
+}
+
+.parking-section h4 {
+    color: #64ffda;
+    margin-bottom: 0.5rem;
+    font-size: 1rem;
+}
+
+.parking-slots {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.parking-slot {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: rgba(255, 255, 255, 0.05);
+    padding: 0.5rem;
+    border-radius: 8px;
+}
+
+.parking-id {
+    font-weight: 600;
+    color: #ffffff;
+}
+
+.vehicle-type {
+    color: #cccccc;
+}
+
+.slot-status {
+    padding: 0.2rem 0.5rem;
+    border-radius: 4px;
+    font-size: 0.8rem;
+    font-weight: 600;
+}
+
+.status-full {
+    background-color: #ff6464;
+    color: #ffffff;
+}
+
+.status-available {
+    background-color: #64ffda;
+    color: #0e0e15;
+}
+
 /* Modal Form */
 .overlay {
     position: fixed;
@@ -271,6 +325,78 @@ input:focus, select:focus {
     text-align: center;
     font-weight: 500;
     color: #64ffda;
+}
+
+/* Form Section Headers */
+.form-section {
+    margin-bottom: 1.5rem;
+    padding-top: 1rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.form-section h3 {
+    color: #64ffda;
+    margin-bottom: 1rem;
+    font-size: 1.2rem;
+}
+
+/* Parking Form Styles */
+.parking-form-group {
+    display: flex;
+    align-items: flex-start;
+    margin-bottom: 1rem;
+    padding: 1rem;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 8px;
+    position: relative;
+}
+
+.parking-inputs {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.8rem;
+    width: 100%;
+}
+
+.parking-inputs .form-group {
+    flex: 1;
+    min-width: 120px;
+    margin-bottom: 0;
+}
+
+.remove-parking-btn {
+    background: none;
+    border: none;
+    color: #ff6464;
+    font-size: 1.2rem;
+    cursor: pointer;
+    margin-left: 0.5rem;
+    align-self: center;
+}
+
+.remove-parking-btn:hover {
+    color: #ff3030;
+}
+
+.parking-btn {
+    background-color: rgba(100, 255, 218, 0.2);
+    color: #64ffda;
+    margin-top: 0.5rem;
+    width: auto;
+}
+
+.parking-btn:hover {
+    background-color: rgba(100, 255, 218, 0.3);
+}
+
+@media (max-width: 768px) {
+    .parking-inputs {
+        flex-direction: column;
+    }
+    
+    .parking-inputs .form-group {
+        width: 100%;
+    }
 }
 
 /* Footer */

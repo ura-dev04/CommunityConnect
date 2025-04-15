@@ -90,7 +90,7 @@ function logout() {
 // Function to check if user has permission to manage notifications
 function hasNotificationPermission(user) {
   // Define roles that can manage notifications
-  const allowedRoles = ['admin', 'president', 'secretary'];
+  const allowedRoles = ['admin', 'president', 'secretary', 'treasurer', 'building-manager'];
   return allowedRoles.includes(user.sub_role) || user.role === 'admin';
 }
 

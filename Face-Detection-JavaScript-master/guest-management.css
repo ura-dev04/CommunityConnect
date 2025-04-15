@@ -1,0 +1,236 @@
+/* Guest Management specific styles */
+
+.guests-container {
+  width: 90%;
+  max-width: 1200px;
+}
+
+.controls {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.primary-btn {
+  background-color: #64ffda;
+  color: #0e0e15;
+  padding: 12px 20px;
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.primary-btn:hover {
+  background-color: #52e0c4;
+  transform: translateY(-2px);
+}
+
+.back-btn {
+  background-color: #444;
+  color: white;
+  padding: 10px 15px;
+  border-radius: 8px;
+  text-decoration: none;
+  font-size: 0.9rem;
+}
+
+.back-btn:hover {
+  background-color: #555;
+}
+
+.search-bar {
+  margin-bottom: 20px;
+}
+
+.search-bar input {
+  width: 100%;
+  padding: 12px;
+  border-radius: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  background: rgba(255, 255, 255, 0.1);
+  color: white;
+  font-size: 1rem;
+}
+
+.guests-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 20px;
+}
+
+.guest-card {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 15px;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.guest-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+}
+
+.guest-photo {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.guest-details {
+  padding: 15px;
+}
+
+.guest-name {
+  font-size: 1.3rem;
+  margin-bottom: 10px;
+  color: #64ffda;
+}
+
+.guest-info {
+  display: flex;
+  margin-bottom: 5px;
+  font-size: 0.9rem;
+}
+
+.info-label {
+  width: 100px;
+  color: #aaa;
+}
+
+.guest-actions {
+  display: flex;
+  justify-content: space-between;
+  padding: 15px;
+  border-top: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.verify-btn {
+  background-color: #64ffda;
+  color: #0e0e15;
+  border: none;
+  border-radius: 5px;
+  padding: 8px 12px;
+  cursor: pointer;
+}
+
+.delete-btn {
+  background-color: #ff6464;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  padding: 8px 12px;
+  cursor: pointer;
+}
+
+.loading {
+  grid-column: 1 / -1;
+  text-align: center;
+  padding: 20px;
+  color: #aaa;
+}
+
+/* Modal styles */
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 100;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.8);
+  overflow-y: auto;
+}
+
+.modal-content {
+  background: #1a1a25;
+  margin: 50px auto;
+  padding: 30px;
+  border-radius: 15px;
+  width: 90%;
+  max-width: 700px;
+  box-shadow: 0 5px 30px rgba(0, 0, 0, 0.5);
+  position: relative;
+}
+
+.close-modal {
+  position: absolute;
+  top: 15px;
+  right: 20px;
+  color: #aaa;
+  font-size: 28px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.close-modal:hover {
+  color: #64ffda;
+}
+
+.form-group {
+  margin-bottom: 20px;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 8px;
+  color: #ccc;
+}
+
+.form-group input {
+  width: 100%;
+  padding: 10px;
+  border-radius: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  background: rgba(255, 255, 255, 0.1);
+  color: white;
+}
+
+.camera-container {
+  width: 100%;
+  margin: 0 auto;
+}
+
+#camera {
+  width: 100%;
+  max-width: 400px;
+  border-radius: 8px;
+  margin: 0 auto;
+  display: block;
+}
+
+.capture-controls {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+#photo-canvas {
+  width: 100%;
+  max-width: 400px;
+  border-radius: 8px;
+  margin: 10px auto;
+  display: block;
+}
+
+.submit-btn {
+  background-color: #64ffda;
+  color: #0e0e15;
+  border: none;
+  border-radius: 8px;
+  padding: 12px 20px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  width: 100%;
+}
+
+.submit-btn:hover {
+  background-color: #52e0c4;
+}

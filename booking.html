@@ -1,23 +1,159 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Sleek Gradient Buttons</title>
-  <link rel="stylesheet" href="booking.css" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Facility Booking</title>
+  <link rel="stylesheet" href="booking.css">
+  <!-- Flatpickr CSS -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+  <!-- FullCalendar CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.3/main.min.css" rel="stylesheet">
 </head>
 <body>
-<a href="dashboard.html" class="back-button">← Back</a>
+  <!-- Added navbar from dashboard.html -->
+  <header class="navbar">
+    <div class="logo">CommunityConnect</div>
+    <div class="user-welcome-container">
+      <div id="welcome-message">Welcome</div>
+      <div id="user-role">Loading...</div>
+    </div>
+    <nav class="nav-links">
+      <a href="dashboard.html">Home</a>
+    </nav>
+    <div class="auth-buttons">
+      <button class="logout-btn">Logout</button>
+    </div>
+  </header>
+  
+  <div class="container">
+    <h1>Facility Booking</h1>
+    
+    <div class="tab-container">
+      <button class="tab-button active" data-tab="banquet">Banquet Hall</button>
+      <button class="tab-button" data-tab="guestroom">Guest Room</button>
+      <button id="pending-requests-btn" class="admin-button" style="display: none;">View Pending Requests</button>
+    </div>
+    
+    <!-- Common Availability Button -->
+    <div class="availability-button-container">
+      <button id="checkAvailability" class="availability-button">Check Availability</button>
+    </div>
+    
+    <!-- Pending Requests Modal -->
+    <div id="pending-requests-modal" class="modal">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h2>Pending Facility Requests</h2>
+          <span class="close-modal">&times;</span>
+        </div>
+        <div class="modal-tabs">
+          <button class="modal-tab active" data-target="pending-banquet">Banquet Hall</button>
+          <button class="modal-tab" data-target="pending-guestroom">Guest Rooms</button>
+        </div>
+        <div id="pending-banquet" class="modal-tab-content active">
+          <h3>Pending Banquet Hall Requests</h3>
+          <div id="pending-banquet-list" class="pending-list"></div>
+        </div>
+        <div id="pending-guestroom" class="modal-tab-content">
+          <h3>Pending Guest Room Requests</h3>
+          <div id="pending-guestroom-list" class="pending-list"></div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Availability Calendar Section (Hidden by Default) -->
+    <div id="availability-section" style="display: none;">
+      <div class="section-header">
+        <h2>Availability Calendar</h2>
+        <button id="hideAvailability" class="view-toggle-button">Back to Form</button>
+      </div>
 
-  <div class="button-wrapper">
-<div class="button-container">
-    <button class="fancy-button" onclick="window.location.href='guestroom.html'">
-      <span class="text">Guest Room Booking</span>
-    </button>
-    <button class="fancy-button" onclick="window.location.href='banquet.html'">
-      <span class="text">Banquet Hall Booking</span>
-    </button>
-</div>
+      <!-- Calendar Legend -->
+      <div id="calendar-legend">
+        <div class="legend-item"><span class="color-box pending"></span> Pending</div>
+        <div class="legend-item"><span class="color-box confirmed"></span> Confirmed</div>
+        <div class="legend-item"><span class="color-box rejected"></span> Rejected</div>
+      </div>
+      
+      <div id="calendar"></div>
+    </div>
+    
+    <!-- Banquet Hall Booking Form (Now First and Active) -->
+    <div id="banquet-tab" class="tab-content active">
+      <div id="banquet-booking-section">
+        <form id="banquetForm">
+          <label for="banquet-start-date">Start Date:</label>
+          <input type="date" id="banquet-start-date" required>
+          
+          <label for="banquet-duration">Number of Days:</label>
+          <select id="banquet-duration" required>
+            <option value="1">1 Day</option>
+            <option value="2">2 Days</option>
+            <option value="3">3 Days</option>
+            <option value="4">4 Days</option>
+          </select>
+          
+          <!-- Dynamic fields for each day will be added here -->
+          <div id="banquet-days-container"></div>
+          
+          <label for="banquet-guests">Guest Count:</label>
+          <input type="number" id="banquet-guests" placeholder="Number of guests" required>
+          
+          <label for="banquet-purpose">Purpose:</label>
+          <textarea id="banquet-purpose" placeholder="Purpose of booking" required></textarea>
+          
+          <button type="submit">Book Now</button>
+        </form>
+        
+        <div id="banquet-message" class="message"></div>
+      </div>
+      
+      <h2>Banquet Hall Bookings</h2>
+      <ul id="banquetBookedList"></ul>
+    </div>
+    
+    <!-- Guest Room Booking Form -->
+    <div id="guestroom-tab" class="tab-content">
+      <form id="guestroomForm">
+        <label for="guestroom-start-date">Start Date:</label>
+        <input type="date" id="guestroom-start-date" required />
+
+        <label for="guestroom-duration">Number of Days:</label>
+        <select id="guestroom-duration" required>
+          <option value="1">1 Day</option>
+          <option value="2">2 Days</option>
+          <option value="3">3 Days</option>
+          <option value="4">4 Days</option>
+          <option value="5">5 Days</option>
+        </select>
+
+        <div class="booking-info-text">
+          <p>Check-in time: 11:30 AM on start date</p>
+          <p>Check-out time: 10:30 AM on end date</p>
+        </div>
+
+        <label for="guestroom-guests">Number of Guests: <span id="guests-value">1</span></label>
+        <input type="range" id="guestroom-guests" min="1" max="24" value="1" step="1" class="slider" required />
+
+        <div id="roomCountDiv">
+          <label for="roomCount">Rooms needed: <span id="roomCount-value">1</span></label>
+          <input type="hidden" id="roomCount" min="1" max="8" value="1" />
+          <div class="room-info-text">Each room accommodates up to 3 guests</div>
+        </div>
+
+        <button type="submit">Book Now</button>
+      </form>
+
+      <div id="guestroom-message" class="message"></div>
+      <h2>Booked Guest Rooms</h2>
+      <ul id="bookedList"></ul>
+    </div>
   </div>
+
+  <!-- Firebase + Flatpickr + FullCalendar Scripts -->
+  <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+  <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.3/main.min.js"></script>
+  <script type="module" src="booking.js"></script>
 </body>
 </html>

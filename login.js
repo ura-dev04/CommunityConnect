@@ -32,6 +32,19 @@ document.addEventListener('DOMContentLoaded', () => {
         return; // Stop further execution
     }
 
+    // Add event listener for Enter key press
+    passwordInput.addEventListener('keyup', function(event) {
+        if (event.key === 'Enter') {
+            loginBtn.click();
+        }
+    });
+    
+    apartmentInput.addEventListener('keyup', function(event) {
+        if (event.key === 'Enter') {
+            loginBtn.click();
+        }
+    });
+
     // Login functionality
     loginBtn.addEventListener('click', async () => {
         const apartment = apartmentInput.value.trim();
