@@ -466,6 +466,12 @@
   color: #f44336;
 }
 
+/* Status badges for additional states */
+.status-badge.closed {
+  background-color: rgba(128, 128, 128, 0.2);
+  color: #999999;
+}
+
 .request-detail {
   display: flex;
   justify-content: space-between;
@@ -512,6 +518,27 @@
 
 .reject-btn:hover {
   background-color: rgba(244, 67, 54, 0.1);
+}
+
+/* Request action buttons */
+.delete-btn {
+  background-color: transparent;
+  border: 1px solid #f44336;
+  color: #f44336;
+}
+
+.delete-btn:hover {
+  background-color: rgba(244, 67, 54, 0.1);
+}
+
+.close-btn-request {
+  background-color: transparent;
+  border: 1px solid #64ffda;
+  color: #64ffda;
+}
+
+.close-btn-request:hover {
+  background-color: rgba(100, 255, 218, 0.1);
 }
 
 /* Empty state */

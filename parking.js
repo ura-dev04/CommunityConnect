@@ -389,6 +389,9 @@ function openMyRequestsModal() {
   const allTab = myRequestsModal.querySelector('.tab-btn[data-status="all"]');
   if (allTab) allTab.classList.add('active');
   
+  // Set active tab
+  activeTab = 'all';
+  
   // Load user's requests
   loadMyRequests('all');
   
@@ -551,6 +554,9 @@ async function loadAllRequests(statusFilter = 'pending') {
 async function loadMyRequests(statusFilter = 'all') {
   if (!myRequestsContainer) return;
   
+  // Update active tab
+  activeTab = statusFilter;
+  
   // Show loading state
   myRequestsContainer.innerHTML = `
     <div class="loading-container">
@@ -577,7 +583,7 @@ async function loadMyRequests(statusFilter = 'all') {
       
       // Filter and format requests
       for (const [requestId, requestData] of Object.entries(requests)) {
-        // Apply status filter
+        // Apply status filter (include 'closed' status only in 'all' view)
         if (statusFilter === 'all' || requestData.status === statusFilter) {
           filteredRequests.push({
             id: requestId,
@@ -732,14 +738,36 @@ function displayRequestsInContainer(requests, container, isAdminView = false) {
       `;
     }
     
+    // Add action buttons for user's own requests based on status
+    if (!isAdminView) {
+      if (request.status === 'pending') {
+        cardHTML += `
+          <div class="request-actions">
+            <button class="btn delete-btn" data-request-id="${request.id}" data-user-id="${request.userId}">
+              Delete Request
+            </button>
+          </div>
+        `;
+      } else if (request.status === 'approved') {
+        cardHTML += `
+          <div class="request-actions">
+            <button class="btn close-btn-request" data-request-id="${request.id}" data-user-id="${request.userId}" data-owner-flat="${request.ownerFlat}" data-parking-number="${request.parkingNumber}">
+              Close Request
+            </button>
+          </div>
+        `;
+      }
+    }
+    
     // Set the card HTML
     requestCard.innerHTML = cardHTML;
     
     // Add the card to the container
     container.appendChild(requestCard);
     
-    // Add event listeners to approve/reject buttons if present
+    // Add event listeners to action buttons
     if (isAdminView && request.status === 'pending') {
+      // Admin buttons for pending requests
       const approveBtn = requestCard.querySelector('.approve-btn');
       const rejectBtn = requestCard.querySelector('.reject-btn');
       
@@ -754,8 +782,99 @@ function displayRequestsInContainer(requests, container, isAdminView = false) {
           rejectRequest(request.userId, request.id, request);
         });
       }
+    } else if (!isAdminView) {
+      // User buttons for their own requests
+      if (request.status === 'pending') {
+        const deleteBtn = requestCard.querySelector('.delete-btn');
+        if (deleteBtn) {
+          deleteBtn.addEventListener('click', () => {
+            deleteRequest(request.userId, request.id);
+          });
+        }
+      } else if (request.status === 'approved') {
+        const closeBtn = requestCard.querySelector('.close-btn-request');
+        if (closeBtn) {
+          closeBtn.addEventListener('click', () => {
+            closeRequest(request.userId, request.id, request.ownerFlat, request.parkingNumber, request);
+          });
+        }
+      }
     }
   });
+}
+
+// Function to delete a pending request
+async function deleteRequest(userId, requestId) {
+  try {
+    // Ask for confirmation before deleting
+    if (!confirm("Are you sure you want to delete this request?")) {
+      return; // User cancelled the action
+    }
+    
+    // Delete the request from the database
+    const requestRef = ref(database, `residents/${userId}/parkingrequests/${requestId}`);
+    await set(requestRef, null);
+    
+    // Reload the user's requests to refresh the list
+    loadMyRequests(activeTab);
+    
+    // Update pending count badge if user is admin
+    if (isHigherRole) {
+      countPendingRequests();
+    }
+    
+    // Show success message
+    alert('Request deleted successfully!');
+    
+  } catch (error) {
+    console.error("Error deleting request:", error);
+    alert("Error deleting request. Please try again later.");
+  }
+}
+
+// Function to close an approved request and free up the parking spot
+async function closeRequest(userId, requestId, ownerFlat, parkingNumber, requestData) {
+  try {
+    // Ask for confirmation before closing
+    if (!confirm("Are you sure you want to close this request? This will mark the parking spot as available again.")) {
+      return; // User cancelled the action
+    }
+    
+    // 1. Update the request status to closed
+    const requestRef = ref(database, `residents/${userId}/parkingrequests/${requestId}`);
+    await update(requestRef, { status: 'closed' });
+    
+    // 2. Change the parking spot status back to available
+    const parkingRef = ref(database, `residents/${ownerFlat}/parking/${parkingNumber}`);
+    await update(parkingRef, { slot_status: 'available' });
+    
+    // 3. Create notification for the owner
+    const notificationsRef = ref(database, 'notifications');
+    const newNotificationRef = push(notificationsRef);
+    
+    await set(newNotificationRef, {
+      title: "Parking Spot Released",
+      body: `${requestData.requesterName} has released your parking spot (${requestData.parkingId}) that was used on ${requestData.date}.`,
+      timestamp: new Date().toISOString(),
+      targetUser: ownerFlat
+    });
+    
+    // 4. Reload the user's requests to refresh the list
+    loadMyRequests(activeTab);
+    
+    // 5. Update available parking spots if the current date matches the request date
+    const today = new Date().toISOString().split('T')[0];
+    if (today === requestData.date) {
+      loadAvailableParkingSpots();
+    }
+    
+    // 6. Show success message
+    alert('Request closed successfully! The parking spot is now available again.');
+    
+  } catch (error) {
+    console.error("Error closing request:", error);
+    alert("Error closing request. Please try again later.");
+  }
 }
 
 // Function to approve a parking request
