@@ -37,6 +37,23 @@
         "startDate": "2025-04-15",
         "status": "Confirmed",
         "timestamp": "2025-04-14T13:41:32.971Z"
+      },
+      "-ONpHOO1PAyb6qgqKD8L": {
+        "days": [
+          {
+            "date": "2025-04-19",
+            "endTime": "12:30",
+            "startTime": "02:30"
+          }
+        ],
+        "duration": 1,
+        "flatNumber": "1503",
+        "guests": "69",
+        "name": "Armaan",
+        "purpose": "hi",
+        "startDate": "2025-04-19",
+        "status": "Confirmed",
+        "timestamp": "2025-04-14T17:12:17.349Z"
       }
     },
     "guestroom": {
@@ -50,6 +67,43 @@
         "startTime": "12:00",
         "status": "Confirmed",
         "timestamp": "2025-04-14T12:53:34.910Z",
+        "type": "room"
+      },
+      "-ONpK89of18NYapI6uOb": {
+        "days": [
+          {
+            "date": "2025-04-28",
+            "endTime": "10:30",
+            "isOvernight": true,
+            "startTime": "11:30"
+          },
+          {
+            "date": "2025-04-29",
+            "endTime": "10:30",
+            "isOvernight": true,
+            "startTime": "11:30"
+          },
+          {
+            "date": "2025-04-30",
+            "endTime": "10:30",
+            "isOvernight": true,
+            "startTime": "11:30"
+          },
+          {
+            "date": "2025-05-01",
+            "endTime": "10:30",
+            "isOvernight": true,
+            "startTime": "11:30"
+          }
+        ],
+        "duration": 4,
+        "flat": "1503",
+        "guests": 6,
+        "name": "Armaan",
+        "roomCount": 2,
+        "startDate": "2025-04-28",
+        "status": "Rejected",
+        "timestamp": "2025-04-14T17:24:17.336Z",
         "type": "room"
       }
     }
@@ -72,48 +126,15 @@
       "location": "podium",
       "name": "Ganja making class",
       "time": "23:30"
-    }
-  },
-  "images": {
-    "-OMrp7VkX90CXtm5i2T3": {
-      "imageUrl": "https://firebasestorage.googleapis.com/v0/b/societymanagement-df579.firebasestorage.app/o/images%2Fcaptured_1743619657322.jpg?alt=media&token=99818a1c-e116-443e-bd77-6d47b255e90d",
-      "name": "captured_1743619657322.jpg",
-      "timestamp": "2025-04-02T18:47:38.677Z"
     },
-    "-OMtTadlKh2LOcQ2HsXF": {
-      "imageUrl": "https://firebasestorage.googleapis.com/v0/b/societymanagement-df579.firebasestorage.app/o/images%2Fcaptured_1743647305875.jpg?alt=media&token=11672e92-cc39-407f-9ab3-922349b1c9e0",
-      "name": "captured_1743647305875.jpg",
-      "timestamp": "2025-04-03T02:28:27.185Z"
-    },
-    "-OMtVLUj1oo1FhDkEGA3": {
-      "imageUrl": "https://firebasestorage.googleapis.com/v0/b/societymanagement-df579.firebasestorage.app/o/images%2Fcaptured_1743647761204.jpg?alt=media&token=6454423c-5ddb-4566-b15c-8bae91633d8b",
-      "name": "captured_1743647761204.jpg",
-      "timestamp": "2025-04-03T02:36:02.415Z"
-    },
-    "-OMuMGzb7e6r08vu8yx-": {
-      "imageUrl": "https://firebasestorage.googleapis.com/v0/b/societymanagement-df579.firebasestorage.app/o/images%2Fcaptured_1743662077583.jpg?alt=media&token=899fa6ef-4df9-4944-9c38-900f994745a0",
-      "name": "captured_1743662077583.jpg",
-      "timestamp": "2025-04-03T06:36:01.895Z"
-    },
-    "-OMuoWSHPajJyhGezvSa": {
-      "imageUrl": "https://firebasestorage.googleapis.com/v0/b/societymanagement-df579.firebasestorage.app/o/images%2Fcaptured_1743662476012.jpg?alt=media&token=b5cdca65-2ea0-49c7-908d-415507ed03dc",
-      "name": "captured_1743662476012.jpg",
-      "timestamp": "2025-04-03T08:43:47.411Z"
-    },
-    "-OMv1QKm7LNFqx0Zh56V": {
-      "imageUrl": "https://firebasestorage.googleapis.com/v0/b/societymanagement-df579.firebasestorage.app/o/images%2Fcaptured_1743673467183.jpg?alt=media&token=08e20517-731a-4e6e-9e27-393d47dba9fa",
-      "name": "captured_1743673467183.jpg",
-      "timestamp": "2025-04-03T09:44:32.370Z"
-    },
-    "-OMv1XBdaU9se2YQGoZt": {
-      "imageUrl": "https://firebasestorage.googleapis.com/v0/b/societymanagement-df579.firebasestorage.app/o/images%2Fcaptured_1743673497344.jpg?alt=media&token=5a92cb72-d5ee-41a6-9c5b-3a61422a67d0",
-      "name": "captured_1743673497344.jpg",
-      "timestamp": "2025-04-03T09:45:00.458Z"
-    },
-    "-OMv2hIt1t6yB0-eqaOa": {
-      "imageUrl": "https://firebasestorage.googleapis.com/v0/b/societymanagement-df579.firebasestorage.app/o/images%2Fcaptured_1743673804236.jpg?alt=media&token=c92f02e5-dd75-4c41-b0ef-bd77f31a220b",
-      "name": "captured_1743673804236.jpg",
-      "timestamp": "2025-04-03T09:50:08.121Z"
+    "-ONpLEQ7w48g6QivocWi": {
+      "createdAt": "2025-04-14T17:29:05.093Z",
+      "createdBy": "Armaan",
+      "date": "2025-04-30",
+      "description": "holi mai dare piyo",
+      "location": "podium",
+      "name": "holi party",
+      "time": "10:30"
     }
   },
   "maids": {
@@ -190,15 +211,16 @@
       "timestamp": "2025-04-03T02:36:02.415Z",
       "title": "Power Cut"
     },
-    "-ONn8X-h6gHtbyG825m-": {
-      "body": "A new event has been scheduled: \"Ganja making class\" on Tuesday, April 15, 2025 at 11:30 PM, location: podium. new classes for the new generation",
-      "timestamp": "2025-04-14T07:14:18.926Z",
-      "title": "New Event: Ganja making class"
+    "-ONpLEULfxX9sBiLWDQw": {
+      "body": "A new event has been scheduled: \"holi party\" on Wednesday, April 30, 2025 at 10:30 AM, location: podium.",
+      "timestamp": "2025-04-14T17:29:05.363Z",
+      "title": "New Event: holi party"
     }
   },
   "residents": {
     "108": {
       "Owner_Name": "Vrishab Shenvi",
+      "buildingName": "Azziano",
       "complaints": {
         "-ONm42SOvGhu959FumMp": {
           "complaint_content": "vrishab bada harami insaan hai",
@@ -218,79 +240,123 @@
       "email": "example@example.com",
       "flatNumber": "108",
       "floor": "1",
+      "maintenance": {
+        "-ONsn7dFln2Dg6tzRl1r": {
+          "billDate": "2025-04-15",
+          "breakdown": [
+            {
+              "amount": 6900,
+              "description": "mom handling fees"
+            },
+            {
+              "amount": 69,
+              "description": "daddy issues"
+            }
+          ],
+          "dueDate": "2025-04-16",
+          "generatedAt": 1744709651302,
+          "generatedBy": "Armaan",
+          "status": "unpaid",
+          "totalAmount": 6969
+        }
+      },
       "notification_viewed": true,
+      "notifications": {
+        "-ONsiGJw_HJM4NI46HhA": {
+          "body": "Armaan has requested to use your parking spot (V2) on 2025-04-16 from 15:30 to 17:30.",
+          "read": false,
+          "timestamp": "2025-04-15T09:12:56.000Z",
+          "title": "New Parking Request",
+          "type": "parking_request"
+        },
+        "-ONsiWfKW9a3ZuMAND-5": {
+          "body": "Armaan has released your parking spot (V2) that was used on 2025-04-16.",
+          "read": false,
+          "timestamp": "2025-04-15T09:14:02.969Z",
+          "title": "Parking Spot Released",
+          "type": "parking_release"
+        },
+        "-ONsn7iflSpENaoS2tGL": {
+          "body": "A new maintenance bill of ₹6969 has been generated. Due date: 2025-04-16",
+          "timestamp": 1744709651646,
+          "title": "New Maintenance Bill"
+        }
+      },
+      "parking": [
+        null,
+        {
+          "parkingId": "V1",
+          "slot_status": "available",
+          "vehicleType": "2"
+        },
+        {
+          "parkingId": "V2",
+          "slot_status": "available",
+          "vehicleType": "4"
+        }
+      ],
       "password": "123456",
       "password_set": true,
       "phone": "1234567890",
       "role": "resident",
-      "wing": "V",
-      "buildingName": "Azziano",
-      "parking": {
-        "1": {
-          "parkingId": "V1",
-          "vehicleType": "2",
-          "slot_status": "available"
-        },
-        "2": {
-          "parkingId": "V2",
-          "vehicleType": "4",
-          "slot_status": "full"
-        }
-      }
+      "wing": "V"
     },
     "304": {
       "Owner_Name": "urmi",
+      "buildingName": "Azziano",
       "email": "example@example.com",
       "flatNumber": "304",
       "floor": "3",
       "notification_viewed": true,
+      "parking": [
+        null,
+        {
+          "parkingId": "A1",
+          "slot_status": "available",
+          "vehicleType": "2"
+        },
+        {
+          "parkingId": "A2",
+          "slot_status": "full",
+          "vehicleType": "4"
+        }
+      ],
       "password": "123456",
       "password_set": true,
       "phone": "1234567890",
       "role": "MC",
       "sub_role": "building-manager",
-      "wing": "A",
-      "buildingName": "Azziano",
-      "parking": {
-        "1": {
-          "parkingId": "A1",
-          "vehicleType": "2",
-          "slot_status": "available"
-        },
-        "2": {
-          "parkingId": "A2",
-          "vehicleType": "4",
-          "slot_status": "full"
-        }
-      }
+      "wing": "A"
     },
     "405": {
       "Owner_Name": "gayatri ",
+      "buildingName": "Azziano",
       "email": "example@example.com",
       "flatNumber": "405",
       "floor": "6",
       "notification_viewed": false,
+      "parking": [
+        null,
+        {
+          "parkingId": "G1",
+          "slot_status": "available",
+          "vehicleType": "2"
+        },
+        {
+          "parkingId": "G2",
+          "slot_status": "full",
+          "vehicleType": "4"
+        }
+      ],
       "password": "123456",
       "phone": "1234567890",
       "role": "MC",
       "sub_role": "president",
-      "wing": "g",
-      "buildingName": "Azziano",
-      "parking": {
-        "1": {
-          "parkingId": "G1",
-          "vehicleType": "2",
-          "slot_status": "available"
-        },
-        "2": {
-          "parkingId": "G2",
-          "vehicleType": "4",
-          "slot_status": "full"
-        }
-      }
+      "wing": "g"
     },
     "703": {
       "Owner_Name": "shawar khan",
+      "buildingName": "Azziano",
       "email": "example@example.com",
       "flatNumber": "703",
       "floor": "7",
@@ -321,51 +387,53 @@
         }
       },
       "notification_viewed": false,
+      "parking": [
+        null,
+        {
+          "parkingId": "J1",
+          "slot_status": "full",
+          "vehicleType": "2"
+        },
+        {
+          "parkingId": "J2",
+          "slot_status": "available",
+          "vehicleType": "4"
+        }
+      ],
       "password": "SHAWAR123",
       "password_set": true,
       "phone": "1234567890",
       "role": "resident",
-      "wing": "J",
-      "buildingName": "Azziano",
-      "parking": {
-        "1": {
-          "parkingId": "J1",
-          "vehicleType": "2",
-          "slot_status": "available"
-        },
-        "2": {
-          "parkingId": "J2",
-          "vehicleType": "4",
-          "slot_status": "full"
-        }
-      }
+      "wing": "J"
     },
     "909": {
       "Owner_Name": "kajol kapoor",
+      "buildingName": "Azziano",
       "email": "example@example.com",
       "flatNumber": "909",
       "floor": "9",
       "notification_viewed": false,
+      "parking": [
+        null,
+        {
+          "parkingId": "B1",
+          "slot_status": "available",
+          "vehicleType": "2"
+        },
+        {
+          "parkingId": "B2",
+          "slot_status": "full",
+          "vehicleType": "4"
+        }
+      ],
       "password": "123456",
       "phone": "1234567890",
       "role": "resident",
-      "wing": "B",
-      "buildingName": "Azziano",
-      "parking": {
-        "1": {
-          "parkingId": "B1",
-          "vehicleType": "2",
-          "slot_status": "available"
-        },
-        "2": {
-          "parkingId": "B2",
-          "vehicleType": "4",
-          "slot_status": "full"
-        }
-      }
+      "wing": "B"
     },
     "1503": {
       "Owner_Name": "Armaan",
+      "buildingName": "Azziano",
       "complaints": {
         "-ONm0XGQIxMQRTk7WOuI": {
           "complaint_content": "saima is dumb dumb",
@@ -407,50 +475,102 @@
         }
       },
       "notification_viewed": true,
+      "parking": [
+        null,
+        {
+          "parkingId": "F1",
+          "slot_status": "full",
+          "vehicleType": "2"
+        },
+        {
+          "parkingId": "F2",
+          "slot_status": "available",
+          "vehicleType": "4"
+        }
+      ],
+      "parkingrequests": {
+        "-ONrMuxq-7VJRPSny7g4": {
+          "createdAt": "2025-04-15T02:55:40.023Z",
+          "date": "2025-04-29",
+          "endTime": "16:30",
+          "ownerFlat": "108",
+          "parkingId": "V2",
+          "parkingNumber": "2",
+          "reason": "girls over",
+          "requesterFlat": "1503",
+          "requesterName": "Armaan",
+          "requesterUserId": "1503",
+          "startTime": "14:30",
+          "status": "closed",
+          "vehicleNumber": "MH69DB6969"
+        },
+        "-ONsiGDp3enoc2o8VgTr": {
+          "createdAt": "2025-04-15T09:12:55.609Z",
+          "date": "2025-04-16",
+          "endTime": "17:30",
+          "ownerFlat": "108",
+          "parkingId": "V2",
+          "parkingNumber": "2",
+          "reason": "I like to party",
+          "requesterFlat": "1503",
+          "requesterName": "Armaan",
+          "requesterUserId": "1503",
+          "startTime": "15:30",
+          "status": "closed",
+          "vehicleNumber": "MH69DB6969"
+        }
+      },
       "password": "Armaan1234",
       "password_set": true,
       "phone": "1234567890",
       "role": "MC",
       "sub_role": "secretary",
-      "wing": "F",
-      "buildingName": "Azziano",
-      "parking":{
-        "1": {
-          "parkingId": "F1",
-          "vehicleType": "2",
-          "slot_status": "full"
-        },
-        "2": {
-          "parkingId": "F2",
-          "vehicleType": "4",
-          "slot_status": "available"  
-        }
-      }
+      "wing": "F"
     },
     "1703": {
       "Owner_Name": "Saima",
+      "buildingName": "Azziano",
       "email": "example@example.com",
       "flatNumber": "1703",
       "floor": "17",
       "notification_viewed": false,
+      "parking": [
+        null,
+        {
+          "parkingId": "C1",
+          "slot_status": "available",
+          "vehicleType": "2"
+        },
+        {
+          "parkingId": "C2",
+          "slot_status": "full",
+          "vehicleType": "4"
+        }
+      ],
       "password": "123456",
       "phone": "1234567890",
       "role": "MC",
       "sub_role": "treasurer",
-      "wing": "C",
-      "buildingName": "Azziano",
-      "parking": {
-        "1": {
-          "parkingId": "C1",
-          "vehicleType": "2",
-          "slot_status": "available"
-        },
-        "2": {
-          "parkingId": "C2",
-          "vehicleType": "4",
-          "slot_status": "full"
+      "wing": "C"
+    },
+    "6903": {
+      "Owner_Name": "Sushant",
+      "email": "hi@gmail.com",
+      "flatNumber": "6903",
+      "floor": "69",
+      "notification_viewed": "false",
+      "parking": [
+        null,
+        {
+          "parkingId": "DD69",
+          "slot_status": "full",
+          "vehicleType": "4"
         }
-      }
+      ],
+      "password": "123456",
+      "phone": "1234567890",
+      "role": "resident",
+      "wing": "DD"
     }
   }
 }
