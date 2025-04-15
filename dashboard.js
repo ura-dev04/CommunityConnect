@@ -374,7 +374,7 @@ document.addEventListener('DOMContentLoaded', () => {
       'president': ['users.html', 'complaint.html', 'parking.html', 'events.html', 'notice.html', 'contact.html', 'maid-services.html', 'booking.html', 'maintenance.html', 'Face-Detection-JavaScript-master/index.html'],
       'secretary': ['users.html', 'complaint.html', 'parking.html', 'events.html', 'notice.html', 'contact.html', 'maid-services.html', 'booking.html', 'maintenance.html', 'Face-Detection-JavaScript-master/index.html'],
       'treasurer': ['users.html', 'complaint.html', 'parking.html', 'events.html', 'notice.html', 'contact.html', 'maid-services.html', 'booking.html', 'maintenance.html', 'Face-Detection-JavaScript-master/index.html'],
-      'resident': ['users.html', 'complaint.html', 'parking.html', 'events.html', 'notice.html', 'contact.html', 'maid-services.html', 'booking.html', 'maintenance.html', 'Face-Detection-JavaScript-master/index.html'],
+      'resident': ['users.html', 'complaint.html', 'parking.html', 'events.html', 'contact.html', 'maid-services.html', 'booking.html', 'maintenance.html', 'Face-Detection-JavaScript-master/index.html'],
       'building-manager': ['users.html', 'complaint.html', 'parking.html', 'events.html', 'notice.html', 'contact.html', 'maid-services.html', 'booking.html', 'maintenance.html', 'Face-Detection-JavaScript-master/index.html'],
     };
 
