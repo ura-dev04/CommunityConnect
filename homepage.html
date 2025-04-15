@@ -5,28 +5,115 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>CommunityConnect | Home</title>
   <link rel="stylesheet" href="homepage.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
 </head>
 <body>
   <header class="navbar">
     <div class="logo">CommunityConnect</div>
-    <a href="login.html" class="login-btn">Login</a>
+    <nav class="nav-links">
+      <a href="#features">Features</a>
+    </nav>
+    <div class="nav-buttons">
+      <a href="Face-Detection-JavaScript-master/verify-guest.html" class="verify-guest-btn">Verify Guest Entry</a>
+      <a href="login.html" class="login-btn">Login</a>
+    </div>
   </header>
 
   <section class="hero">
     <div class="hero-content">
       <h1>Welcome to CommunityConnect</h1>
-      <p>Your trusted solution for efficient society management.</p>
-      <div class="button-group">
-        <button class="cta-btn">Get Started</button>
-        <button class="verify-guest-btn">Verify Guest Entry</button>
+      <p>Your trusted solution for efficient society management</p>
+    </div>
+  </section>
+
+  <section id="features" class="features-section">
+    <h2 class="section-title">Our Features</h2>
+    <p class="section-description">Comprehensive tools to streamline community management</p>
+    
+    <div class="features-container">
+      <!-- User Management -->
+      <div class="feature-card">
+        <div class="feature-icon">
+          <i class="fas fa-users"></i>
+        </div>
+        <h3>User Management</h3>
+        <ul>
+          <li>Multi-role Authentication</li>
+          <li>User Profiles</li>
+          <li>Password Recovery</li>
+        </ul>
       </div>
+      
+      <!-- Communication -->
+      <div class="feature-card">
+        <div class="feature-icon">
+          <i class="fas fa-comments"></i>
+        </div>
+        <h3>Communication</h3>
+        <ul>
+          <li>Digital Notice Board</li>
+          <li>Emergency Alerts</li>
+          <li>Complaint Management</li>
+        </ul>
+      </div>
+      
+      <!-- Security Features -->
+      <div class="feature-card">
+        <div class="feature-icon">
+          <i class="fas fa-shield-alt"></i>
+        </div>
+        <h3>Security Features</h3>
+        <ul>
+          <li>Visitor Management</li>
+          <li>Visitor Vehicle Registration</li>
+        </ul>
+      </div>
+      
+      <!-- Billing & Payments -->
+      <div class="feature-card">
+        <div class="feature-icon">
+          <i class="fas fa-credit-card"></i>
+        </div>
+        <h3>Billing & Payments</h3>
+        <ul>
+          <li>Maintenance Fee Collection</li>
+          <li>Payment History</li>
+          <li>Invoice Generation</li>
+        </ul>
+      </div>
+      
+      <!-- Amenities Management -->
+      <div class="feature-card">
+        <div class="feature-icon">
+          <i class="fas fa-swimming-pool"></i>
+        </div>
+        <h3>Amenities Management</h3>
+        <ul>
+          <li>Amenity Booking System</li>
+          <li>Maintenance Scheduling</li>
+          <li>Service Provider Directory</li>
+        </ul>
+      </div>
+      
+      <!-- Events & Activities -->
+      <div class="feature-card">
+        <div class="feature-icon">
+          <i class="fas fa-calendar-alt"></i>
+        </div>
+        <h3>Events & Activities</h3>
+        <ul>
+          <li>Community Calendar</li>
+          <li>Event Registration</li>
+        </ul>
+      </div>
+    
     </div>
   </section>
 
   <footer>
     <p>&copy; 2025 CommunityConnect. All rights reserved.</p>
   </footer>
-<!-- My Requests Modal -->
+
   <script src="homepage.js"></script>
 </body>
 </html>

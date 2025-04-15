@@ -11,8 +11,8 @@
 
 .role-badge {
   display: inline-block;
-  background-color: rgba(100, 255, 218, 0.2);
-  color: #64ffda;
+  background-color: rgba(255, 111, 97, 0.2);
+  color: #e63946;
   padding: 6px 12px;
   border-radius: 20px;
   font-size: 0.9rem;
@@ -25,8 +25,9 @@
   gap: 15px;
   margin-bottom: 20px;
   padding: 15px;
-  background: rgba(255, 255, 255, 0.05);
+  background: #ffffff;
   border-radius: 8px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
 }
 
 .filter-group {
@@ -38,23 +39,23 @@
 
 .filter-group label {
   margin-bottom: 5px;
-  color: #aaa;
+  color: #8d99ae;
   font-size: 0.9rem;
 }
 
 .filter-group input {
   padding: 10px;
   border-radius: 6px;
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  background: rgba(255, 255, 255, 0.1);
-  color: white;
+  border: 1px solid rgba(255, 111, 97, 0.2);
+  background: #fff5f3;
+  color: #2b2d42;
 }
 
 .secondary-btn {
   align-self: flex-end;
-  background-color: rgba(255, 255, 255, 0.1);
-  color: white;
-  border: 1px solid rgba(255, 255, 255, 0.2);
+  background-color: #ffd166;
+  color: #2b2d42;
+  border: 1px solid rgba(255, 209, 102, 0.2);
   padding: 10px 15px;
   border-radius: 6px;
   cursor: pointer;
@@ -62,7 +63,9 @@
 }
 
 .secondary-btn:hover {
-  background-color: rgba(255, 255, 255, 0.2);
+  background-color: #ffb64d;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 .entries-stats {
@@ -73,60 +76,69 @@
 
 .stat-box {
   flex: 1;
-  background: rgba(100, 255, 218, 0.1);
+  background: #ffffff;
   border-radius: 8px;
   padding: 15px;
   display: flex;
   justify-content: space-between;
   align-items: center;
+  border-left: 4px solid #ff6f61;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
 }
 
 .stat-label {
   font-weight: 600;
-  color: #aaa;
+  color: #8d99ae;
 }
 
 .stat-value {
   font-size: 1.5rem;
   font-weight: 700;
-  color: #64ffda;
+  color: #e63946;
 }
 
 .entries-table-container {
   margin-bottom: 20px;
   overflow-x: auto;
+  background: #ffffff;
+  border-radius: 8px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
 }
 
 .entries-table {
   width: 100%;
   border-collapse: collapse;
-  margin-bottom: 20px;
+  margin-bottom: 0;
 }
 
 .entries-table th,
 .entries-table td {
   padding: 12px 15px;
   text-align: left;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
 }
 
 .entries-table th {
-  background-color: rgba(255, 255, 255, 0.05);
-  color: #64ffda;
+  background-color: rgba(255, 111, 97, 0.1);
+  color: #e63946;
   font-weight: 600;
   position: sticky;
   top: 0;
 }
 
 .entries-table tr:hover {
-  background-color: rgba(255, 255, 255, 0.05);
+  background-color: #fff5f3;
 }
 
 .no-data-message {
   text-align: center;
   padding: 30px;
   font-style: italic;
-  color: #aaa;
+  color: #8d99ae;
+  background: #ffffff;
+  border-radius: 8px;
+  margin: 20px 0;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
 }
 
 .pagination {
@@ -138,25 +150,29 @@
 }
 
 .pagination-btn {
-  background-color: rgba(255, 255, 255, 0.1);
+  background-color: #ff6f61;
   color: white;
   border: none;
   padding: 8px 15px;
   border-radius: 5px;
   cursor: pointer;
+  transition: all 0.3s ease;
 }
 
 .pagination-btn:hover {
-  background-color: rgba(255, 255, 255, 0.2);
+  background-color: #e63946;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 .pagination-btn:disabled {
   opacity: 0.5;
   cursor: not-allowed;
+  transform: none;
 }
 
 #page-info {
-  color: #aaa;
+  color: #8d99ae;
 }
 
 /* Entry type badges */
@@ -169,12 +185,12 @@
 }
 
 .entry-type-entry {
-  background-color: rgba(100, 255, 218, 0.2);
-  color: #64ffda;
+  background-color: rgba(255, 111, 97, 0.2);
+  color: #ff6f61;
 }
 
 .entry-type-exit {
-  background-color: rgba(255, 182, 77, 0.2);
+  background-color: rgba(255, 209, 102, 0.2);
   color: #ffb64d;
 }
 
@@ -184,8 +200,8 @@
 }
 
 .mode-public {
-  background-color: rgba(255, 100, 150, 0.2);
-  color: #ff6496;
+  background-color: rgba(230, 57, 70, 0.2);
+  color: #e63946;
 }
 
 /* Responsive design */

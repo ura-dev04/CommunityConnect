@@ -19,14 +19,15 @@
 }
 
 .camera-section, .reference-section {
-  background: rgba(255, 255, 255, 0.1);
+  background: #ffffff;
   border-radius: 15px;
   padding: 20px;
-  border: 1px solid rgba(255, 255, 255, 0.2);
+  border: 1px solid rgba(255, 111, 97, 0.2);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
 }
 
 h3 {
-  color: #64ffda;
+  color: #e63946;
   margin-bottom: 15px;
   text-align: center;
 }
@@ -35,11 +36,12 @@ h3 {
   width: 100%;
   border-radius: 10px;
   margin-bottom: 15px;
+  border: 2px solid rgba(255, 111, 97, 0.2);
 }
 
 .primary-btn {
-  background-color: #64ffda;
-  color: #0e0e15;
+  background-color: #ff6f61;
+  color: white;
   padding: 12px 20px;
   border: none;
   border-radius: 8px;
@@ -51,8 +53,9 @@ h3 {
 }
 
 .primary-btn:hover {
-  background-color: #52e0c4;
+  background-color: #e63946;
   transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
 #captured-canvas {
@@ -79,22 +82,23 @@ h3 {
 }
 
 #guest-name {
-  color: #64ffda;
+  color: #e63946;
   margin-bottom: 10px;
   font-size: 1.5rem;
 }
 
 #guest-info {
-  color: #ccc;
+  color: #8d99ae;
 }
 
 .result-area {
-  background: rgba(255, 255, 255, 0.1);
+  background: #ffffff;
   border-radius: 15px;
   padding: 20px;
   margin-bottom: 30px;
-  border: 1px solid rgba(255, 255, 255, 0.2);
+  border: 1px solid rgba(255, 111, 97, 0.2);
   text-align: center;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
 }
 
 #verification-result {
@@ -112,19 +116,19 @@ h3 {
 .match-success {
   background-color: rgba(40, 167, 69, 0.2);
   border: 1px solid rgba(40, 167, 69, 0.5);
-  color: #2ecc71;
+  color: #28a745;
 }
 
 .match-fail {
-  background-color: rgba(220, 53, 69, 0.2);
-  border: 1px solid rgba(220, 53, 69, 0.5);
-  color: #e74c3c;
+  background-color: rgba(230, 57, 70, 0.2);
+  border: 1px solid rgba(230, 57, 70, 0.5);
+  color: #e63946;
 }
 
 .match-pending {
   background-color: rgba(255, 193, 7, 0.2);
   border: 1px solid rgba(255, 193, 7, 0.5);
-  color: #f1c40f;
+  color: #ffb64d;
 }
 
 .action-buttons {
@@ -152,16 +156,18 @@ h3 {
 .success-btn:hover {
   background-color: #218838;
   transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
 .danger-btn {
-  background-color: #dc3545;
+  background-color: #e63946;
   color: white;
 }
 
 .danger-btn:hover {
   background-color: #c82333;
   transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
 .success-btn:disabled, .danger-btn:disabled {
@@ -176,16 +182,19 @@ h3 {
 }
 
 .back-btn {
-  background-color: #444;
+  background-color: #8d99ae;
   color: white;
   padding: 10px 15px;
   border-radius: 8px;
   text-decoration: none;
   font-size: 0.9rem;
+  transition: all 0.3s ease;
 }
 
 .back-btn:hover {
-  background-color: #555;
+  background-color: #2b2d42;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
 .confidence-meter {
@@ -200,10 +209,11 @@ h3 {
   border-radius: 10px;
   overflow: hidden;
   margin-top: 5px;
+  border: 1px solid rgba(255, 111, 97, 0.2);
 }
 
 .confidence-bar {
   height: 100%;
-  background: linear-gradient(to right, #ff6b6b, #feca57, #1dd1a1);
+  background: linear-gradient(to right, #e63946, #ffd166, #28a745);
   transition: width 0.5s ease;
 }

@@ -348,6 +348,18 @@ document.addEventListener('DOMContentLoaded', () => {
       const personalNotificationsSnapshot = await get(child(dbRef, `residents/${userData.apartment}/notifications`));
       if (personalNotificationsSnapshot.exists()) {
         const notifications = personalNotificationsSnapshot.val();
+        // Convert to array and sort by timestamp (newest first)
+        const notificationsArray = Object.entries(notifications).map(([id, data]) => {
+          return { id, ...data };
+        }).sort((a, b) => new Date(b.timestamp) - new Date(a.timestamp));
+        
+        // Update notification badge count
+        notificationBadge.textContent = notificationsArray.length;
+        notificationBadge.style.background = "var(--accent)";
+        notificationBadge.style.color = "#ffffff";
+        
+        // Clear existing notifications
+        notificationsList.innerHTML = '';
         
         // Convert to array and add type
         personalNotifications = Object.entries(notifications).map(([id, data]) => {
