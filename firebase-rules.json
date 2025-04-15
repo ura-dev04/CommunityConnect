@@ -1,0 +1,50 @@
+{
+  "rules": {
+    "residents": {
+      ".read": true,
+      ".write": true,
+      ".indexOn": ["wing"],
+      "$userId": {
+        "complaints": {
+          ".indexOn": ["status", "timestamp"],
+          ".read": true,
+          ".write": true
+        },
+          
+        "parking": {
+          ".indexOn": ["parkingId","vehicleType", "slot_status"],
+          ".read": true,
+          ".write": true
+        }
+      }
+    },
+    "bookings": {
+      ".read": true,
+      ".write": true,
+      "banquet": {
+        ".indexOn": ["status", "startDate"],
+        "$bookingId": {
+          "days": {
+            ".indexOn": ["date", "startTime", "endTime"]
+          }
+        }
+      }
+    },
+    "maids": {
+      ".read": true,
+      ".write": true
+    },
+    "parkings": {
+      ".read": true,
+      ".write": true
+    },
+    "events": {
+      ".read": true,
+      ".write": true
+    },
+    "notifications": {
+      ".read": true,
+      ".write": true
+    }
+  }
+}

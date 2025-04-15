@@ -94,6 +94,10 @@ document.addEventListener('DOMContentLoaded', () => {
 // Function to load unique wings from residents data
 async function loadWings() {
   try {
+    // Show loading state in the wing filter dropdown
+    wingFilter.innerHTML = '<option value="all">Loading wings...</option>';
+    
+    // Get all residents data
     const dbRef = ref(database, 'residents');
     const snapshot = await get(dbRef);
     
@@ -101,20 +105,36 @@ async function loadWings() {
       const residents = snapshot.val();
       const wings = new Set();
       
-      // Extract unique wings
-      Object.values(residents).forEach(resident => {
-        if (resident.wing) {
+      // Extract unique wings from resident data
+      for (const [flatNumber, resident] of Object.entries(residents)) {
+        if (resident && resident.wing) {
           wings.add(resident.wing);
         }
-      });
+      }
       
       // Sort wings alphabetically
-      const sortedWings = Array.from(wings).sort();
+      const sortedWings = Array.from(wings).sort((a, b) => {
+        // Handle numeric and alphabetic wings properly
+        const aNum = parseInt(a);
+        const bNum = parseInt(b);
+        
+        // If both are numbers, compare numerically
+        if (!isNaN(aNum) && !isNaN(bNum)) {
+          return aNum - bNum;
+        }
+        
+        // Otherwise sort as strings
+        return a.localeCompare(b);
+      });
       
-      // Clear current options except "All Wings"
-      while (wingFilter.options.length > 1) {
-        wingFilter.remove(1);
-      }
+      // Clear current options
+      wingFilter.innerHTML = '';
+      
+      // Add "All Wings" option
+      const allOption = document.createElement('option');
+      allOption.value = 'all';
+      allOption.textContent = 'All Wings';
+      wingFilter.appendChild(allOption);
       
       // Add wing options to select dropdown
       sortedWings.forEach(wing => {
@@ -123,9 +143,17 @@ async function loadWings() {
         option.textContent = `Wing ${wing}`;
         wingFilter.appendChild(option);
       });
+      
+      console.log(`Successfully loaded ${sortedWings.length} wings for filtering`);
+    } else {
+      // If no data exists, reset to default option
+      wingFilter.innerHTML = '<option value="all">All Wings</option>';
+      console.log("No resident data found for wings");
     }
   } catch (error) {
     console.error("Error loading wings:", error);
+    wingFilter.innerHTML = '<option value="all">All Wings</option>';
+    alert("Error loading building wings. Please try again later.");
   }
 }
 
@@ -144,6 +172,8 @@ async function loadAvailableParkingSpots() {
     const vehicleType = vehicleTypeFilter.value;
     const wing = wingFilter.value;
     
+    // Get all residents data since we need to filter on multiple criteria
+    // Note: We can't use the wing index directly because parking status is nested
     const dbRef = ref(database, 'residents');
     const snapshot = await get(dbRef);
     
@@ -153,25 +183,26 @@ async function loadAvailableParkingSpots() {
       
       // Extract all available parking spots
       for (const [flatNumber, resident] of Object.entries(residents)) {
-        if (resident.parking) {
-          for (const [parkingNumber, parkingDetails] of Object.entries(resident.parking)) {
-            // Only include spots that are available
-            if (parkingDetails.slot_status === 'available') {
-              // Apply vehicle type filter if selected
-              if (vehicleType === 'all' || parkingDetails.vehicleType === vehicleType) {
-                // Apply wing filter if selected
-                if (wing === 'all' || resident.wing === wing) {
-                  availableSpots.push({
-                    id: parkingDetails.parkingId,
-                    flatNumber,
-                    wing: resident.wing,
-                    ownerName: resident.Owner_Name || 'Unknown',
-                    buildingName: resident.buildingName || 'Azziano',
-                    vehicleType: parkingDetails.vehicleType,
-                    parkingNumber
-                  });
-                }
-              }
+        // Skip if resident has no parking or doesn't match wing filter
+        if (!resident.parking || (wing !== 'all' && resident.wing !== wing)) {
+          continue;
+        }
+        
+        // Process each parking spot for this resident
+        for (const [parkingNumber, parkingDetails] of Object.entries(resident.parking)) {
+          // Only include spots that are available
+          if (parkingDetails.slot_status === 'available') {
+            // Apply vehicle type filter if selected
+            if (vehicleType === 'all' || parkingDetails.vehicleType === vehicleType) {
+              availableSpots.push({
+                id: parkingDetails.parkingId,
+                flatNumber,
+                wing: resident.wing,
+                ownerName: resident.Owner_Name || 'Unknown',
+                buildingName: resident.buildingName || 'Azziano',
+                vehicleType: parkingDetails.vehicleType,
+                parkingNumber
+              });
             }
           }
         }
@@ -295,7 +326,7 @@ async function submitParkingRequest() {
     await set(newRequestRef, {
       parkingId,
       ownerFlat,
-      requesterFlat: currentUser.apartment,
+      requesterFlat: currentUser.apartment || currentUser.flatNumber, // Get flat from user data
       requesterName: currentUser.name || 'Unknown',
       date,
       startTime,
