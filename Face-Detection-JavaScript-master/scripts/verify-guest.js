@@ -179,15 +179,12 @@ document.addEventListener('DOMContentLoaded', async () => {
             `;
             resultContainer.appendChild(matchDetails);
             
-            // Only show the log entry button if logged in
-            if (isLoggedIn) {
-                // Log entry button
-                const logButton = document.createElement('button');
-                logButton.className = 'primary-btn';
-                logButton.textContent = 'Log Entry';
-                logButton.addEventListener('click', () => logGuestEntry(matchData.id, matchData.name));
-                resultContainer.appendChild(logButton);
-            }
+            // Show the log entry button in both logged-in and public mode
+            const logButton = document.createElement('button');
+            logButton.className = 'primary-btn';
+            logButton.textContent = 'Log Entry';
+            logButton.addEventListener('click', () => logGuestEntry(matchData.id, matchData.name, matchData.apartment));
+            resultContainer.appendChild(logButton);
         } else if (!success) {
             // Add a "Register New Guest" button when no match is found, but only if logged in
             if (isLoggedIn) {
@@ -210,16 +207,20 @@ document.addEventListener('DOMContentLoaded', async () => {
         statusDiv.textContent = success ? "Verification complete!" : "Verification failed. Try again.";
     }
 
-    // Log guest entry
-    async function logGuestEntry(guestId, guestName) {
+    // Log guest entry - updated to work in both logged-in and public mode
+    async function logGuestEntry(guestId, guestName, guestApartment) {
         try {
             const entryRef = push(ref(database, 'entries'));
+            // Use the apartment from the user if logged in, otherwise use the guest's apartment
+            const apartmentToLog = isLoggedIn ? userApartment : guestApartment;
+            
             await set(entryRef, {
                 guestId,
                 guestName,
-                apartment: userApartment, // Add apartment information to the entry log
+                apartment: apartmentToLog,
                 timestamp: new Date().toISOString(),
-                type: 'entry'
+                type: 'entry',
+                mode: isLoggedIn ? 'apartment' : 'public'
             });
             
             showResult(true, `Entry logged successfully for ${guestName}! Guest can proceed.`);
