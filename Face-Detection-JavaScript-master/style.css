@@ -3,14 +3,14 @@ body {
     margin: 0;
     padding: 0;
     min-height: 100vh;
-    font-family: 'Segoe UI', system-ui, sans-serif;
-    background-color: #0e0e15;
-    color: white;
+    font-family: 'Poppins', 'Segoe UI', sans-serif;
+    background: linear-gradient(135deg, #fff5f3, #ff9a8d);
+    color: #2b2d42;
     line-height: 1.6;
     display: flex;
     justify-content: center;
     align-items: center;
-    flex-direction: column; /* Ensures the content is aligned vertically */
+    flex-direction: column;
 }
 
 /* Container for content */
@@ -18,15 +18,15 @@ body {
     max-width: 800px;
     margin: 40px auto;
     padding: 2rem;
-    background: linear-gradient(145deg, #232333, #1a1a25);
+    background: #ffffff;
     border-radius: 15px;
     text-align: center;
-    box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.3);
+    box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.2);
 }
 
 /* Heading style */
 h1 {
-    color: white;
+    color: #e63946;
     font-size: 2rem;
     margin-bottom: 1.5rem;
 }
@@ -36,15 +36,15 @@ video {
     width: 100%;
     max-width: 500px;
     border-radius: 10px;
-    border: 2px solid rgba(100, 255, 218, 0.2);
+    border: 2px solid #ff6f61;
 }
 
 /* Button style */
 button {
     margin-top: 15px;
     padding: 1rem;
-    background-color: #64ffda;
-    color: #0e0e15;
+    background-color: #ff6f61;
+    color: white;
     border: none;
     border-radius: 8px;
     font-size: 1rem;
@@ -54,8 +54,9 @@ button {
 }
 
 button:hover {
-    background-color: #52e0c4;
+    background-color: #e63946;
     transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
 /* Captured image style */
@@ -64,7 +65,7 @@ button:hover {
     max-width: 500px;
     border-radius: 10px;
     margin-top: 15px;
-    border: 2px solid rgba(100, 255, 218, 0.2);
+    border: 2px solid #ff6f61;
     display: none; /* Initially hidden */
 }
 
@@ -72,9 +73,9 @@ button:hover {
 #status {
     margin: 15px 0;
     padding: 10px;
-    background-color: rgba(100, 255, 218, 0.1);
+    background-color: rgba(255, 111, 97, 0.1);
     border-radius: 8px;
-    color: #64ffda;
+    color: #e63946;
 }
 
 /* Camera section */
@@ -90,18 +91,18 @@ button:hover {
     display: inline-block;
     margin-top: 20px;
     padding: 0.8rem 1.5rem;
-    background-color: #333344;
+    background-color: #8d99ae;
     color: #fff;
     text-decoration: none;
     border-radius: 8px;
-    transition: background-color 0.3s ease;
+    transition: all 0.3s ease;
 }
 
 .back-btn:hover {
-    background-color: #444455;
+    background-color: #2b2d42;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
-
-/* New styles for guest list and forms */
 
 /* Controls section for buttons */
 .controls {
@@ -125,8 +126,8 @@ button:hover {
 
 /* Primary button */
 .primary-btn {
-    background-color: #64ffda;
-    color: #0e0e15;
+    background-color: #ff6f61;
+    color: white;
     padding: 0.8rem 1.5rem;
     border: none;
     border-radius: 8px;
@@ -138,17 +139,18 @@ button:hover {
 }
 
 .primary-btn:hover {
-    background-color: #52e0c4;
+    background-color: #e63946;
     transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
 /* Verify button styling */
 .verify-btn {
-    background-color: #7064ff;
+    background-color: #ffd166;
 }
 
 .verify-btn:hover {
-    background-color: #5d52e0;
+    background-color: #ffb64d;
 }
 
 /* Guest list styling */
@@ -160,13 +162,14 @@ button:hover {
 }
 
 .guest-card {
-    background: rgba(255, 255, 255, 0.1);
+    background: #ffffff;
     border-radius: 10px;
     padding: 15px;
     display: flex;
     flex-direction: column;
     align-items: center;
     transition: transform 0.3s ease;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 .guest-card:hover {
@@ -191,10 +194,11 @@ button:hover {
     font-weight: bold;
     font-size: 1.1rem;
     margin-bottom: 5px;
+    color: #e63946;
 }
 
 .guest-phone {
-    color: #aaa;
+    color: #8d99ae;
     font-size: 0.9rem;
 }
 
@@ -210,14 +214,14 @@ button:hover {
     border-radius: 5px;
     font-size: 0.8rem;
     cursor: pointer;
-    background: rgba(100, 255, 218, 0.2);
-    color: #64ffda;
+    background: rgba(255, 111, 97, 0.2);
+    color: #ff6f61;
     border: none;
 }
 
 .action-btn.delete {
-    background: rgba(255, 100, 100, 0.2);
-    color: #ff6464;
+    background: rgba(230, 57, 70, 0.2);
+    color: #e63946;
 }
 
 /* Form styling */
@@ -235,16 +239,16 @@ button:hover {
     display: block;
     margin-bottom: 8px;
     font-weight: 600;
-    color: #64ffda;
+    color: #e63946;
 }
 
 .form-group input {
     width: 100%;
     padding: 10px;
     border-radius: 8px;
-    border: 1px solid rgba(100, 255, 218, 0.3);
-    background-color: rgba(255, 255, 255, 0.1);
-    color: white;
+    border: 1px solid rgba(255, 111, 97, 0.3);
+    background-color: #fff5f3;
+    color: #2b2d42;
     font-size: 1rem;
 }
 
@@ -262,7 +266,7 @@ button:hover {
 .loading-text {
     grid-column: 1 / -1;
     text-align: center;
-    color: #aaa;
+    color: #8d99ae;
 }
 
 /* Verification results */
@@ -274,13 +278,13 @@ button:hover {
 }
 
 .result-success {
-    background-color: rgba(100, 255, 100, 0.2);
-    color: #64ff64;
+    background-color: rgba(40, 167, 69, 0.2);
+    color: #28a745;
 }
 
 .result-failure {
-    background-color: rgba(255, 100, 100, 0.2);
-    color: #ff6464;
+    background-color: rgba(230, 57, 70, 0.2);
+    color: #e63946;
 }
 
 .match-details {
@@ -302,9 +306,9 @@ button:hover {
 .apartment-display {
     margin-bottom: 20px;
     padding: 10px;
-    background-color: rgba(100, 255, 218, 0.1);
+    background-color: rgba(255, 111, 97, 0.1);
     border-radius: 8px;
-    color: #64ffda;
+    color: #e63946;
     font-weight: 600;
     text-align: center;
 }

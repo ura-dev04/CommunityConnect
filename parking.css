@@ -1,21 +1,37 @@
 /* Parking Management Styles */
 
+:root {
+  --primary: #ff6f61; /* Vibrant coral */
+  --primary-light: #ff9a8d; /* Light coral */
+  --primary-dark: #e63946; /* Deep coral */
+  --accent: #ffd166; /* Bright yellow */
+  --accent-light: #ffe29a; /* Soft yellow */
+  --bg-light: #fff5f3; /* Warm pinkish background */
+  --bg-card: #ffffff; /* White for cards */
+  --bg-card-hover: #ffe8d6; /* Light peach */
+  --text-dark: #2b2d42; /* Dark navy */
+  --text-muted: #8d99ae; /* Muted gray */
+  --shadow-light: rgba(0, 0, 0, 0.05); /* Subtle shadow */
+  --shadow-dark: rgba(0, 0, 0, 0.2); /* Darker shadow */
+}
+
 .page-header {
   padding: 3rem 2rem;
   text-align: center;
-  background-color: #141428;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  background: linear-gradient(135deg, var(--primary-light), var(--accent-light));
+  border-bottom: 2px solid var(--primary);
 }
 
 .page-header h1 {
   font-size: 2.5rem;
   margin-bottom: 0.5rem;
-  color: #64ffda;
+  color: var(--primary-dark);
+  text-shadow: 0 2px 5px var(--shadow-dark);
 }
 
 .page-header p {
   font-size: 1.1rem;
-  color: #cccccc;
+  color: var(--text-dark);
   margin-bottom: 1.5rem;
 }
 
@@ -28,9 +44,9 @@
 }
 
 .request-btn {
-  background-color: rgba(100, 255, 218, 0.1);
-  color: #64ffda;
-  border: 1px solid #64ffda;
+  background-color: var(--primary);
+  color: #ffffff;
+  border: none;
   padding: 0.8rem 1.5rem;
   border-radius: 30px;
   font-weight: 600;
@@ -39,19 +55,22 @@
   display: flex;
   align-items: center;
   gap: 0.5rem;
+  box-shadow: 0 4px 8px var(--shadow-light);
 }
 
 .request-btn:hover {
-  background-color: rgba(100, 255, 218, 0.2);
+  background-color: var(--primary-dark);
   transform: translateY(-2px);
+  box-shadow: 0 6px 12px var(--shadow-dark);
 }
 
 .request-btn .count-badge {
-  background-color: #64ffda;
-  color: #141428;
+  background-color: var(--accent);
+  color: var(--text-dark);
   font-size: 0.8rem;
   padding: 0.2rem 0.5rem;
   border-radius: 10px;
+  font-weight: bold;
 }
 
 /* Admin only elements */
@@ -64,21 +83,23 @@
   flex-direction: row;
   gap: 2rem;
   padding: 2rem;
-  background-color: #1a1a25;
+  background-color: var(--bg-light);
   min-height: calc(100vh - 300px);
 }
 
 /* Filter Section */
 .filter-section {
   flex: 0 0 250px;
-  background: rgba(255, 255, 255, 0.05);
-  border-radius: 10px;
+  background: var(--bg-card);
+  border-radius: 12px;
   padding: 1.5rem;
   height: fit-content;
+  box-shadow: 0 4px 15px var(--shadow-light);
+  border: 1px solid var(--primary-light);
 }
 
 .filter-section h2 {
-  color: #64ffda;
+  color: var(--primary-dark);
   margin-bottom: 1rem;
   font-size: 1.3rem;
 }
@@ -89,26 +110,37 @@
 
 .filter-group label {
   display: block;
-  color: #ffffff;
+  color: var(--text-dark);
   margin-bottom: 0.5rem;
+  font-weight: 600;
 }
 
 .filter-group select,
 .filter-group input[type="text"] {
   width: 100%;
   padding: 0.7rem;
-  background-color: rgba(255, 255, 255, 0.1);
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  border-radius: 5px;
-  color: #ffffff;
+  background-color: var(--bg-light);
+  border: 1px solid var(--primary-light);
+  border-radius: 8px;
+  color: var(--text-dark);
+  font-family: 'Poppins', 'Segoe UI', sans-serif;
+}
+
+.filter-group select:focus,
+.filter-group input[type="text"]:focus {
+  outline: none;
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px var(--primary-light);
 }
 
 /* Parking List Section */
 .parking-list-section {
   flex: 1;
-  background: rgba(255, 255, 255, 0.05);
-  border-radius: 10px;
+  background: var(--bg-card);
+  border-radius: 12px;
   padding: 1.5rem;
+  box-shadow: 0 4px 15px var(--shadow-light);
+  border: 1px solid var(--primary-light);
 }
 
 .section-header {
@@ -119,16 +151,18 @@
 }
 
 .section-header h2 {
-  color: #64ffda;
+  color: var(--primary-dark);
   font-size: 1.5rem;
 }
 
 .count-badge {
-  background-color: rgba(100, 255, 218, 0.2);
-  color: #64ffda;
+  background-color: var(--accent-light);
+  color: var(--text-dark);
   padding: 0.4rem 0.8rem;
   border-radius: 20px;
   font-size: 0.9rem;
+  font-weight: bold;
+  box-shadow: 0 2px 5px var(--shadow-light);
 }
 
 /* Parking Spots Display */
@@ -139,22 +173,23 @@
 }
 
 .parking-spot {
-  background: rgba(255, 255, 255, 0.08);
-  border-radius: 10px;
+  background: var(--bg-card);
+  border-radius: 12px;
   padding: 1.5rem;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
   cursor: pointer;
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  border: 1px solid var(--primary-light);
+  box-shadow: 0 4px 10px var(--shadow-light);
 }
 
 .parking-spot:hover {
   transform: translateY(-5px);
-  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
-  border-color: rgba(100, 255, 218, 0.5);
+  box-shadow: 0 10px 20px var(--shadow-dark);
+  border-color: var(--primary);
 }
 
 .parking-spot h3 {
-  color: #64ffda;
+  color: var(--primary-dark);
   margin-bottom: 1rem;
   font-size: 1.3rem;
 }
@@ -167,11 +202,12 @@
 }
 
 .spot-detail .label {
-  color: #aaaaaa;
+  color: var(--text-muted);
+  font-weight: 600;
 }
 
 .spot-detail .value {
-  color: #ffffff;
+  color: var(--text-dark);
   font-weight: bold;
 }
 
@@ -184,29 +220,34 @@
 .btn {
   padding: 0.7rem 1.2rem;
   border: none;
-  border-radius: 5px;
+  border-radius: 8px;
   cursor: pointer;
   font-weight: 600;
-  transition: background-color 0.3s ease;
+  transition: all 0.3s ease;
+  font-family: 'Poppins', 'Segoe UI', sans-serif;
 }
 
 .primary-btn {
-  background-color: #64ffda;
-  color: #0e0e15;
+  background-color: var(--primary);
+  color: #ffffff;
+  box-shadow: 0 4px 8px var(--shadow-light);
 }
 
 .primary-btn:hover {
-  background-color: #52e0c4;
+  background-color: var(--primary-dark);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 12px var(--shadow-dark);
 }
 
 .secondary-btn {
   background-color: transparent;
-  border: 1px solid #64ffda;
-  color: #64ffda;
+  border: 1px solid var(--primary);
+  color: var(--primary-dark);
 }
 
 .secondary-btn:hover {
-  background-color: rgba(100, 255, 218, 0.1);
+  background-color: var(--bg-card-hover);
+  transform: translateY(-2px);
 }
 
 /* Modal Styles */
@@ -218,19 +259,20 @@
   top: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(0, 0, 0, 0.8);
+  background-color: rgba(0, 0, 0, 0.5);
   overflow: auto;
 }
 
 .modal-content {
-  background-color: #1a1a25;
+  background-color: var(--bg-card);
   margin: 10% auto;
   padding: 2rem;
-  border-radius: 10px;
+  border-radius: 12px;
   width: 90%;
   max-width: 500px;
   animation: modalFade 0.3s ease;
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  border: 2px solid var(--primary-light);
+  box-shadow: 0 5px 25px var(--shadow-dark);
 }
 
 .large-modal {
@@ -251,17 +293,17 @@
 }
 
 .modal-body::-webkit-scrollbar-track {
-  background: rgba(255, 255, 255, 0.05);
+  background: var (--bg-light);
   border-radius: 10px;
 }
 
 .modal-body::-webkit-scrollbar-thumb {
-  background: rgba(100, 255, 218, 0.3);
+  background: var(--primary-light);
   border-radius: 10px;
 }
 
 .modal-body::-webkit-scrollbar-thumb:hover {
-  background: rgba(100, 255, 218, 0.5);
+  background: var(--primary);
 }
 
 @keyframes modalFade {
@@ -276,7 +318,7 @@
 }
 
 .close-btn {
-  color: #aaaaaa;
+  color: var(--text-muted);
   float: right;
   font-size: 1.8rem;
   font-weight: bold;
@@ -285,21 +327,21 @@
 }
 
 .close-btn:hover {
-  color: #64ffda;
+  color: var(--primary-dark);
 }
 
 .modal h2 {
-  color: #64ffda;
+  color: var(--primary-dark);
   margin-bottom: 1.5rem;
   text-align: center;
 }
 
 .selected-spot-info {
-  background-color: rgba(255, 255, 255, 0.05);
+  background-color: var(--bg-light);
   padding: 1rem;
-  border-radius: 5px;
+  border-radius: 8px;
   margin-bottom: 1.5rem;
-  border-left: 4px solid #64ffda;
+  border-left: 4px solid var(--primary);
 }
 
 /* Request Tabs */
@@ -308,27 +350,28 @@
   justify-content: center;
   gap: 1rem;
   margin-bottom: 2rem;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  border-bottom: 1px solid var(--primary-light);
   padding-bottom: 1rem;
 }
 
 .tab-btn {
   background: transparent;
-  color: #cccccc;
+  color: var(--text-muted);
   border: none;
   padding: 0.5rem 1rem;
   cursor: pointer;
   font-size: 1rem;
   transition: all 0.3s ease;
   position: relative;
+  font-family: 'Poppins', 'Segoe UI', sans-serif;
 }
 
 .tab-btn:hover {
-  color: #64ffda;
+  color: var(--primary-dark);
 }
 
 .tab-btn.active {
-  color: #64ffda;
+  color: var(--primary-dark);
   font-weight: bold;
 }
 
@@ -339,7 +382,7 @@
   left: 0;
   width: 100%;
   height: 3px;
-  background-color: #64ffda;
+  background-color: var(--primary);
   border-radius: 3px 3px 0 0;
 }
 
@@ -357,8 +400,9 @@
 
 .form-group label {
   display: block;
-  color: #cccccc;
+  color: var(--text-dark);
   margin-bottom: 0.5rem;
+  font-weight: 600;
 }
 
 .form-group input[type="text"],
@@ -368,11 +412,20 @@
 .form-group select {
   width: 100%;
   padding: 0.8rem;
-  background-color: rgba(255, 255, 255, 0.1);
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  border-radius: 5px;
-  color: #ffffff;
+  background-color: var(--bg-light);
+  border: 1px solid var(--primary-light);
+  border-radius: 8px;
+  color: var(--text-dark);
   font-size: 1rem;
+  font-family: 'Poppins', 'Segoe UI', sans-serif;
+}
+
+.form-group input:focus,
+.form-group textarea:focus,
+.form-group select:focus {
+  outline: none;
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px rgba(255, 111, 97, 0.25);
 }
 
 .form-group textarea {
@@ -405,12 +458,12 @@
   align-items: center;
   justify-content: center;
   min-height: 200px;
-  color: #aaaaaa;
+  color: var(--text-muted);
 }
 
 .loading-spinner {
-  border: 4px solid rgba(255, 255, 255, 0.1);
-  border-top: 4px solid #64ffda;
+  border: 4px solid var(--bg-light);
+  border-top: 4px solid var(--primary);
   border-radius: 50%;
   width: 40px;
   height: 40px;
@@ -425,10 +478,17 @@
 
 /* Request Cards */
 .request-card {
-  background: rgba(255, 255, 255, 0.08);
-  border-radius: 10px;
+  background: var(--bg-card);
+  border-radius: 12px;
   padding: 1.5rem;
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  border: 1px solid var(--primary-light);
+  box-shadow: 0 4px 10px var(--shadow-light);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.request-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 15px var(--shadow-dark);
 }
 
 .request-header {
@@ -439,7 +499,7 @@
 }
 
 .request-header h3 {
-  color: #64ffda;
+  color: var(--primary-dark);
   margin: 0;
   font-size: 1.2rem;
 }
@@ -449,11 +509,12 @@
   border-radius: 20px;
   font-size: 0.8rem;
   font-weight: bold;
+  box-shadow: 0 2px 5px var(--shadow-light);
 }
 
 .status-badge.pending {
-  background-color: rgba(255, 193, 7, 0.2);
-  color: #ffc107;
+  background-color: var(--accent-light);
+  color: var(--text-dark);
 }
 
 .status-badge.approved {
@@ -480,14 +541,16 @@
 }
 
 .request-detail .label {
-  color: #aaaaaa;
+  color: var(--text-muted);
   flex: 0 0 35%;
+  font-weight: 600;
 }
 
 .request-detail .value {
-  color: #ffffff;
+  color: var(--text-dark);
   text-align: right;
   flex: 0 0 62%;
+  font-weight: 500;
 }
 
 .reason-text {
@@ -533,23 +596,27 @@
 
 .close-btn-request {
   background-color: transparent;
-  border: 1px solid #64ffda;
-  color: #64ffda;
+  border: 1px solid var(--primary);
+  color: var(--primary-dark);
 }
 
 .close-btn-request:hover {
-  background-color: rgba(100, 255, 218, 0.1);
+  background-color: var(--bg-card-hover);
 }
 
 /* Empty state */
 .no-results {
   text-align: center;
   padding: 3rem 1rem;
-  color: #aaaaaa;
+  color: var(--text-muted);
+  background-color: var(--bg-light);
+  border-radius: 12px;
+  border: 1px dashed var(--primary-light);
 }
 
 .no-results p {
   margin-bottom: 0.5rem;
+  font-weight: 500;
 }
 
 /* Responsive Design */

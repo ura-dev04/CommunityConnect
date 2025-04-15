@@ -1,16 +1,6 @@
 {
   "bookings": {
     "banquet": {
-      "-ONoMGorrhy5iBGtr1nq": {
-        "date": "2025-04-16",
-        "flatNumber": "1503",
-        "guests": "69",
-        "name": "Armaan",
-        "purpose": "gangbang",
-        "status": "confirmed",
-        "time": "14:30",
-        "timestamp": "2025-04-14T12:53:59.860Z"
-      },
       "-ONoX9NcYR4pow2ftv0V": {
         "days": [
           {
@@ -31,29 +21,12 @@
         ],
         "duration": 3,
         "flatNumber": "1503",
-        "guests": "100",
+        "guests": "50",
         "name": "Armaan",
-        "purpose": "100 people anal challenge",
+        "purpose": "Wedding ceremony",
         "startDate": "2025-04-15",
         "status": "Confirmed",
         "timestamp": "2025-04-14T13:41:32.971Z"
-      },
-      "-ONpHOO1PAyb6qgqKD8L": {
-        "days": [
-          {
-            "date": "2025-04-19",
-            "endTime": "12:30",
-            "startTime": "02:30"
-          }
-        ],
-        "duration": 1,
-        "flatNumber": "1503",
-        "guests": "69",
-        "name": "Armaan",
-        "purpose": "hi",
-        "startDate": "2025-04-19",
-        "status": "Confirmed",
-        "timestamp": "2025-04-14T17:12:17.349Z"
       }
     },
     "guestroom": {
@@ -108,33 +81,181 @@
       }
     }
   },
-  "events": {
-    "-ONn7SDafpuvYY44SKOQ": {
-      "createdAt": "2025-04-14T07:09:37.194Z",
-      "createdBy": "Armaan",
-      "date": "2025-04-15",
-      "description": "I dont know I dont host dinners",
-      "location": "basement in the corner",
-      "name": "Pav Bhaji dinner",
-      "time": "19:30"
+  "entries": {
+    "-ONtZgq94lBUlUigkLh4": {
+      "apartment": "1503",
+      "guestId": "-ONtYZQbdrxRPZmJJpfa",
+      "guestName": "armaan",
+      "mode": "apartment",
+      "timestamp": "2025-04-15T13:10:44.504Z",
+      "type": "entry"
     },
+    "-ONtZmI_D7sqUmfvXwnu": {
+      "apartment": "1503",
+      "guestId": "-ONtYZQbdrxRPZmJJpfa",
+      "guestName": "armaan",
+      "mode": "public",
+      "timestamp": "2025-04-15T13:11:06.853Z",
+      "type": "entry"
+    }
+  },
+  "events": {
     "-ONn8WwHN5FAjYI3ugxt": {
       "createdAt": "2025-04-14T07:14:18.643Z",
       "createdBy": "Armaan",
       "date": "2025-04-15",
-      "description": "new classes for the new generation",
+      "description": "Skating competition for under 10 years",
       "location": "podium",
-      "name": "Ganja making class",
+      "name": "Skating Competition",
       "time": "23:30"
     },
     "-ONpLEQ7w48g6QivocWi": {
       "createdAt": "2025-04-14T17:29:05.093Z",
       "createdBy": "Armaan",
       "date": "2025-04-30",
-      "description": "holi mai dare piyo",
+      "description": "Ambedkar Jayanti celebration with cultural programs",
       "location": "podium",
-      "name": "holi party",
+      "name": "Ambedkar Jayanti Celebration",
       "time": "10:30"
+    }
+  },
+  "guests": {
+    "-ONtYZQbdrxRPZmJJpfa": {
+      "apartment": "1503",
+      "faceDescriptor": [
+        -0.09452381730079651,
+        0.07506241649389267,
+        0.087677001953125,
+        -0.04069419950246811,
+        0.013762686401605606,
+        -0.00698666600510478,
+        -0.04802442714571953,
+        0.0023178972769528627,
+        0.17945057153701782,
+        -0.14509820938110352,
+        0.2701306939125061,
+        0.020696517080068588,
+        -0.1454804539680481,
+        -0.09928654879331589,
+        -0.08223449438810349,
+        0.1280137449502945,
+        -0.12615719437599182,
+        -0.08463385701179504,
+        -0.027086718007922173,
+        -0.09563510119915009,
+        0.06820990145206451,
+        0.0416816882789135,
+        -0.038810763508081436,
+        0.02419138140976429,
+        -0.20182467997074127,
+        -0.3026292622089386,
+        -0.08420338481664658,
+        -0.122832290828228,
+        0.06333280354738235,
+        -0.1401599794626236,
+        -0.05109482631087303,
+        0.08803359419107437,
+        -0.0966852530837059,
+        -0.0016336191911250353,
+        0.031525153666734695,
+        0.09881162643432617,
+        -0.03512571007013321,
+        0.0033859815448522568,
+        0.20964974164962769,
+        0.08744422346353531,
+        -0.08495151996612549,
+        0.05004790797829628,
+        0.003407461103051901,
+        0.35399192571640015,
+        0.1771935224533081,
+        0.06406181305646896,
+        0.025662817060947418,
+        -0.09195712953805923,
+        0.17054931819438934,
+        -0.18827416002750397,
+        0.06726686656475067,
+        0.14539769291877747,
+        0.10585397481918335,
+        0.12290749698877335,
+        0.13941872119903564,
+        -0.16308246552944183,
+        0.02775975875556469,
+        0.05444462597370148,
+        -0.18822214007377625,
+        0.09056777507066727,
+        -0.061478860676288605,
+        -0.06274568289518356,
+        -0.0004017487517558038,
+        -0.048860978335142136,
+        0.16493350267410278,
+        0.04154916852712631,
+        -0.11444339901208878,
+        -0.08463612198829651,
+        0.23080992698669434,
+        -0.1572432667016983,
+        -0.014264491386711597,
+        0.05651877075433731,
+        -0.10614347457885742,
+        -0.16453149914741516,
+        -0.2604571282863617,
+        0.05536505579948425,
+        0.3312513828277588,
+        0.22442565858364105,
+        -0.1609625369310379,
+        0.07966826856136322,
+        0.0011433034669607878,
+        -0.10875333100557327,
+        0.05745227262377739,
+        0.11626920104026794,
+        -0.13082154095172882,
+        0.03537480905652046,
+        -0.003654467174783349,
+        0.022837061434984207,
+        0.16156834363937378,
+        0.05951109901070595,
+        -0.01967223361134529,
+        0.19936829805374146,
+        -0.020022880285978317,
+        0.04784971848130226,
+        0.04553840309381485,
+        -0.051130205392837524,
+        -0.15703439712524414,
+        -0.03529080003499985,
+        -0.11324451118707657,
+        -0.0548282191157341,
+        -0.02866152860224247,
+        -0.14346839487552643,
+        0.010176656767725945,
+        0.11695702373981476,
+        -0.2116183191537857,
+        0.18225207924842834,
+        -0.01624656468629837,
+        -0.02481667324900627,
+        -0.060139868408441544,
+        0.09637036919593811,
+        -0.12403459846973419,
+        0.019990019500255585,
+        0.1472596526145935,
+        -0.23453876376152039,
+        0.18031291663646698,
+        0.18122604489326477,
+        0.11596181988716125,
+        0.15682320296764374,
+        0.13718095421791077,
+        0.03431129828095436,
+        -0.010382236912846565,
+        -0.027089670300483704,
+        -0.12915730476379395,
+        -0.05627716705203056,
+        0.0017718441085889935,
+        -0.06432514637708664,
+        0.0770314559340477,
+        0.015426792204380035
+      ],
+      "imageUrl": "https://firebasestorage.googleapis.com/v0/b/societymanagement-df579.firebasestorage.app/o/guests%2Fguest_1744722345042.jpg?alt=media&token=59dc9490-b84c-46d1-a1cc-d228b1f81778",
+      "name": "armaan",
+      "phone": "9326632001",
+      "timestamp": "2025-04-15T13:05:47.751Z"
     }
   },
   "maids": {
@@ -183,6 +304,17 @@
       ],
       "wing": "A"
     },
+    "7250": {
+      "createdAt": 1744561973103,
+      "flatNumber": "1503",
+      "maidId": "7890",
+      "mobile": "9082645220",
+      "name": "vedashree tai",
+      "timeSlots": [
+        "4-6"
+      ],
+      "wing": "D"
+    },
     "7890": {
       "createdAt": 1744561973103,
       "flatNumber": "909",
@@ -201,20 +333,10 @@
       "timestamp": "2025-04-02T18:47:38.677Z",
       "title": "No water supply today"
     },
-    "-OMtTadlKh2LOcQyHsXF": {
-      "body": "Meter reading for the month of March 2025 is due. Please pay the amount before 5th April 2025.",
-      "timestamp": "2025-04-03T02:28:27.185Z",
-      "title": "Meter Reading"
-    },
     "-OMwVLUj1oo1FhDkEGA3": {
       "body": "Power cut from 10 am to 12 pm for all wings.",
       "timestamp": "2025-04-03T02:36:02.415Z",
       "title": "Power Cut"
-    },
-    "-ONpLEULfxX9sBiLWDQw": {
-      "body": "A new event has been scheduled: \"holi party\" on Wednesday, April 30, 2025 at 10:30 AM, location: podium.",
-      "timestamp": "2025-04-14T17:29:05.363Z",
-      "title": "New Event: holi party"
     }
   },
   "residents": {
@@ -223,21 +345,21 @@
       "buildingName": "Azziano",
       "complaints": {
         "-ONm42SOvGhu959FumMp": {
-          "complaint_content": "vrishab bada harami insaan hai",
+          "complaint_content": "Excessive noise from the apartment above during late hours. Unable to sleep properly for the past week.",
           "complaint_type": "member_related",
           "resident_name": "Vrishab Shenvi",
           "status": "Resolved",
           "timestamp": "2025-04-14T02:15:07.863Z"
         },
         "-ONmAa0d352LQqlJ2FVz": {
-          "complaint_content": "saima kung is karaning",
+          "complaint_content": "Water leakage from ceiling in the living room. Appears to be coming from apartment 208.",
           "complaint_type": "member_related",
           "resident_name": "Vrishab Shenvi",
           "status": "Resolved",
           "timestamp": "2025-04-14T02:43:42.313Z"
         }
       },
-      "email": "example@example.com",
+      "email": "vrishab.shenvi@gmail.com",
       "flatNumber": "108",
       "floor": "1",
       "maintenance": {
@@ -245,19 +367,19 @@
           "billDate": "2025-04-15",
           "breakdown": [
             {
-              "amount": 6900,
-              "description": "mom handling fees"
+              "amount": 5000,
+              "description": "monthly maintainence"
             },
             {
-              "amount": 69,
-              "description": "daddy issues"
+              "amount": 512,
+              "description": "previous dues"
             }
           ],
           "dueDate": "2025-04-16",
           "generatedAt": 1744709651302,
           "generatedBy": "Armaan",
           "status": "unpaid",
-          "totalAmount": 6969
+          "totalAmount": 5512
         }
       },
       "notification_viewed": true,
@@ -277,7 +399,7 @@
           "type": "parking_release"
         },
         "-ONsn7iflSpENaoS2tGL": {
-          "body": "A new maintenance bill of ₹6969 has been generated. Due date: 2025-04-16",
+          "body": "A new maintenance bill of ₹5512 has been generated. Due date: 2025-04-16",
           "timestamp": 1744709651646,
           "title": "New Maintenance Bill"
         }
@@ -297,14 +419,30 @@
       ],
       "password": "123456",
       "password_set": true,
-      "phone": "1234567890",
+      "phone": "9876543210",
       "role": "resident",
       "wing": "V"
     },
     "304": {
-      "Owner_Name": "urmi",
+      "Owner_Name": "urmi Joshi",
       "buildingName": "Azziano",
-      "email": "example@example.com",
+      "complaints": {
+        "-ONm42SOvGhu959FumMp": {
+          "complaint_content": "Security guard at the main gate was rude and denied entry to my pre-authorized guests yesterday evening.",
+          "complaint_type": "society_related",
+          "resident_name": "urmi Joshi",
+          "status": "Resolved",
+          "timestamp": "2025-04-14T02:15:07.863Z"
+        },
+        "-ONmAa0d352LQqlJ2FVz": {
+          "complaint_content": "Common area lights in B-wing corridor are not working for the past 3 days. Safety concern during nighttime.",
+          "complaint_type": "society_related",
+          "resident_name": "urmi Joshi",
+          "status": "Resolved",
+          "timestamp": "2025-04-14T02:43:42.313Z"
+        }
+      },
+      "email": "urmi.joshi@yahoo.com",
       "flatNumber": "304",
       "floor": "3",
       "notification_viewed": true,
@@ -323,7 +461,7 @@
       ],
       "password": "123456",
       "password_set": true,
-      "phone": "1234567890",
+      "phone": "8765432109",
       "role": "MC",
       "sub_role": "building-manager",
       "wing": "A"
@@ -331,7 +469,7 @@
     "405": {
       "Owner_Name": "gayatri ",
       "buildingName": "Azziano",
-      "email": "example@example.com",
+      "email": "gayatri.sharma@outlook.com",
       "flatNumber": "405",
       "floor": "6",
       "notification_viewed": false,
@@ -349,7 +487,7 @@
         }
       ],
       "password": "123456",
-      "phone": "1234567890",
+      "phone": "7654321098",
       "role": "MC",
       "sub_role": "president",
       "wing": "g"
@@ -357,7 +495,23 @@
     "703": {
       "Owner_Name": "shawar khan",
       "buildingName": "Azziano",
-      "email": "example@example.com",
+      "complaints": {
+        "-ONm42SOvGhu959FumMp": {
+          "complaint_content": "Garbage not being collected regularly from my floor. Bins are overflowing and creating foul smell.",
+          "complaint_type": "society_related",
+          "resident_name": "shawar khan",
+          "status": "Resolved",
+          "timestamp": "2025-04-14T02:15:07.863Z"
+        },
+        "-ONmAa0d352LQqlJ2FVz": {
+          "complaint_content": "Resident in 705 has been parking their car in my designated parking spot repeatedly despite warnings.",
+          "complaint_type": "member_related",
+          "resident_name": "Vrishab Shenvi",
+          "status": "Resolved",
+          "timestamp": "2025-04-14T02:43:42.313Z"
+        }
+      },
+      "email": "shawar.khan@hotmail.com",
       "flatNumber": "703",
       "floor": "7",
       "maintenance": {
@@ -402,14 +556,14 @@
       ],
       "password": "SHAWAR123",
       "password_set": true,
-      "phone": "1234567890",
+      "phone": "6543210987",
       "role": "resident",
       "wing": "J"
     },
     "909": {
       "Owner_Name": "kajol kapoor",
       "buildingName": "Azziano",
-      "email": "example@example.com",
+      "email": "kajol.kapoor83@gmail.com",
       "flatNumber": "909",
       "floor": "9",
       "notification_viewed": false,
@@ -427,37 +581,56 @@
         }
       ],
       "password": "123456",
-      "phone": "1234567890",
+      "phone": "5432109876",
       "role": "resident",
       "wing": "B"
     },
+    "1201": {
+      "Owner_Name": "Ganesh Sooryawanshi",
+      "email": "ganesh.s1234@rediffmail.com",
+      "flatNumber": "1201",
+      "floor": "12",
+      "notification_viewed": "false",
+      "parking": [
+        null,
+        {
+          "parkingId": "J9",
+          "slot_status": "available",
+          "vehicleType": "4"
+        }
+      ],
+      "password": "123456",
+      "phone": "4321098765",
+      "role": "resident",
+      "wing": "J"
+    },
     "1503": {
-      "Owner_Name": "Armaan",
+      "Owner_Name": "Armaan Nakhuda",
       "buildingName": "Azziano",
       "complaints": {
         "-ONm0XGQIxMQRTk7WOuI": {
-          "complaint_content": "saima is dumb dumb",
-          "complaint_type": "member_related",
+          "complaint_content": "Elevator in F-wing has been malfunctioning since yesterday. Makes unusual noises and stops abruptly between floors.",
+          "complaint_type": "society_related",
           "status": "Resolved",
           "timestamp": "2025-04-14T01:59:45.628Z"
         },
         "-ONm0dANa_DlvDTci9iO": {
-          "complaint_content": "why is this bugging out I have no clue",
+          "complaint_content": "Swimming pool water appears dirty and hasn't been cleaned for over a week. Requesting immediate maintenance.",
           "complaint_type": "society_related",
           "status": "Resolved",
           "timestamp": "2025-04-14T02:00:13.783Z"
         },
         "-ONmDRD_QTasjvhZl4Nb": {
           "closedAt": "2025-04-14T02:56:22.636Z",
-          "closingReason": "because Im me",
-          "complaint_content": "this is weird",
-          "complaint_type": "member_related",
+          "closingReason": "Plumber fixed the issue the same day",
+          "complaint_content": "Water supply disruption in my apartment. No water in bathroom taps since morning.",
+          "complaint_type": "society_related",
           "resident_name": "Armaan",
           "status": "Resolved",
           "timestamp": "2025-04-14T02:56:08.613Z"
         }
       },
-      "email": "example@example.com",
+      "email": "armaan.nakhuda@gmail.com",
       "flatNumber": "1503",
       "floor": "15",
       "maintenance": {
@@ -496,13 +669,13 @@
           "ownerFlat": "108",
           "parkingId": "V2",
           "parkingNumber": "2",
-          "reason": "girls over",
+          "reason": "get together",
           "requesterFlat": "1503",
           "requesterName": "Armaan",
           "requesterUserId": "1503",
           "startTime": "14:30",
           "status": "closed",
-          "vehicleNumber": "MH69DB6969"
+          "vehicleNumber": "MH04DB2284"
         },
         "-ONsiGDp3enoc2o8VgTr": {
           "createdAt": "2025-04-15T09:12:55.609Z",
@@ -511,26 +684,26 @@
           "ownerFlat": "108",
           "parkingId": "V2",
           "parkingNumber": "2",
-          "reason": "I like to party",
+          "reason": "birthday celebration",
           "requesterFlat": "1503",
           "requesterName": "Armaan",
           "requesterUserId": "1503",
           "startTime": "15:30",
           "status": "closed",
-          "vehicleNumber": "MH69DB6969"
+          "vehicleNumber": "MH04DB2284"
         }
       },
       "password": "Armaan1234",
       "password_set": true,
-      "phone": "1234567890",
+      "phone": "9326632001",
       "role": "MC",
       "sub_role": "secretary",
       "wing": "F"
     },
     "1703": {
-      "Owner_Name": "Saima",
+      "Owner_Name": "Saima Khan",
       "buildingName": "Azziano",
-      "email": "example@example.com",
+      "email": "saima.khan45@yahoo.in",
       "flatNumber": "1703",
       "floor": "17",
       "notification_viewed": false,
@@ -548,29 +721,34 @@
         }
       ],
       "password": "123456",
-      "phone": "1234567890",
+      "phone": "8723456901",
       "role": "MC",
       "sub_role": "treasurer",
       "wing": "C"
     },
-    "6903": {
-      "Owner_Name": "Sushant",
-      "email": "hi@gmail.com",
-      "flatNumber": "6903",
-      "floor": "69",
+    "1801": {
+      "Owner_Name": "Sushant Navle",
+      "email": "sushant.navle@protonmail.com",
+      "flatNumber": "1801",
+      "floor": "18",
       "notification_viewed": "false",
       "parking": [
         null,
         {
-          "parkingId": "DD69",
+          "parkingId": "A32",
           "slot_status": "full",
           "vehicleType": "4"
+        },
+        {
+          "parkingId": "A34",
+          "slot_status": "full",
+          "vehicleType": "2"
         }
       ],
       "password": "123456",
-      "phone": "1234567890",
+      "phone": "7634509812",
       "role": "resident",
-      "wing": "DD"
+      "wing": "A"
     }
   }
 }

@@ -128,9 +128,12 @@ document.addEventListener('DOMContentLoaded', () => {
     
     // Format role title
     const roleTitle = formatRoleTitle(resident.sub_role);
+
+    // Get role-specific avatar color
+    const avatarColor = getRoleColor(resident.sub_role);
     
     card.innerHTML = `
-      <div class="contact-avatar">${initials}</div>
+      <div class="contact-avatar" style="background-color: ${avatarColor}">${initials}</div>
       <h3 class="contact-name">${resident.Owner_Name}</h3>
       <div class="contact-role">${roleTitle}</div>
       <div class="contact-info">
@@ -175,6 +178,18 @@ document.addEventListener('DOMContentLoaded', () => {
       .split('-')
       .map(word => word.charAt(0).toUpperCase() + word.slice(1))
       .join(' ');
+  }
+
+  // Function to get role-specific color
+  function getRoleColor(role) {
+    const roleColors = {
+      'president': 'var(--primary-dark)',
+      'secretary': 'var(--primary)',
+      'treasurer': 'var(--accent)',
+      'building-manager': 'var(--text-muted)'
+    };
+    
+    return roleColors[role] || 'var(--primary)';
   }
 
   // Function to logout
