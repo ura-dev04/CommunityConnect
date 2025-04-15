@@ -5,10 +5,19 @@ document.addEventListener('DOMContentLoaded', () => {
     const guestsList = document.getElementById('guests-list');
     const addGuestBtn = document.getElementById('add-guest-btn');
     const verifyBtn = document.getElementById('verify-guest-btn');
+    const viewEntriesBtn = document.getElementById('view-entries-btn');
     
     // Get the logged-in user's apartment from session storage
     const loggedInUser = JSON.parse(sessionStorage.getItem('loggedInUser') || '{}');
     const userApartment = loggedInUser.apartment || 'unknown';
+    const userSubRole = loggedInUser.sub_role || 'resident';
+    
+    // Check if user has permission to view entries based on role
+    const higherRoles = ['admin', 'president', 'secretary', 'treasurer', 'building-manager'];
+    if (higherRoles.includes(userSubRole)) {
+        // User has permission to view entries
+        viewEntriesBtn.style.display = 'block';
+    }
     
     // Add apartment display in the guests list header
     const apartmentDisplay = document.createElement('div');
@@ -27,6 +36,11 @@ document.addEventListener('DOMContentLoaded', () => {
     // Navigate to verify guest page
     verifyBtn.addEventListener('click', () => {
         window.location.href = 'verify-guest.html';
+    });
+    
+    // Navigate to view entries page (new)
+    viewEntriesBtn.addEventListener('click', () => {
+        window.location.href = 'view-entries.html';
     });
 
     // Load all guests from the database
