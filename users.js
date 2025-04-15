@@ -30,6 +30,9 @@ document.addEventListener("DOMContentLoaded", function() {
     const logoutBtn = document.querySelector('.logout-btn');
     const roleSelect = document.getElementById('role');
     const subRoleGroup = document.getElementById('sub-role-group');
+    const addParkingBtn = document.getElementById('add-parking-btn');
+    const parkingContainer = document.getElementById('parking-container');
+    let parkingCounter = 1; // Start from 1 since we already have slot 0
 
     // Show/hide sub-role dropdown based on role selection
     roleSelect.addEventListener('change', function() {
@@ -39,6 +42,59 @@ document.addEventListener("DOMContentLoaded", function() {
             subRoleGroup.style.display = 'none';
         }
     });
+
+    // Add event listener for adding more parking slots
+    addParkingBtn.addEventListener('click', addParkingSlot);
+
+    // Event delegation for removing parking slots
+    parkingContainer.addEventListener('click', function(e) {
+        if (e.target.classList.contains('remove-parking-btn')) {
+            const parkingGroup = e.target.parentElement;
+            parkingGroup.remove();
+            
+            // If there's only one parking slot left, hide its remove button
+            if (parkingContainer.querySelectorAll('.parking-form-group').length <= 1) {
+                parkingContainer.querySelector('.remove-parking-btn').style.display = 'none';
+            }
+        }
+    });
+
+    // Function to add a new parking slot
+    function addParkingSlot() {
+        // Show all remove buttons when we're adding more than one slot
+        const removeButtons = parkingContainer.querySelectorAll('.remove-parking-btn');
+        removeButtons.forEach(btn => btn.style.display = 'block');
+        
+        const newParkingGroup = document.createElement('div');
+        newParkingGroup.className = 'parking-form-group';
+        newParkingGroup.dataset.index = parkingCounter;
+        
+        newParkingGroup.innerHTML = `
+            <div class="parking-inputs">
+                <div class="form-group">
+                    <label for="parkingId-${parkingCounter}">Parking ID:</label>
+                    <input type="text" id="parkingId-${parkingCounter}" placeholder="e.g. F1" required>
+                </div>
+                <div class="form-group">
+                    <label for="vehicleType-${parkingCounter}">Vehicle Type:</label>
+                    <select id="vehicleType-${parkingCounter}">
+                        <option value="2">2-Wheeler</option>
+                        <option value="4">4-Wheeler</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="slotStatus-${parkingCounter}">Status:</label>
+                    <select id="slotStatus-${parkingCounter}">
+                        <option value="available">Available</option>
+                        <option value="full">Full</select>
+                </div>
+            </div>
+            <button type="button" class="remove-parking-btn">&times;</button>
+        `;
+        
+        parkingContainer.appendChild(newParkingGroup);
+        parkingCounter++;
+    }
 
     // Check if user is logged in
     const loggedInUser = sessionStorage.getItem('loggedInUser');
@@ -132,12 +188,62 @@ document.addEventListener("DOMContentLoaded", function() {
                 residentData.sub_role = subRole;
             }
 
+            // Collect parking data
+            const parkingSlots = parkingContainer.querySelectorAll('.parking-form-group');
+            if (parkingSlots.length > 0) {
+                residentData.parking = {};
+                
+                parkingSlots.forEach((slot, index) => {
+                    const slotIndex = slot.dataset.index;
+                    const parkingId = document.getElementById(`parkingId-${slotIndex}`).value;
+                    const vehicleType = document.getElementById(`vehicleType-${slotIndex}`).value;
+                    const slotStatus = document.getElementById(`slotStatus-${slotIndex}`).value;
+                    
+                    if (parkingId) {
+                        residentData.parking[index + 1] = {
+                            parkingId: parkingId,
+                            vehicleType: vehicleType,
+                            slot_status: slotStatus
+                        };
+                    }
+                });
+            }
+
             // Save data to Firebase Realtime Database
             set(ref(database, 'residents/' + flatNumber), residentData)
             .then(() => {
                 document.getElementById('message').innerText = "Data saved successfully!";
                 form.reset();
                 subRoleGroup.style.display = 'none';
+                
+                // Reset parking slots to just one
+                parkingContainer.innerHTML = `
+                    <div class="parking-form-group" data-index="0">
+                        <div class="parking-inputs">
+                            <div class="form-group">
+                                <label for="parkingId-0">Parking ID:</label>
+                                <input type="text" id="parkingId-0" placeholder="e.g. F1" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="vehicleType-0">Vehicle Type:</label>
+                                <select id="vehicleType-0">
+                                    <option value="2">2-Wheeler</option>
+                                    <option value="4">4-Wheeler</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="slotStatus-0">Status:</label>
+                                <select id="slotStatus-0">
+                                    <option value="available">Available</option>
+                                    <option value="full">Full</option>
+                                </select>
+                            </div>
+                        </div>
+                        <button type="button" class="remove-parking-btn" style="display:none;">&times;</button>
+                    </div>
+                `;
+                parkingCounter = 1;
+                
                 // Reload the residents list
                 loadResidents();
                 
@@ -180,7 +286,8 @@ document.addEventListener("DOMContentLoaded", function() {
                     const residentCard = document.createElement('div');
                     residentCard.className = 'resident-card';
                     
-                    residentCard.innerHTML = `
+                    // Create basic resident info HTML without parking information
+                    const cardHTML = `
                         <h3>Flat ${resident.flatNumber}</h3>
                         <p><strong>Name:</strong> ${resident.Owner_Name}</p>
                         <p><strong>Email:</strong> ${resident.email || 'Not provided'}</p>
@@ -189,6 +296,7 @@ document.addEventListener("DOMContentLoaded", function() {
                         <p><strong>Floor:</strong> ${resident.floor}</p>
                     `;
                     
+                    residentCard.innerHTML = cardHTML;
                     residentsGrid.appendChild(residentCard);
                 });
             } else {

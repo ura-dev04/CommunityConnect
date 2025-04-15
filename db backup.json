@@ -196,98 +196,6 @@
       "title": "New Event: Ganja making class"
     }
   },
-  "parkings": {
-    "-OLFwWCgGJcSYnj3cSII": {
-      "buildingName": "Azziano",
-      "flatNumber": "601",
-      "parkingId": "B1",
-      "slotNumber": 1,
-      "timestamp": 1741893546919,
-      "vehicleType": "2",
-      "wing": "B"
-    },
-    "-OLFwkeXtbxZyXZs8vbQ": {
-      "buildingName": "Azziano",
-      "flatNumber": "605",
-      "parkingId": "C2",
-      "slotNumber": 2,
-      "timestamp": 1741893610204,
-      "vehicleType": "2",
-      "wing": "C"
-    },
-    "-OLFxfCGgibKoKQcK4DT": {
-      "buildingName": "athena",
-      "flatNumber": "123",
-      "parkingId": "J3",
-      "slotNumber": 3,
-      "timestamp": 1741893849788,
-      "vehicleType": "2",
-      "wing": "J"
-    },
-    "-OLFycaH3fboIJwQkHD9": {
-      "buildingName": "athena",
-      "flatNumber": "302",
-      "parkingId": "D4",
-      "slotNumber": 4,
-      "timestamp": 1741894101346,
-      "vehicleType": "4",
-      "wing": "D"
-    },
-    "-OLGx5nxv3O007dQ9K4L": {
-      "buildingName": "athena",
-      "flatNumber": "503",
-      "parkingId": "G5",
-      "slotNumber": 5,
-      "timestamp": 1741910477961,
-      "vehicleType": "2",
-      "wing": "G"
-    },
-    "-OLIfVaClqZIlZYDu-u4": {
-      "buildingName": "MIB",
-      "flatNumber": "609",
-      "parkingId": "B6",
-      "slotNumber": 6,
-      "timestamp": 1741939420505,
-      "vehicleType": "2",
-      "wing": "B"
-    },
-    "-OLJzQRVCTLhKCSjpBJt": {
-      "buildingName": "Azziano",
-      "flatNumber": "606",
-      "parkingId": "D7",
-      "slotNumber": 7,
-      "timestamp": 1741961419994,
-      "vehicleType": "4",
-      "wing": "D"
-    },
-    "-OLcMvriMyMWZRsm_ohK": {
-      "buildingName": "athena",
-      "flatNumber": "909",
-      "parkingId": "B8",
-      "slotNumber": 8,
-      "timestamp": 1742286602194,
-      "vehicleType": "2",
-      "wing": "B"
-    },
-    "-OMv6UZKjK3GtwVK81Gv": {
-      "buildingName": "azxcv",
-      "flatNumber": "12334",
-      "parkingId": "B9",
-      "slotNumber": 9,
-      "timestamp": 1743674804512,
-      "vehicleType": "4",
-      "wing": "B"
-    },
-    "-ONnN2daiS20oeZfxE7W": {
-      "buildingName": "Azziano",
-      "flatNumber": "505",
-      "parkingId": "J10",
-      "slotNumber": 10,
-      "timestamp": 1744618669184,
-      "vehicleType": "2",
-      "wing": "J"
-    }
-  },
   "residents": {
     "108": {
       "Owner_Name": "Vrishab Shenvi",
@@ -315,7 +223,20 @@
       "password_set": true,
       "phone": "1234567890",
       "role": "resident",
-      "wing": "V"
+      "wing": "V",
+      "buildingName": "Azziano",
+      "parking": {
+        "1": {
+          "parkingId": "V1",
+          "vehicleType": "2",
+          "slot_status": "available"
+        },
+        "2": {
+          "parkingId": "V2",
+          "vehicleType": "4",
+          "slot_status": "full"
+        }
+      }
     },
     "304": {
       "Owner_Name": "urmi",
@@ -328,7 +249,20 @@
       "phone": "1234567890",
       "role": "MC",
       "sub_role": "building-manager",
-      "wing": "A"
+      "wing": "A",
+      "buildingName": "Azziano",
+      "parking": {
+        "1": {
+          "parkingId": "A1",
+          "vehicleType": "2",
+          "slot_status": "available"
+        },
+        "2": {
+          "parkingId": "A2",
+          "vehicleType": "4",
+          "slot_status": "full"
+        }
+      }
     },
     "405": {
       "Owner_Name": "gayatri ",
@@ -340,7 +274,20 @@
       "phone": "1234567890",
       "role": "MC",
       "sub_role": "president",
-      "wing": "g"
+      "wing": "g",
+      "buildingName": "Azziano",
+      "parking": {
+        "1": {
+          "parkingId": "G1",
+          "vehicleType": "2",
+          "slot_status": "available"
+        },
+        "2": {
+          "parkingId": "G2",
+          "vehicleType": "4",
+          "slot_status": "full"
+        }
+      }
     },
     "703": {
       "Owner_Name": "shawar khan",
@@ -378,7 +325,20 @@
       "password_set": true,
       "phone": "1234567890",
       "role": "resident",
-      "wing": "J"
+      "wing": "J",
+      "buildingName": "Azziano",
+      "parking": {
+        "1": {
+          "parkingId": "J1",
+          "vehicleType": "2",
+          "slot_status": "available"
+        },
+        "2": {
+          "parkingId": "J2",
+          "vehicleType": "4",
+          "slot_status": "full"
+        }
+      }
     },
     "909": {
       "Owner_Name": "kajol kapoor",
@@ -389,7 +349,20 @@
       "password": "123456",
       "phone": "1234567890",
       "role": "resident",
-      "wing": "B"
+      "wing": "B",
+      "buildingName": "Azziano",
+      "parking": {
+        "1": {
+          "parkingId": "B1",
+          "vehicleType": "2",
+          "slot_status": "available"
+        },
+        "2": {
+          "parkingId": "B2",
+          "vehicleType": "4",
+          "slot_status": "full"
+        }
+      }
     },
     "1503": {
       "Owner_Name": "Armaan",
@@ -439,7 +412,20 @@
       "phone": "1234567890",
       "role": "MC",
       "sub_role": "secretary",
-      "wing": "A"
+      "wing": "F",
+      "buildingName": "Azziano",
+      "parking":{
+        "1": {
+          "parkingId": "F1",
+          "vehicleType": "2",
+          "slot_status": "full"
+        },
+        "2": {
+          "parkingId": "F2",
+          "vehicleType": "4",
+          "slot_status": "available"  
+        }
+      }
     },
     "1703": {
       "Owner_Name": "Saima",
@@ -451,7 +437,20 @@
       "phone": "1234567890",
       "role": "MC",
       "sub_role": "treasurer",
-      "wing": "C"
+      "wing": "C",
+      "buildingName": "Azziano",
+      "parking": {
+        "1": {
+          "parkingId": "C1",
+          "vehicleType": "2",
+          "slot_status": "available"
+        },
+        "2": {
+          "parkingId": "C2",
+          "vehicleType": "4",
+          "slot_status": "full"
+        }
+      }
     }
   }
 }
