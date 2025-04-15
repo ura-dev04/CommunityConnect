@@ -22,8 +22,15 @@ document.addEventListener('DOMContentLoaded', () => {
         return;
     }
 
-    // Display user info
-    document.getElementById('userInfo').textContent = `${loggedInUser.name} (${loggedInUser.apartment})`;
+    // Update welcome message and role
+    document.getElementById('welcome-message').textContent = `Hi ${loggedInUser.name}`;
+    
+    let roleText = `${loggedInUser.role}`;
+    if (loggedInUser.sub_role) {
+        roleText += ` (${loggedInUser.sub_role})`;
+    }
+    
+    document.getElementById('user-role').textContent = roleText;
 
     // Define higher-level roles that can generate bills
     const higherRoles = ['admin', 'president', 'secretary', 'treasurer', 'building-manager'];
@@ -40,6 +47,12 @@ document.addEventListener('DOMContentLoaded', () => {
         document.getElementById('mcView').classList.remove('hidden');
         loadAllBills();
     }
+    
+    // Setup logout button event
+    document.querySelector('.logout-btn').addEventListener('click', () => {
+        sessionStorage.removeItem('loggedInUser');
+        window.location.href = 'homepage.html';
+    });
 });
 
 // MC Functions
@@ -266,9 +279,3 @@ function createBillCard(container, bill, apartmentNumber = null, billId = null) 
     `;
     container.appendChild(billElement);
 }
-
-// Logout handler
-document.getElementById('logoutBtn').addEventListener('click', () => {
-    sessionStorage.removeItem('loggedInUser');
-    window.location.href = 'login.html';
-});

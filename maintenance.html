@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Maintenance Bills | CommunityConnect</title>
-    <link rel="stylesheet" href="homepage.css">
+    <link rel="stylesheet" href="dashboard.css">
     <link rel="stylesheet" href="maintenance.css">
     <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-database-compat.js"></script>
@@ -12,9 +12,15 @@
 <body>
     <header class="navbar">
         <div class="logo">CommunityConnect</div>
-        <div class="nav-links">
-            <span id="userInfo"></span>
-            <button id="logoutBtn" class="logout-btn">Logout</button>
+        <div class="user-welcome-container">
+            <div id="welcome-message">Welcome</div>
+            <div id="user-role">Loading...</div>
+        </div>
+        <nav class="nav-links">
+            <a href="dashboard.html">Home</a>
+        </nav>
+        <div class="auth-buttons">
+            <button class="logout-btn">Logout</button>
         </div>
     </header>
 
