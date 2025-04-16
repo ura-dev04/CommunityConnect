@@ -30,77 +30,6 @@ body {
     overflow-x: hidden;
 }
 
-/* Navbar */
-.navbar {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 1rem 3rem;
-    background: var(--primary-light);
-    box-shadow: 0 4px 15px var(--shadow-dark);
-    border-bottom: 2px solid var(--primary);
-    position: sticky;
-    top: 0;
-    z-index: 100;
-}
-
-.logo {
-    font-size: 2rem;
-    font-weight: bold;
-    color: var(--primary-dark);
-    text-shadow: 0 2px 5px var(--shadow-dark);
-    letter-spacing: 1px;
-}
-
-.user-welcome-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
-#welcome-message {
-    color: var(--primary-dark);
-    font-weight: bold;
-    margin-bottom: 0.2rem;
-}
-
-#user-role {
-    color: var(--text-muted);
-    font-size: 0.9rem;
-}
-
-.nav-links a {
-    margin: 0 1rem;
-    padding: 0.5rem 1rem;
-    color: var(--text-dark);
-    text-decoration: none;
-    font-weight: 600;
-    border-radius: 5px;
-    transition: background-color 0.3s ease, transform 0.3s ease;
-}
-
-.nav-links a:hover, .nav-links a.active {
-    background-color: var(--primary-light);
-    color: var(--primary-dark);
-    transform: scale(1.05);
-}
-
-.logout-btn {
-    padding: 0.6rem 1.2rem;
-    border: none;
-    border-radius: 5px;
-    background: var(--primary);
-    color: #ffffff;
-    font-weight: 600;
-    cursor: pointer;
-    transition: background 0.3s ease, transform 0.3s ease;
-}
-
-.logout-btn:hover {
-    background: var(--primary-dark);
-    transform: translateY(-3px);
-}
-
 /* Page Header */
 .page-header {
     padding: 4rem 2rem;
@@ -512,16 +441,6 @@ footer {
 
 /* Responsive Design */
 @media (max-width: 768px) {
-    .navbar {
-        flex-direction: column;
-        gap: 0.5rem;
-        padding: 1rem;
-    }
-    
-    .nav-links {
-        margin: 0.5rem 0;
-    }
-    
     .page-header {
         padding: 2rem 1rem;
     }
@@ -541,22 +460,6 @@ footer {
 
 /* Enhanced Mobile Responsive Design */
 @media (max-width: 768px) {
-    /* Navbar improvements */
-    .logo {
-        font-size: 1.6rem;
-    }
-    
-    .nav-links a {
-        margin: 0 0.5rem;
-        padding: 0.4rem 0.8rem;
-        font-size: 0.9rem;
-    }
-    
-    .logout-btn {
-        padding: 0.5rem 1rem;
-        font-size: 0.9rem;
-    }
-    
     /* Content container */
     .content-container {
         width: 95%;
@@ -646,26 +549,6 @@ footer {
 
 /* Small mobile screens */
 @media (max-width: 480px) {
-    .navbar {
-        padding: 0.8rem 0.5rem;
-    }
-    
-    .logo {
-        font-size: 1.4rem;
-    }
-    
-    .user-welcome-container {
-        font-size: 0.85rem;
-    }
-    
-    #welcome-message {
-        font-size: 0.9rem;
-    }
-    
-    #user-role {
-        font-size: 0.8rem;
-    }
-    
     .page-header {
         padding: 1.5rem 0.8rem;
     }
@@ -705,21 +588,6 @@ footer {
 
 /* Handle very small screens */
 @media (max-width: 350px) {
-    .logo {
-        font-size: 1.2rem;
-    }
-    
-    .nav-links a {
-        margin: 0 0.3rem;
-        padding: 0.3rem 0.6rem;
-        font-size: 0.8rem;
-    }
-    
-    .logout-btn {
-        padding: 0.4rem 0.8rem;
-        font-size: 0.8rem;
-    }
-    
     .page-header h1 {
         font-size: 1.5rem;
     }

@@ -7,19 +7,8 @@
   <link rel="stylesheet" href="events.css" />
 </head>
 <body>
-  <header class="navbar">
-    <div class="logo">CommunityConnect</div>
-    <div class="user-welcome-container">
-      <div id="welcome-message">Welcome</div>
-      <div id="user-role">Loading...</div>
-    </div>
-    <nav class="nav-links">
-      <a href="dashboard.html">Home</a>
-    </nav>
-    <div class="auth-buttons">
-      <button class="logout-btn">Logout</button>
-    </div>
-  </header>
+  <!-- Navbar container to load the navbar component -->
+  <div id="navbar-container"></div>
 
   <section class="page-header">
     <h1>Community Events</h1>
@@ -88,6 +77,8 @@
     <p>&copy; 2025 CommunityConnect. All rights reserved.</p>
   </footer>
 
+  <!-- Include the navbar.js script first -->
+  <script src="navbar.js"></script>
   <script type="module" src="events.js"></script>
 </body>
 </html>

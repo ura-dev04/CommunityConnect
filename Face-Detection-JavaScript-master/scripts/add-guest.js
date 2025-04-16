@@ -12,20 +12,71 @@ document.addEventListener('DOMContentLoaded', () => {
     const captureCanvas = document.getElementById('capture-canvas');
     const capturedImage = document.getElementById('captured-image');
     const statusDiv = document.getElementById('status');
+    
+    // File upload elements
+    const webcamToggle = document.getElementById('webcam-toggle');
+    const fileToggle = document.getElementById('file-toggle');
+    const webcamSection = document.getElementById('webcam-section');
+    const fileSection = document.getElementById('file-section');
+    const imageUpload = document.getElementById('image-upload');
+    const uploadedImage = document.getElementById('uploaded-image');
 
     let capturedImageBlob = null;
+    let uploadedImageBlob = null;
     let modelsLoaded = false;
+    let inputMethod = 'webcam'; // 'webcam' or 'file'
     
     // Get the logged-in user's apartment from session storage
     const loggedInUser = JSON.parse(sessionStorage.getItem('loggedInUser') || '{}');
     const userApartment = loggedInUser.apartment || 'unknown';
 
+    // Toggle between webcam and file upload
+    webcamToggle.addEventListener('click', () => {
+        inputMethod = 'webcam';
+        webcamToggle.classList.add('active');
+        fileToggle.classList.remove('active');
+        webcamSection.style.display = 'block';
+        fileSection.style.display = 'none';
+        
+        // Start camera if it was stopped
+        if (!video.srcObject) {
+            startCamera();
+        }
+    });
+    
+    fileToggle.addEventListener('click', () => {
+        inputMethod = 'file';
+        fileToggle.classList.add('active');
+        webcamToggle.classList.remove('active');
+        fileSection.style.display = 'block';
+        webcamSection.style.display = 'none';
+        
+        // Stop camera to save resources
+        stopCamera();
+    });
+    
+    // Handle file selection
+    imageUpload.addEventListener('change', (e) => {
+        const file = e.target.files[0];
+        if (file) {
+            // Preview the selected image
+            const reader = new FileReader();
+            reader.onload = (e) => {
+                uploadedImage.src = e.target.result;
+                uploadedImage.style.display = 'block';
+            };
+            reader.readAsDataURL(file);
+            
+            // Store the file as blob for later use
+            uploadedImageBlob = file;
+        }
+    });
+
     // Start the camera and load models
     async function initialize() {
         try {
             // Start camera
-            const stream = await navigator.mediaDevices.getUserMedia({ video: true });
-            video.srcObject = stream;
+            await startCamera();
             statusDiv.textContent = "Camera ready. Loading face detection models...";
 
             // Load face detection models
@@ -40,6 +91,28 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Initialize when the page loads
     initialize();
+    
+    async function startCamera() {
+        try {
+            const stream = await navigator.mediaDevices.getUserMedia({ video: true });
+            video.srcObject = stream;
+            return true;
+        } catch (error) {
+            console.error("Camera access error:", error);
+            statusDiv.textContent = "Camera access denied. You can still upload an image file.";
+            // Auto-switch to file upload mode if camera access fails
+            fileToggle.click();
+            return false;
+        }
+    }
+    
+    function stopCamera() {
+        if (video.srcObject) {
+            const tracks = video.srcObject.getTracks();
+            tracks.forEach(track => track.stop());
+            video.srcObject = null;
+        }
+    }
 
     // Capture image from camera
     captureBtn.addEventListener('click', () => {
@@ -75,9 +148,20 @@ document.addEventListener('DOMContentLoaded', () => {
             return;
         }
         
-        if (!capturedImageBlob) {
-            statusDiv.textContent = "Error: Please capture a photo first.";
-            return;
+        // Check if we have an image (either captured or uploaded)
+        let imageBlob;
+        if (inputMethod === 'webcam') {
+            imageBlob = capturedImageBlob;
+            if (!imageBlob) {
+                statusDiv.textContent = "Error: Please capture a photo first.";
+                return;
+            }
+        } else {
+            imageBlob = uploadedImageBlob;
+            if (!imageBlob) {
+                statusDiv.textContent = "Error: Please upload an image first.";
+                return;
+            }
         }
 
         if (!modelsLoaded) {
@@ -93,11 +177,11 @@ document.addEventListener('DOMContentLoaded', () => {
             const fileName = `guest_${Date.now()}.jpg`;
             const imageRef = storageRef(storage, `guests/${fileName}`);
             
-            const uploadSnapshot = await uploadBytes(imageRef, capturedImageBlob);
+            const uploadSnapshot = await uploadBytes(imageRef, imageBlob);
             const imageUrl = await getDownloadURL(uploadSnapshot.ref);
             
             // 2. Extract facial features for future comparison
-            const faceFeatures = await extractFaceFeatures(capturedImageBlob);
+            const faceFeatures = await extractFaceFeatures(imageBlob);
             
             if (!faceFeatures) {
                 statusDiv.textContent = "Error: No face detected in the image. Please try again with a clearer photo.";

@@ -365,3 +365,96 @@ button:hover {
     font-size: 0.75rem;
   }
 }
+
+/* Add this to the end of your style.css file */
+
+/* Toggle buttons for input method */
+.input-toggle {
+  display: flex;
+  margin-bottom: 20px;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.toggle-btn {
+  flex: 1;
+  padding: 10px;
+  border: none;
+  background-color: #8d99ae;
+  color: white;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-weight: 600;
+  text-align: center;
+}
+
+.toggle-btn.active {
+  background-color: #ff6f61;
+}
+
+.toggle-btn:hover:not(.active) {
+  background-color: #7d8a9e;
+}
+
+/* File upload section */
+.file-section {
+  background: #fff5f3;
+  border-radius: 15px;
+  padding: 20px;
+  margin-bottom: 20px;
+  border: 1px solid rgba(255, 111, 97, 0.2);
+}
+
+.file-upload {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 15px;
+}
+
+.file-label {
+  display: inline-block;
+  background-color: #ff6f61;
+  color: white;
+  padding: 12px 20px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-align: center;
+  margin-bottom: 10px;
+  font-weight: 600;
+}
+
+.file-label:hover {
+  background-color: #e63946;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.file-input {
+  opacity: 0;
+  position: absolute;
+  z-index: -1;
+}
+
+.file-info {
+  font-size: 0.9rem;
+  color: #8d99ae;
+  text-align: center;
+  margin-top: 5px;
+}
+
+#uploaded-image {
+  display: none;
+  max-width: 100%;
+  margin: 10px auto;
+  border-radius: 8px;
+  max-height: 300px;
+  border: 2px solid rgba(255, 111, 97, 0.2);
+}
+
+.preview-container {
+  display: flex;
+  justify-content: center;
+  margin-top: 10px;
+}

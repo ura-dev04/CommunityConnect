@@ -17,8 +17,6 @@ const app = initializeApp(firebaseConfig);
 const database = getDatabase(app);
 
 document.addEventListener('DOMContentLoaded', () => {
-  const welcomeMessage = document.getElementById('welcome-message');
-  const userRole = document.getElementById('user-role');
   const notificationsPanel = document.querySelector('.notifications-panel');
   const notificationToggle = document.querySelector('.notification-toggle');
   const closeNotifications = document.querySelector('.close-notifications');
@@ -49,16 +47,6 @@ document.addEventListener('DOMContentLoaded', () => {
   // Check if the user has set a password
   checkPasswordSetup(userData);
   
-  // Display welcome message and role
-  welcomeMessage.textContent = `Hi ${userData.name}`;
-  
-  let roleText = `${userData.role}`;
-  if (userData.sub_role) {
-    roleText += ` (${userData.sub_role})`;
-  }
-  
-  userRole.textContent = roleText;
-
   // Apply sub-role-based access controls to feature boxes
   applySubRoleBasedAccess(userData.sub_role);
 
@@ -89,26 +77,32 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
   
-  // Handle change password button click
-  changePasswordBtn.addEventListener('click', () => {
+  // Listen for custom event from navbar for change password
+  document.addEventListener('openChangePasswordModal', () => {
     showChangePasswordModal();
   });
 
+  // Handle change password button click
+  if (changePasswordBtn) {
+    changePasswordBtn.addEventListener('click', () => {
+      showChangePasswordModal();
+    });
+  }
+
   // Handle cancel button in change password modal
-  cancelChangePasswordBtn.addEventListener('click', () => {
-    hideChangePasswordModal();
-  });
+  if (cancelChangePasswordBtn) {
+    cancelChangePasswordBtn.addEventListener('click', () => {
+      hideChangePasswordModal();
+    });
+  }
 
   // Handle change password form submission
-  changePasswordForm.addEventListener('submit', (e) => {
-    e.preventDefault();
-    updatePassword();
-  });
-  
-  // Handle logout button click
-  document.querySelector('.logout-btn').addEventListener('click', () => {
-    logout();
-  });
+  if (changePasswordForm) {
+    changePasswordForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+      updatePassword();
+    });
+  }
 
   // Add tab buttons event listeners
   tabButtons.forEach(button => {

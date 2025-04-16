@@ -98,17 +98,38 @@
   font-size: 1.3rem;
   margin-bottom: 10px;
   color: #e63946;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .guest-info {
   display: flex;
   margin-bottom: 5px;
   font-size: 0.9rem;
+  flex-wrap: wrap;
 }
 
 .info-label {
   width: 100px;
   color: #8d99ae;
+}
+
+.guest-info {
+  display: block;
+  margin-bottom: 5px;
+  font-size: 0.9rem;
+  word-break: break-word;
+  overflow-wrap: break-word;
+}
+
+.guest-phone {
+  display: block;
+  margin-top: 5px;
+  font-size: 0.9rem;
+  color: #8d99ae;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .guest-actions {

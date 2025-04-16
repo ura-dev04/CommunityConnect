@@ -23,6 +23,21 @@ let currentActionData = null;
 
 // Check if user is logged in
 document.addEventListener('DOMContentLoaded', () => {
+    // Wait for the navbar to be loaded completely
+    document.addEventListener('navbarLoaded', initializeComplaintPage);
+    
+    // If for some reason the navbar loading event doesn't fire, initialize after a short delay
+    setTimeout(() => {
+        if (!window.navbarInitialized) {
+            console.log('Navbar loading timed out, initializing complaint page');
+            initializeComplaintPage();
+        }
+    }, 1000);
+});
+
+function initializeComplaintPage() {
+    window.complaintPageInitialized = true;
+    
     const loggedInUser = sessionStorage.getItem('loggedInUser');
     if (!loggedInUser) {
         // Redirect to login if not logged in
@@ -34,9 +49,6 @@ document.addEventListener('DOMContentLoaded', () => {
     
     // Apply role-based access control
     applyRoleBasedAccess(userData);
-    
-    // Initialize navbar and common elements
-    initializeNavbar(userData);
     
     // Move form event handler inside DOMContentLoaded to ensure elements exist
     const complaintForm = document.getElementById('complaintForm');
@@ -304,7 +316,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Modal event listeners
     setupModalEventHandlers();
-});
+}
 
 // Helper function to format complaint type for display
 function formatComplaintType(type) {
@@ -327,42 +339,6 @@ function applyRoleBasedAccess(userData) {
             element.classList.add('role-restricted');
         }
     });
-}
-
-// Function to initialize the navbar with user data and event listeners
-function initializeNavbar(userData) {
-    // Set welcome message and role
-    const welcomeMessage = document.getElementById('welcome-message');
-    const userRole = document.getElementById('user-role');
-    
-    if (welcomeMessage && userData) {
-        welcomeMessage.textContent = `Hi ${userData.name || userData.Owner_Name || 'User'}`;
-    }
-    
-    if (userRole && userData) {
-        let roleText = `${userData.role || 'Resident'}`;
-        if (userData.sub_role) {
-            roleText += ` (${userData.sub_role})`;
-        }
-        userRole.textContent = roleText;
-    }
-    
-    // Handle logout button
-    const logoutBtn = document.querySelector('.logout-btn');
-    
-    if (logoutBtn) {
-        logoutBtn.addEventListener('click', () => {
-            logout();
-        });
-    }
-}
-
-// Function to logout
-function logout() {
-    // Remove user data from session storage
-    sessionStorage.removeItem('loggedInUser');
-    // Redirect to homepage after logout
-    window.location.href = 'homepage.html';
 }
 
 // Setup event handlers for the closing reason modal

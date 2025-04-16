@@ -344,48 +344,6 @@
   border-left: 4px solid var(--primary);
 }
 
-/* Request Tabs */
-.request-tabs {
-  display: flex;
-  justify-content: center;
-  gap: 1rem;
-  margin-bottom: 2rem;
-  border-bottom: 1px solid var(--primary-light);
-  padding-bottom: 1rem;
-}
-
-.tab-btn {
-  background: transparent;
-  color: var(--text-muted);
-  border: none;
-  padding: 0.5rem 1rem;
-  cursor: pointer;
-  font-size: 1rem;
-  transition: all 0.3s ease;
-  position: relative;
-  font-family: 'Poppins', 'Segoe UI', sans-serif;
-}
-
-.tab-btn:hover {
-  color: var(--primary-dark);
-}
-
-.tab-btn.active {
-  color: var(--primary-dark);
-  font-weight: bold;
-}
-
-.tab-btn.active:after {
-  content: '';
-  position: absolute;
-  bottom: -1rem;
-  left: 0;
-  width: 100%;
-  height: 3px;
-  background-color: var(--primary);
-  border-radius: 3px 3px 0 0;
-}
-
 /* Requests Container */
 .requests-container {
   display: grid;
@@ -639,11 +597,6 @@
     grid-template-columns: 1fr;
   }
   
-  .request-tabs {
-    flex-wrap: wrap;
-    justify-content: flex-start;
-  }
-  
   .request-buttons {
     flex-direction: column;
     align-items: center;
@@ -717,19 +670,6 @@
   /* Request cards and tabs adjustments */
   .requests-container {
     grid-template-columns: 1fr;
-  }
-  
-  .request-tabs {
-    overflow-x: auto;
-    white-space: nowrap;
-    padding-bottom: 0.5rem;
-    justify-content: flex-start;
-    gap: 0.5rem;
-  }
-  
-  .tab-btn {
-    padding: 0.4rem 0.8rem;
-    font-size: 0.9rem;
   }
   
   /* Form adjustments */

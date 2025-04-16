@@ -81,8 +81,8 @@ document.addEventListener('DOMContentLoaded', () => {
                     guestCard.innerHTML = `
                         <img src="${guest.imageUrl}" alt="${guest.name}" class="guest-photo">
                         <div class="guest-info">
-                            <div class="guest-name">${guest.name}</div>
-                            <div class="guest-phone">${guest.phone}</div>
+                            <div class="guest-name" title="${guest.name}">${guest.name}</div>
+                            <div class="guest-phone" title="${guest.phone}">${guest.phone}</div>
                         </div>
                         <div class="guest-actions">
                             <button class="action-btn delete" data-id="${guest.id}">Delete</button>

@@ -27,8 +27,6 @@ const database = getDatabase(app);
 
 document.addEventListener('DOMContentLoaded', () => {
   // DOM Elements
-  const welcomeMessage = document.getElementById('welcome-message');
-  const userRole = document.getElementById('user-role');
   const eventsContainer = document.querySelector('.events-list');
   const adminControls = document.querySelector('.admin-controls');
   const eventModal = document.getElementById('event-modal');
@@ -59,16 +57,6 @@ document.addEventListener('DOMContentLoaded', () => {
   
   // User is logged in
   const userData = JSON.parse(loggedInUser);
-  
-  // Display welcome message and role
-  welcomeMessage.textContent = `Hi ${userData.name}`;
-  
-  let roleText = `${userData.role}`;
-  if (userData.sub_role) {
-    roleText += ` (${userData.sub_role})`;
-  }
-  
-  userRole.textContent = roleText;
 
   // Check if user has admin privileges
   const isAdmin = checkAdminPrivileges(userData.sub_role);
@@ -80,11 +68,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // Load events
   loadEvents();
-
-  // Handle logout button click
-  document.querySelector('.logout-btn').addEventListener('click', () => {
-    logout();
-  });
 
   // Function to check if user has admin privileges
   function checkAdminPrivileges(subRole) {
@@ -347,13 +330,5 @@ document.addEventListener('DOMContentLoaded', () => {
   // Function to hide a modal
   function hideModal(modal) {
     modal.style.display = 'none';
-  }
-
-  // Function to logout
-  function logout() {
-    // Remove user data from session storage
-    sessionStorage.removeItem('loggedInUser');
-    // Redirect to homepage after logout
-    window.location.href = 'homepage.html';
   }
 });
