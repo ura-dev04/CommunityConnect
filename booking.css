@@ -33,6 +33,13 @@ body {
   flex-direction: column;
   align-items: center;
   overflow-x: hidden;
+  width: 100%;
+}
+
+/* Add styling for navbar container to ensure full width */
+#navbar-container {
+  width: 100%;
+  max-width: 100%;
 }
 
 /* Container styles */
