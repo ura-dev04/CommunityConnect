@@ -302,3 +302,96 @@ button:hover {
   .registration-form .btn:hover {
     background-color: #218838;
   }
+
+/* Mobile Responsive Styles */
+@media screen and (max-width: 768px) {
+  .login-container {
+    width: 90%;
+    max-width: 90%;
+    padding: 2rem 1.5rem;
+    margin: 1rem;
+  }
+
+  .login-form h2, 
+  .welcome-container h2 {
+    font-size: 1.5rem;
+    margin-bottom: 1.2rem;
+  }
+
+  .input-group input {
+    padding: 0.7rem 0.8rem;
+  }
+
+  .login-btn,
+  #logout-btn {
+    padding: 0.75rem;
+  }
+
+  .container {
+    max-width: 90%;
+    padding: 15px 20px;
+  }
+
+  /* Adjust landing page for mobile */
+  .landing-page {
+    padding-left: 5%;
+    padding-right: 5%;
+    justify-content: center;
+  }
+
+  .landing-box {
+    width: 90%;
+    max-width: 350px;
+  }
+
+  .registration-form {
+    width: 90%;
+    max-width: 320px;
+    right: 50%;
+    transform: translate(50%, -50%);
+  }
+
+  /* Improved touch targets for mobile */
+  button, 
+  .login-btn, 
+  #logout-btn,
+  .landing-box button,
+  .overlay-box .btn,
+  .registration-form .btn {
+    min-height: 48px;
+  }
+
+  /* Improve form spacing on mobile */
+  .input-group {
+    margin-bottom: 1.2rem;
+  }
+
+  /* Make back link more tappable */
+  .back-link {
+    padding: 10px;
+    margin-top: 1rem;
+    display: inline-block;
+  }
+
+  /* Better error message display */
+  .error-message {
+    padding: 0.6rem;
+    font-size: 0.9rem;
+  }
+}
+
+/* Small phones */
+@media screen and (max-width: 480px) {
+  .login-container {
+    padding: 1.5rem 1rem;
+  }
+
+  .login-form h2, 
+  .welcome-container h2 {
+    font-size: 1.3rem;
+  }
+
+  body {
+    padding: 1rem;
+  }
+}

@@ -312,3 +312,56 @@ button:hover {
     font-weight: 600;
     text-align: center;
 }
+
+/* Mobile-specific styles */
+@media (max-width: 480px) {
+  .container {
+    margin: 20px auto;
+    padding: 1.5rem;
+  }
+  
+  h1 {
+    font-size: 1.7rem;
+    margin-bottom: 1.2rem;
+  }
+  
+  button {
+    padding: 0.8rem;
+    font-size: 0.95rem;
+  }
+  
+  #status {
+    padding: 8px;
+    font-size: 0.9rem;
+  }
+  
+  .back-btn, .primary-btn {
+    padding: 0.7rem 1.2rem;
+    font-size: 0.9rem;
+  }
+  
+  .top-controls {
+    margin-bottom: 20px;
+  }
+  
+  .guest-card {
+    padding: 10px;
+  }
+  
+  .guest-photo {
+    height: 120px;
+  }
+  
+  .guest-name {
+    font-size: 1rem;
+  }
+  
+  .guest-phone {
+    font-size: 0.8rem;
+  }
+  
+  .action-btn {
+    padding: 4px 8px;
+    font-size: 0.75rem;
+  }
+}

@@ -416,3 +416,112 @@ a button:hover {
     display: block;
     margin-bottom: 5px;
 }
+
+/* Mobile responsive styles */
+@media screen and (max-width: 768px) {
+    /* Container adjustments */
+    .container {
+        margin: 20px 15px;
+        padding: 1.5rem;
+    }
+    
+    h1 {
+        font-size: 2rem;
+        margin-bottom: 1.5rem;
+    }
+    
+    /* Form elements adjustment */
+    input, textarea, select {
+        padding: 0.8rem;
+    }
+    
+    /* Button adjustments */
+    .action-buttons {
+        flex-direction: column;
+    }
+    
+    .action-buttons button, 
+    .action-buttons a button {
+        min-width: 100%;
+    }
+    
+    /* Complaint cards adjustments */
+    .complaint-header {
+        flex-direction: column;
+        gap: 5px;
+    }
+    
+    .complaint-card {
+        padding: 12px;
+    }
+    
+    /* Admin complaint list adjustments */
+    .complaint-actions {
+        flex-direction: column;
+        gap: 8px;
+    }
+    
+    .resolve-btn, .reject-btn {
+        width: 100%;
+    }
+    
+    /* Modal adjustments */
+    .modal-content {
+        margin: 10% auto;
+        width: 90%;
+        padding: 20px;
+    }
+    
+    .modal-buttons {
+        flex-direction: column;
+        gap: 10px;
+    }
+    
+    .modal-buttons button {
+        width: 100%;
+    }
+}
+
+/* Smaller mobile devices */
+@media screen and (max-width: 480px) {
+    .container {
+        margin: 15px 10px;
+        padding: 1rem;
+    }
+    
+    h1 {
+        font-size: 1.8rem;
+    }
+    
+    /* Make form elements larger for touch */
+    input, textarea, select, button {
+        font-size: 16px; /* Prevent zoom on iOS */
+    }
+    
+    label {
+        font-size: 1rem;
+    }
+    
+    /* Improve spacing between elements */
+    form {
+        gap: 1rem;
+    }
+    
+    /* Smaller complaint cards */
+    .complaint-item, .complaint-card {
+        padding: 10px;
+    }
+    
+    .complaint-type, .complaint-resident {
+        font-size: 0.95rem;
+    }
+    
+    .complaint-date {
+        font-size: 0.8rem;
+    }
+    
+    /* Status badges */
+    .complaint-status {
+        padding: 2px 6px;
+    }
+}

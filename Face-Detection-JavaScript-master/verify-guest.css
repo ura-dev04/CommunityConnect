@@ -217,3 +217,51 @@ h3 {
   background: linear-gradient(to right, #e63946, #ffd166, #28a745);
   transition: width 0.5s ease;
 }
+
+/* Mobile-specific styles */
+@media (max-width: 480px) {
+  .verify-container {
+    width: 95%;
+    padding: 10px;
+  }
+  
+  .verification-area {
+    gap: 15px;
+  }
+  
+  .camera-section, .reference-section {
+    padding: 15px;
+    margin-bottom: 15px;
+  }
+  
+  h3 {
+    font-size: 1.2rem;
+  }
+  
+  .primary-btn, .success-btn, .danger-btn {
+    padding: 10px 15px;
+    font-size: 0.95rem;
+  }
+  
+  #guest-name {
+    font-size: 1.3rem;
+  }
+  
+  .match-indicator {
+    font-size: 1.2rem;
+    padding: 8px;
+  }
+  
+  .action-buttons {
+    gap: 10px;
+  }
+  
+  .back-btn {
+    padding: 8px 12px;
+    font-size: 0.85rem;
+  }
+  
+  #verification-result {
+    font-size: 1.1rem;
+  }
+}

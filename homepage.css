@@ -282,6 +282,92 @@ body {
   }
 }
 
+/* Mobile specific styles */
+@media (max-width: 480px) {
+  /* Navbar mobile adjustments */
+  .navbar {
+    padding: 0.8rem 0.5rem;
+  }
+  
+  .logo {
+    font-size: 1.6rem;
+    margin-bottom: 0.8rem;
+  }
+  
+  .nav-links a {
+    margin: 0 0.5rem;
+    padding: 0.4rem 0.6rem;
+    font-size: 0.9rem;
+  }
+  
+  .nav-buttons {
+    width: 100%;
+  }
+  
+  .login-btn, .verify-guest-btn {
+    width: 100%;
+    text-align: center;
+    font-size: 0.9rem;
+    padding: 0.7rem 0;
+  }
+  
+  /* Hero section mobile adjustments */
+  .hero {
+    height: 40vh;
+    padding: 0 1rem;
+  }
+  
+  .hero-content h1 {
+    font-size: 2rem;
+    margin-bottom: 0.8rem;
+  }
+  
+  .hero-content p {
+    font-size: 1rem;
+    margin-bottom: 1rem;
+  }
+  
+  /* Features section mobile adjustments */
+  .features-section {
+    padding: 3rem 1rem;
+  }
+  
+  .section-title {
+    font-size: 1.8rem;
+  }
+  
+  .section-description {
+    font-size: 0.9rem;
+    margin-bottom: 2rem;
+  }
+  
+  .feature-card {
+    padding: 1.2rem;
+    margin-bottom: 1rem;
+  }
+  
+  .feature-icon {
+    font-size: 1.5rem;
+    width: 50px;
+    height: 50px;
+    margin-bottom: 1rem;
+  }
+  
+  .feature-card h3 {
+    font-size: 1.2rem;
+  }
+  
+  .feature-card li {
+    font-size: 0.9rem;
+  }
+  
+  /* Footer adjustments for mobile */
+  footer {
+    padding: 1.5rem 1rem;
+    font-size: 0.9rem;
+  }
+}
+
 /* Footer */
 footer {
   text-align: center;
