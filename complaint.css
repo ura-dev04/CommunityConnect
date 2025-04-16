@@ -30,6 +30,29 @@ body {
     z-index: 1000;
 }
 
+/* Dashboard Header - Copied from dashboard.css */
+.dashboard-header {
+    padding: 4rem 2rem;
+    text-align: center;
+    background: linear-gradient(135deg, var(--primary-light), var(--accent-light));
+    color: var(--primary-dark);
+    border-bottom: 2px solid var(--primary);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.dashboard-header h1 {
+    font-size: 3rem;
+    margin-bottom: 0.5rem;
+    text-shadow: 0 2px 5px var(--shadow-dark);
+    letter-spacing: 1px;
+}
+
+.dashboard-header p {
+    font-size: 1.3rem;
+    color: var(--text-muted);
+    margin-top: 0.5rem;
+}
+
 /* Main container for complaint form and listings */
 .container {
     max-width: 1200px;
@@ -46,6 +69,17 @@ h1 {
     color: var(--primary-dark);
     margin-bottom: 2rem;
     font-size: 2.5rem;
+}
+
+/* Footer - Copied from dashboard.css */
+footer {
+    text-align: center;
+    padding: 2.5rem;
+    background: var(--primary-dark);
+    color: #ffffff;
+    font-size: 1rem;
+    box-shadow: 0 -4px 20px var(--shadow-dark);
+    border-top: 2px solid var(--primary);
 }
 
 /* Form styling */
@@ -487,6 +521,19 @@ a button:hover {
     .modal-buttons button {
         width: 100%;
     }
+
+    /* Dashboard header adjustments - From dashboard.css */
+    .dashboard-header {
+        padding: 2rem 1rem;
+    }
+
+    .dashboard-header h1 {
+        font-size: 2.2rem;
+    }
+
+    .dashboard-header p {
+        font-size: 1.1rem;
+    }
 }
 
 /* Smaller mobile devices */
@@ -530,5 +577,14 @@ a button:hover {
     /* Status badges */
     .complaint-status {
         padding: 2px 6px;
+    }
+
+    /* From dashboard.css */
+    .dashboard-header h1 {
+        font-size: 1.8rem;
+    }
+
+    .dashboard-header p {
+        font-size: 1rem;
     }
 }
