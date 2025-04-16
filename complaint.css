@@ -126,6 +126,16 @@ button {
     transition: all 0.3s ease;
 }
 
+/* Fix to prevent navbar button styling override */
+.navbar button {
+    margin-top: 0; /* Reset margin to prevent misalignment */
+}
+
+/* Fix for auth-buttons in navbar */
+.auth-buttons button {
+    margin-top: 0; /* Reset margin specifically for auth buttons */
+}
+
 button:hover {
     background-color: var(--primary-dark);
     transform: translateY(-2px);
