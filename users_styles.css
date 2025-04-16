@@ -539,6 +539,229 @@ footer {
     }
 }
 
+/* Enhanced Mobile Responsive Design */
+@media (max-width: 768px) {
+    /* Navbar improvements */
+    .logo {
+        font-size: 1.6rem;
+    }
+    
+    .nav-links a {
+        margin: 0 0.5rem;
+        padding: 0.4rem 0.8rem;
+        font-size: 0.9rem;
+    }
+    
+    .logout-btn {
+        padding: 0.5rem 1rem;
+        font-size: 0.9rem;
+    }
+    
+    /* Content container */
+    .content-container {
+        width: 95%;
+        margin: 1rem auto;
+        padding: 0.5rem;
+    }
+    
+    /* Action bar */
+    .action-bar {
+        margin-bottom: 1.5rem;
+    }
+    
+    .add-btn {
+        padding: 0.6rem 1rem;
+        font-size: 0.9rem;
+    }
+    
+    /* Resident cards */
+    .residents-grid {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+    }
+    
+    .resident-card {
+        padding: 1.3rem;
+    }
+    
+    .resident-card h3 {
+        font-size: 1.5rem;
+        margin-bottom: 0.8rem;
+        padding-bottom: 0.6rem;
+    }
+    
+    .resident-card p {
+        font-size: 1rem;
+        margin-bottom: 0.6rem;
+    }
+    
+    /* Form improvements */
+    .form-header {
+        padding: 1rem 1.5rem;
+    }
+    
+    .form-header h2 {
+        font-size: 1.3rem;
+    }
+    
+    .form-body {
+        padding: 1.5rem 1.2rem;
+    }
+    
+    label {
+        font-size: 0.95rem;
+    }
+    
+    input, select {
+        padding: 0.7rem;
+        font-size: 0.95rem;
+    }
+    
+    .form-group {
+        margin-bottom: 1rem;
+    }
+    
+    .form-section h3 {
+        font-size: 1.2rem;
+    }
+    
+    /* Parking form */
+    .parking-form-group {
+        padding: 1rem;
+        flex-direction: column;
+    }
+    
+    .remove-parking-btn {
+        position: absolute;
+        top: 0.5rem;
+        right: 0.5rem;
+    }
+    
+    /* Footer */
+    footer {
+        padding: 1.5rem;
+        font-size: 0.9rem;
+    }
+}
+
+/* Small mobile screens */
+@media (max-width: 480px) {
+    .navbar {
+        padding: 0.8rem 0.5rem;
+    }
+    
+    .logo {
+        font-size: 1.4rem;
+    }
+    
+    .user-welcome-container {
+        font-size: 0.85rem;
+    }
+    
+    #welcome-message {
+        font-size: 0.9rem;
+    }
+    
+    #user-role {
+        font-size: 0.8rem;
+    }
+    
+    .page-header {
+        padding: 1.5rem 0.8rem;
+    }
+    
+    .page-header h1 {
+        font-size: 1.7rem;
+    }
+    
+    .page-header p {
+        font-size: 1rem;
+    }
+    
+    .form-content {
+        width: 95%;
+    }
+    
+    .form-body {
+        padding: 1.2rem 1rem;
+    }
+    
+    .close-btn {
+        font-size: 1.5rem;
+    }
+    
+    .submit-btn {
+        padding: 0.7rem;
+    }
+    
+    .parking-inputs {
+        gap: 0.7rem;
+    }
+    
+    .action-bar {
+        justify-content: center;
+    }
+}
+
+/* Handle very small screens */
+@media (max-width: 350px) {
+    .logo {
+        font-size: 1.2rem;
+    }
+    
+    .nav-links a {
+        margin: 0 0.3rem;
+        padding: 0.3rem 0.6rem;
+        font-size: 0.8rem;
+    }
+    
+    .logout-btn {
+        padding: 0.4rem 0.8rem;
+        font-size: 0.8rem;
+    }
+    
+    .page-header h1 {
+        font-size: 1.5rem;
+    }
+    
+    .page-header p {
+        font-size: 0.9rem;
+    }
+    
+    .resident-card {
+        padding: 1rem;
+    }
+    
+    .resident-card h3 {
+        font-size: 1.3rem;
+    }
+    
+    .resident-card p {
+        font-size: 0.9rem;
+    }
+}
+
+/* Fix for orientation changes */
+@media (orientation: landscape) and (max-height: 500px) {
+    .page-header {
+        padding: 1rem;
+    }
+    
+    .page-header h1 {
+        font-size: 1.7rem;
+        margin-bottom: 0.2rem;
+    }
+    
+    .page-header p {
+        margin-top: 0.2rem;
+    }
+    
+    .modal-form {
+        height: 95vh;
+        overflow: auto;
+    }
+}
+
 @media (max-height: 700px) {
     .modal-form {
         top: 0;

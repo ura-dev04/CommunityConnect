@@ -271,3 +271,70 @@
 .entries-btn:hover {
   background-color: #ffb64d;
 }
+
+/* Enhanced mobile styles */
+@media (max-width: 480px) {
+  .guests-container {
+    width: 95%;
+    padding: 10px;
+  }
+  
+  .controls {
+    flex-direction: column;
+    gap: 10px;
+    align-items: stretch;
+  }
+  
+  .primary-btn, .back-btn {
+    width: 100%;
+    text-align: center;
+    padding: 10px 15px;
+    font-size: 0.95rem;
+  }
+  
+  .search-bar input {
+    padding: 10px;
+  }
+  
+  .guests-list {
+    grid-template-columns: 1fr;
+  }
+  
+  .guest-photo {
+    height: 180px;
+  }
+  
+  .guest-name {
+    font-size: 1.2rem;
+  }
+  
+  .guest-info {
+    font-size: 0.85rem;
+  }
+  
+  .info-label {
+    width: 80px;
+  }
+  
+  .guest-actions {
+    padding: 10px;
+  }
+  
+  .verify-btn, .delete-btn {
+    padding: 6px 10px;
+    font-size: 0.85rem;
+  }
+  
+  .modal-content {
+    padding: 20px;
+    margin: 30px auto;
+  }
+  
+  .form-group input {
+    padding: 8px;
+  }
+  
+  .submit-btn {
+    padding: 10px;
+  }
+}

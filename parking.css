@@ -242,7 +242,7 @@
 .secondary-btn {
   background-color: transparent;
   border: 1px solid var(--primary);
-  color: var(--primary-dark);
+  color: var (--primary-dark);
 }
 
 .secondary-btn:hover {
@@ -647,5 +647,179 @@
   .request-buttons {
     flex-direction: column;
     align-items: center;
+  }
+}
+
+/* Enhanced Mobile Responsiveness */
+@media (max-width: 480px) {
+  /* Page header adjustments */
+  .page-header {
+    padding: 2rem 1rem;
+  }
+  
+  .page-header h1 {
+    font-size: 2rem;
+  }
+  
+  .page-header p {
+    font-size: 1rem;
+  }
+  
+  /* Request buttons in header - keep them stacked but improve styling */
+  .request-buttons {
+    gap: 0.75rem;
+  }
+  
+  .request-btn {
+    width: 90%;
+    justify-content: center;
+    padding: 0.7rem 1rem;
+    font-size: 0.9rem;
+  }
+  
+  /* Filter section improvements */
+  .filter-section {
+    padding: 1.2rem;
+    margin-bottom: 1rem;
+  }
+  
+  .filter-section h2 {
+    font-size: 1.2rem;
+  }
+  
+  .filter-group select,
+  .filter-group input[type="text"] {
+    padding: 0.6rem;
+    font-size: 0.9rem;
+  }
+  
+  /* Parking spots container - adjust grid for smaller screens */
+  .parking-spots-container {
+    grid-template-columns: 1fr;
+  }
+  
+  .parking-spot {
+    padding: 1.2rem;
+    margin-bottom: 1rem;
+  }
+  
+  /* Modal content adjustments */
+  .modal-content {
+    margin: 5% auto;
+    padding: 1.5rem;
+    width: 95%;
+  }
+  
+  .large-modal {
+    max-height: 85vh;
+  }
+  
+  /* Request cards and tabs adjustments */
+  .requests-container {
+    grid-template-columns: 1fr;
+  }
+  
+  .request-tabs {
+    overflow-x: auto;
+    white-space: nowrap;
+    padding-bottom: 0.5rem;
+    justify-content: flex-start;
+    gap: 0.5rem;
+  }
+  
+  .tab-btn {
+    padding: 0.4rem 0.8rem;
+    font-size: 0.9rem;
+  }
+  
+  /* Form adjustments */
+  .form-group label {
+    font-size: 0.9rem;
+  }
+  
+  .form-group input[type="text"],
+  .form-group input[type="date"],
+  .form-group input[type="time"],
+  .form-group textarea,
+  .form-group select {
+    padding: 0.7rem;
+    font-size: 0.9rem;
+  }
+  
+  /* Button sizing */
+  .btn {
+    padding: 0.6rem 1rem;
+    font-size: 0.9rem;
+  }
+  
+  /* Request card details */
+  .request-detail {
+    flex-direction: column;
+    align-items: flex-start;
+    margin-bottom: 0.9rem;
+  }
+  
+  .request-detail .label {
+    flex: none;
+    margin-bottom: 0.2rem;
+  }
+  
+  .request-detail .value {
+    flex: none;
+    text-align: left;
+  }
+  
+  /* Request actions */
+  .request-actions {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+  
+  .request-actions .btn {
+    width: 100%;
+  }
+  
+  /* Count badge positioning */
+  .count-badge {
+    padding: 0.3rem 0.6rem;
+    font-size: 0.8rem;
+  }
+  
+  /* Section header adjustments */
+  .section-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.5rem;
+  }
+  
+  .section-header h2 {
+    font-size: 1.3rem;
+  }
+  
+  /* Status badges */
+  .status-badge {
+    padding: 0.25rem 0.6rem;
+    font-size: 0.75rem;
+  }
+}
+
+/* For small tablets */
+@media (min-width: 481px) and (max-width: 767px) {
+  .parking-spots-container {
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  }
+  
+  .requests-container {
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  }
+  
+  .modal-content {
+    width: 90%;
+    padding: 1.8rem;
+  }
+  
+  .request-actions {
+    flex-wrap: wrap;
+    gap: 0.5rem;
   }
 }

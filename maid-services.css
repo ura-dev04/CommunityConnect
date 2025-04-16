@@ -359,6 +359,114 @@
     .maid-card {
         padding: 1rem;
     }
+
+    /* Enhanced mobile styling */
+    .navbar {
+        padding: 0.8rem 1rem;
+        flex-wrap: wrap;
+    }
+
+    .logo {
+        font-size: 1.5rem;
+        margin-bottom: 0.5rem;
+    }
+
+    .user-welcome-container {
+        order: 3;
+        margin-top: 0.5rem;
+        width: 100%;
+        text-align: center;
+    }
+
+    .nav-links {
+        order: 2;
+    }
+
+    .auth-buttons {
+        order: 1;
+    }
+
+    .time-slot-selector {
+        padding: 1.2rem;
+    }
+
+    .time-slot-selector h2 {
+        font-size: 1.4rem;
+    }
+
+    .registration-form {
+        padding: 1.5rem 1rem;
+    }
+
+    .form-group input,
+    .form-group select,
+    .submit-btn {
+        padding: 0.7rem;
+        font-size: 1rem;
+    }
+
+    .time-slots-checkbox {
+        grid-template-columns: 1fr;
+        padding: 0.8rem;
+    }
+}
+
+/* Additional mobile styles for even smaller screens */
+@media (max-width: 480px) {
+    .services-container h1 {
+        font-size: 2rem;
+    }
+
+    .time-slots {
+        grid-template-columns: 1fr;
+    }
+
+    .search-results {
+        grid-template-columns: 1fr;
+    }
+
+    .navbar {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .nav-links, .auth-buttons {
+        margin-top: 0.5rem;
+        width: 100%;
+        display: flex;
+        justify-content: center;
+    }
+
+    .auth-buttons {
+        justify-content: center;
+    }
+
+    .logout-btn, .change-password-btn {
+        padding: 0.4rem 0.8rem;
+        font-size: 0.9rem;
+    }
+
+    .maid-info h3 {
+        font-size: 1.3rem;
+    }
+
+    .maid-details p {
+        font-size: 0.95rem;
+    }
+
+    .time-slot-tag {
+        padding: 0.2rem 0.4rem;
+        font-size: 0.75rem;
+    }
+
+    .initial-message, .no-results {
+        padding: 1.5rem 1rem;
+        font-size: 0.95rem;
+    }
+
+    .submit-btn {
+        margin-top: 0.5rem;
+    }
 }
 
 /* Navbar Styles */

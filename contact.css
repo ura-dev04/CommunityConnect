@@ -159,3 +159,62 @@
     font-size: 2rem;
   }
 }
+
+/* Additional mobile styles for smaller screens */
+@media (max-width: 480px) {
+  .page-header {
+    padding: 1.5rem 1rem;
+  }
+  
+  .page-header h1 {
+    font-size: 1.8rem;
+  }
+  
+  .page-header p {
+    font-size: 0.9rem;
+  }
+  
+  .contact-container {
+    padding: 1.5rem 0.75rem;
+  }
+  
+  .contact-card {
+    padding: 1.5rem;
+    margin-bottom: 1rem;
+  }
+  
+  .contact-avatar {
+    width: 80px;
+    height: 80px;
+    font-size: 2rem;
+    margin-bottom: 1rem;
+  }
+  
+  .contact-name {
+    font-size: 1.3rem;
+  }
+  
+  .contact-role {
+    font-size: 1rem;
+    margin-bottom: 0.75rem;
+  }
+  
+  .info-item {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.3rem;
+  }
+  
+  .info-label {
+    font-size: 0.8rem;
+  }
+  
+  .info-value {
+    font-size: 0.9rem;
+    width: 100%;
+  }
+  
+  .no-contacts-message, .error-message {
+    padding: 1.5rem 1rem;
+  }
+}
