@@ -27,6 +27,28 @@
         "startDate": "2025-04-15",
         "status": "Confirmed",
         "timestamp": "2025-04-14T13:41:32.971Z"
+      },
+      "-ONv9j341oOzjI23ElDx": {
+        "days": [
+          {
+            "date": "2025-04-18",
+            "endTime": "08:30",
+            "startTime": "04:00"
+          },
+          {
+            "date": "2025-04-19",
+            "endTime": "08:30",
+            "startTime": "04:00"
+          }
+        ],
+        "duration": 2,
+        "flatNumber": "304",
+        "guests": "22",
+        "name": "urmi Joshi",
+        "purpose": "Family Function.",
+        "startDate": "2025-04-18",
+        "status": "Confirmed",
+        "timestamp": "2025-04-15T20:36:36.851Z"
       }
     },
     "guestroom": {
@@ -78,6 +100,31 @@
         "status": "Rejected",
         "timestamp": "2025-04-14T17:24:17.336Z",
         "type": "room"
+      },
+      "-ONvAGn155rPIxtrtmR8": {
+        "days": [
+          {
+            "date": "2025-04-19",
+            "endTime": "10:30",
+            "isOvernight": true,
+            "startTime": "11:30"
+          },
+          {
+            "date": "2025-04-20",
+            "endTime": "10:30",
+            "isOvernight": true,
+            "startTime": "11:30"
+          }
+        ],
+        "duration": 2,
+        "flat": "304",
+        "guests": 10,
+        "name": "urmi Joshi",
+        "roomCount": 4,
+        "startDate": "2025-04-19",
+        "status": "Confirmed",
+        "timestamp": "2025-04-15T20:38:59.122Z",
+        "type": "room"
       }
     }
   },
@@ -117,6 +164,15 @@
       "location": "podium",
       "name": "Ambedkar Jayanti Celebration",
       "time": "10:30"
+    },
+    "-ONv7SYodYaJtkoj3q7E": {
+      "createdAt": "2025-04-15T20:26:40.842Z",
+      "createdBy": "urmi Joshi",
+      "date": "2025-04-20",
+      "description": "Egg decoration competition, treasure hunt for kids.",
+      "location": "Compound, podium",
+      "name": "Easter Day",
+      "time": "04:30"
     }
   },
   "guests": {
@@ -270,6 +326,17 @@
       ],
       "wing": "B"
     },
+    "2021": {
+      "createdAt": 1744749263973,
+      "flatNumber": "304",
+      "maidId": "2021",
+      "mobile": "9029672553",
+      "name": "Rani Tai",
+      "timeSlots": [
+        "10-12"
+      ],
+      "wing": "A"
+    },
     "5100": {
       "createdAt": 1744618775855,
       "flatNumber": "505",
@@ -337,6 +404,16 @@
       "body": "Power cut from 10 am to 12 pm for all wings.",
       "timestamp": "2025-04-03T02:36:02.415Z",
       "title": "Power Cut"
+    },
+    "-ONv7Ss1xhVW3j1qgVEV": {
+      "body": "A new event has been scheduled: \"Easter Day\" on Sunday, April 20, 2025 at 04:30 AM, location: Compound, podium. Egg decoration competition, treasure hunt for kids.",
+      "timestamp": "2025-04-15T20:26:42.137Z",
+      "title": "New Event: Easter Day"
+    },
+    "-ONv8HLI75H1L69ijSCi": {
+      "body": "Banquet hall will be closed on 19-04-2025 for cleaning and arrangements. No events will be held.",
+      "timestamp": "2025-04-15T20:30:16.999Z",
+      "title": "Banquet Hall Cleaning"
     }
   },
   "residents": {
@@ -440,17 +517,63 @@
           "resident_name": "urmi Joshi",
           "status": "Resolved",
           "timestamp": "2025-04-14T02:43:42.313Z"
+        },
+        "-ONv3gtTIxd10s_Ysc8B": {
+          "closedAt": "2025-04-15T20:11:54.826Z",
+          "closingReason": "New cleaning staff will be joining from next week",
+          "complaint_content": "Cleaning of the garden is not done regularly.",
+          "complaint_type": "society_related",
+          "resident_name": "urmi Joshi",
+          "status": "Resolved",
+          "timestamp": "2025-04-15T20:10:10.396Z"
         }
       },
       "email": "urmi.joshi@yahoo.com",
       "flatNumber": "304",
       "floor": "3",
+      "maintenance": {
+        "-ONv8nGhFhnPitLm1aPV": {
+          "billDate": "2025-04-15",
+          "breakdown": [
+            {
+              "amount": 5000,
+              "description": "Monthly maintenance"
+            }
+          ],
+          "dueDate": "2025-05-20",
+          "generatedAt": 1744749148791,
+          "generatedBy": "urmi Joshi",
+          "status": "unpaid",
+          "totalAmount": 5000
+        }
+      },
       "notification_viewed": true,
+      "notifications": {
+        "-ONv4zx7llyM2JRWwz7m": {
+          "body": "urmi Joshi has requested to use your parking spot (A1) on 2025-05-17 from 11:00 to 08:30.",
+          "read": false,
+          "timestamp": "2025-04-15T20:15:55.231Z",
+          "title": "New Parking Request",
+          "type": "parking_request"
+        },
+        "-ONv5RTjGuSGzYWo5REF": {
+          "body": "Your request to use parking spot A1 on 2025-05-17 from 11:00 to 08:30 has been approved.",
+          "read": false,
+          "timestamp": "2025-04-15T20:17:52.070Z",
+          "title": "Parking Request Approved",
+          "type": "parking_approval"
+        },
+        "-ONv8neI5kLJFYs3smAu": {
+          "body": "A new maintenance bill of ₹5000 has been generated. Due date: 2025-05-20",
+          "timestamp": 1744749149151,
+          "title": "New Maintenance Bill"
+        }
+      },
       "parking": [
         null,
         {
           "parkingId": "A1",
-          "slot_status": "available",
+          "slot_status": "temp_hold",
           "vehicleType": "2"
         },
         {
@@ -459,17 +582,53 @@
           "vehicleType": "4"
         }
       ],
-      "password": "123456",
+      "parkingrequests": {
+        "-ONv4zs4AZK_1iHDayke": {
+          "createdAt": "2025-04-15T20:15:54.908Z",
+          "date": "2025-05-17",
+          "endTime": "08:30",
+          "ownerFlat": "304",
+          "parkingId": "A1",
+          "parkingNumber": "1",
+          "reason": "New vehicle is purchased ",
+          "requesterFlat": "304",
+          "requesterName": "urmi Joshi",
+          "requesterUserId": "304",
+          "startTime": "11:00",
+          "status": "approved",
+          "vehicleNumber": "MH05E001"
+        }
+      },
+      "password": "1234567",
       "password_set": true,
       "phone": "8765432109",
       "role": "MC",
       "sub_role": "building-manager",
       "wing": "A"
     },
+    "306": {
+      "Owner_Name": "Anjali Gupta",
+      "email": "anjaligupta@gmail.com",
+      "flatNumber": "306",
+      "floor": "3",
+      "notification_viewed": "false",
+      "parking": [
+        null,
+        {
+          "parkingId": "A2",
+          "slot_status": "available",
+          "vehicleType": "2"
+        }
+      ],
+      "password": "123456",
+      "phone": "9372705444",
+      "role": "resident",
+      "wing": "A"
+    },
     "405": {
-      "Owner_Name": "gayatri ",
+      "Owner_Name": "Gayatri Bhapkar",
       "buildingName": "Azziano",
-      "email": "gayatri.sharma@outlook.com",
+      "email": "gayatri.bhapkar@outlook.com",
       "flatNumber": "405",
       "floor": "6",
       "notification_viewed": false,
