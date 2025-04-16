@@ -1,3 +1,4 @@
+/* Make sure not to override navbar styles */
 body {
     margin: 0;
     padding: 0;
@@ -21,6 +22,12 @@ body {
     --text-muted: #8d99ae;
     --shadow-light: rgba(0, 0, 0, 0.05);
     --shadow-dark: rgba(0, 0, 0, 0.2);
+}
+
+/* Ensure navbar has proper spacing */
+#navbar-container {
+    width: 100%;
+    z-index: 1000;
 }
 
 /* Main container for complaint form and listings */

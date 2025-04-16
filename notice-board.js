@@ -17,9 +17,6 @@ const app = initializeApp(firebaseConfig);
 const database = getDatabase(app);
 
 // DOM Elements
-const welcomeMessage = document.getElementById('welcome-message');
-const userRoleElement = document.getElementById('user-role');
-const logoutBtn = document.querySelector('.logout-btn');
 const notificationsList = document.getElementById('notificationsList');
 const notificationForm = document.getElementById('notificationForm');
 const notificationTitle = document.getElementById('notificationTitle');
@@ -46,16 +43,6 @@ document.addEventListener('DOMContentLoaded', () => {
   // Parse user data
   userData = JSON.parse(loggedInUser);
   
-  // Update welcome message and role
-  welcomeMessage.textContent = `Hi ${userData.name}`;
-  
-  let roleText = `${userData.role}`;
-  if (userData.sub_role) {
-    roleText += ` (${userData.sub_role})`;
-  }
-  
-  userRoleElement.textContent = roleText;
-  
   // Check if user has permission to manage notifications
   const canManageNotifications = hasNotificationPermission(userData);
   
@@ -72,20 +59,7 @@ document.addEventListener('DOMContentLoaded', () => {
   
   // Cancel edit handler
   cancelEdit.addEventListener('click', resetForm);
-  
-  // Logout handler
-  logoutBtn.addEventListener('click', () => {
-    logout();
-  });
 });
-
-// Function to logout
-function logout() {
-  // Remove user data from session storage
-  sessionStorage.removeItem('loggedInUser');
-  // Redirect to homepage after logout
-  window.location.href = 'homepage.html';
-}
 
 // Function to check if user has permission to manage notifications
 function hasNotificationPermission(user) {

@@ -18,66 +18,40 @@ const database = firebase.database();
 const loadingIndicator = document.getElementById('loadingIndicator');
 const searchResults = document.getElementById('searchResults');
 
-// User authentication check
 document.addEventListener('DOMContentLoaded', () => {
-    const welcomeMessage = document.getElementById('welcome-message');
-    const userRole = document.getElementById('user-role');
-    const logoutBtn = document.querySelector('.logout-btn');
-    const changePasswordBtn = document.querySelector('.change-password-btn');
+    // Note: User authentication check is now handled by navbar.js
+    // The following code is for handling maid service specific permissions
+    
     const registerTabButton = document.querySelector('.tab-btn[data-tab="register"]');
     const registerTabPane = document.getElementById('register-tab');
     
-    // Check if user is logged in
+    // Check if user has permission to register maids
     const loggedInUser = sessionStorage.getItem('loggedInUser');
     
-    if (!loggedInUser) {
-        // User is not logged in, redirect to login page
-        window.location.href = 'login.html';
-        return;
-    }
-    
-    // User is logged in
-    const userData = JSON.parse(loggedInUser);
-    
-    // Display welcome message and role
-    welcomeMessage.textContent = `Hi ${userData.name}`;
-    
-    let roleText = `${userData.role}`;
-    if (userData.sub_role) {
-        roleText += ` (${userData.sub_role})`;
-    }
-    
-    userRole.textContent = roleText;
-    
-    // Check if user has permission to register maids
-    const allowedRoles = ['admin', 'president', 'secretary', 'treasurer', 'building-manager'];
-    const hasPermission = userData.sub_role && allowedRoles.includes(userData.sub_role);
-    
-    // Hide register tab if user doesn't have permission
-    if (!hasPermission) {
-        // Hide the register tab button
-        if (registerTabButton) {
-            registerTabButton.style.display = 'none';
-        }
+    if (loggedInUser) {
+        const userData = JSON.parse(loggedInUser);
         
-        // Hide the register tab content
-        if (registerTabPane) {
-            registerTabPane.style.display = 'none';
-        }
+        // Check if user has permission to register maids
+        const allowedRoles = ['admin', 'president', 'secretary', 'treasurer', 'building-manager'];
+        const hasPermission = userData.sub_role && allowedRoles.includes(userData.sub_role);
         
-        // Ensure search tab is active
-        document.querySelector('.tab-btn[data-tab="search"]').classList.add('active');
-        document.getElementById('search-tab').classList.add('active');
+        // Hide register tab if user doesn't have permission
+        if (!hasPermission) {
+            // Hide the register tab button
+            if (registerTabButton) {
+                registerTabButton.style.display = 'none';
+            }
+            
+            // Hide the register tab content
+            if (registerTabPane) {
+                registerTabPane.style.display = 'none';
+            }
+            
+            // Ensure search tab is active
+            document.querySelector('.tab-btn[data-tab="search"]').classList.add('active');
+            document.getElementById('search-tab').classList.add('active');
+        }
     }
-    
-    // Handle logout button
-    logoutBtn.addEventListener('click', () => {
-        // Remove user data from session storage
-        sessionStorage.removeItem('loggedInUser');
-        // Redirect to homepage after logout
-        window.location.href = 'homepage.html';
-    });
-    
 });
 
 // Tab functionality

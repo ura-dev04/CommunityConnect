@@ -73,18 +73,6 @@ function formatTime(timeStr) {
 
 // UI Initialization
 function initializeUI() {
-  // Update welcome message and role
-  if (userData) {
-    document.getElementById('welcome-message').textContent = `Hi ${userData.name}`;
-    
-    let roleText = `${userData.role}`;
-    if (userData.sub_role) {
-      roleText += ` (${userData.sub_role})`;
-    }
-    
-    document.getElementById('user-role').textContent = roleText;
-  }
-  
   // Tab functionality
   const tabButtons = document.querySelectorAll('.tab-button');
   const tabContents = document.querySelectorAll('.tab-content');
@@ -181,12 +169,6 @@ function initializeUI() {
       pendingRequestsBtn.style.display = 'none';
     }
   }
-
-  // Handle logout button click
-  document.querySelector('.logout-btn').addEventListener('click', () => {
-    logout();
-  });
-
 }
 
 // Function to logout

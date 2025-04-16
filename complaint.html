@@ -4,23 +4,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CommunityConnect | Complaints</title>
+    <!-- First load navbar.css, then dashboard.css, and finally complaint.css to prevent overrides -->
+    <link rel="stylesheet" href="navbar.css">
     <link rel="stylesheet" href="dashboard.css">
     <link rel="stylesheet" href="complaint.css">
 </head>
 <body>
-    <header class="navbar">
-        <div class="logo">CommunityConnect</div>
-        <div class="user-welcome-container">
-            <div id="welcome-message">Welcome</div>
-            <div id="user-role">Loading...</div>
-        </div>
-        <nav class="nav-links">
-            <a href="dashboard.html">Home</a>
-        </nav>
-        <div class="auth-buttons">
-            <button class="logout-btn">Logout</button>
-        </div>
-    </header>
+    <div id="navbar-container"></div>
 
     <section class="dashboard-header">
         <h1>Complaint Box</h1>
@@ -76,6 +66,7 @@
         <p>&copy; 2025 CommunityConnect. All rights reserved.</p>
     </footer>
 
+    <script type="module" src="navbar.js"></script>
     <script type="module" src="complaint.js"></script>
 </body>
 </html>

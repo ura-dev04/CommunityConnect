@@ -8,23 +8,12 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="dashboard.css">
+  <link rel="stylesheet" href="navbar.css">
   <link rel="stylesheet" href="parking.css">
 </head>
 <body>
-  <header class="navbar">
-    <div class="logo">CommunityConnect</div>
-    <div class="user-welcome-container">
-      <div id="welcome-message">Welcome</div>
-      <div id="user-role">Loading...</div>
-    </div>
-    <nav class="nav-links">
-      <a href="dashboard.html">Home</a>
-    </nav>
-    <div class="auth-buttons">
-      <button class="change-password-btn" onclick="window.location.href='dashboard.html#change-password'">Change Password</button>
-      <button class="logout-btn" id="logout-btn">Logout</button>
-    </div>
-  </header>
+  <!-- Navbar will be loaded here -->
+  <div id="navbar-container"></div>
 
   <section class="page-header">
     <h1>Parking Management</h1>
@@ -185,6 +174,7 @@
     <p>&copy; 2025 CommunityConnect. All rights reserved.</p>
   </footer>
 
+  <script src="navbar.js"></script>
   <script type="module" src="parking.js"></script>
 </body>
 </html>

@@ -17,42 +17,25 @@ const app = initializeApp(firebaseConfig);
 const database = getDatabase(app);
 
 document.addEventListener('DOMContentLoaded', () => {
-  const welcomeMessage = document.getElementById('welcome-message');
-  const userRole = document.getElementById('user-role');
   const contactsGrid = document.getElementById('contacts-grid');
   
   let userData;
   
-  // Check if user is logged in
+  // Check if user is logged in - this will be handled by navbar.js, 
+  // but we still need the user data for our functionality
   const loggedInUser = sessionStorage.getItem('loggedInUser');
   
   if (!loggedInUser) {
-    // User is not logged in, redirect to login page
+    // This redirect is now handled by navbar.js, but keeping as a fallback
     window.location.href = 'login.html';
     return;
   }
   
   // User is logged in
   userData = JSON.parse(loggedInUser);
-  
-  // Display welcome message and role
-  welcomeMessage.textContent = `Hi ${userData.name}`;
-  
-  let roleText = `${userData.role}`;
-  if (userData.sub_role) {
-    roleText += ` (${userData.sub_role})`;
-  }
-  
-  userRole.textContent = roleText;
 
   // Load contacts
   loadContacts();
-
-  
-  // Handle logout button click
-  document.querySelector('.logout-btn').addEventListener('click', () => {
-    logout();
-  });
 
   // Function to load contacts
   async function loadContacts() {
@@ -190,13 +173,5 @@ document.addEventListener('DOMContentLoaded', () => {
     };
     
     return roleColors[role] || 'var(--primary)';
-  }
-
-  // Function to logout
-  function logout() {
-    // Remove user data from session storage
-    sessionStorage.removeItem('loggedInUser');
-    // Redirect to homepage after logout
-    window.location.href = 'homepage.html';
   }
 });

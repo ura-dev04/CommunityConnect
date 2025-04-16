@@ -25,9 +25,6 @@ document.addEventListener("DOMContentLoaded", function() {
     const overlay = document.getElementById('overlay');
     const residentsGrid = document.getElementById('residents-grid');
     const loadingIndicator = document.getElementById('loading');
-    const welcomeMessage = document.getElementById('welcome-message');
-    const userRoleDisplay = document.getElementById('user-role');
-    const logoutBtn = document.querySelector('.logout-btn');
     const roleSelect = document.getElementById('role');
     const subRoleGroup = document.getElementById('sub-role-group');
     const addParkingBtn = document.getElementById('add-parking-btn');
@@ -114,14 +111,6 @@ document.addEventListener("DOMContentLoaded", function() {
     // Get user data
     const userData = JSON.parse(loggedInUser);
     
-    // Display user info in navbar
-    welcomeMessage.textContent = `Hi ${userData.name}`;
-    let roleText = `${userData.role}`;
-    if (userData.sub_role) {
-        roleText += ` (${userData.sub_role})`;
-    }
-    userRoleDisplay.textContent = roleText;
-    
     // Apply role-based access control
     applyRoleBasedAccess(userData.sub_role || userData.role);
 
@@ -148,14 +137,6 @@ document.addEventListener("DOMContentLoaded", function() {
         overlay.style.display = 'none';
         messageElement.textContent = '';
         messageElement.style.display = 'none';
-    });
-
-    // Handle logout button click
-    logoutBtn.addEventListener('click', () => {
-        // Remove user data from session storage
-        sessionStorage.removeItem('loggedInUser');
-        // Redirect to homepage after logout
-        window.location.href = 'homepage.html';
     });
 
     // Handle form submission
