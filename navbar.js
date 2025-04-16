@@ -17,8 +17,8 @@ async function loadNavbar() {
 
 // Initialize navbar components and functionality
 function initializeNavbar() {
-  const welcomeMessage = document.getElementById('welcome-message');
-  const userRole = document.getElementById('user-role');
+  const welcomeMessage = document.getElementById('navbar-welcome-message');
+  const userRole = document.getElementById('navbar-user-role');
   const changePasswordBtn = document.querySelector('.change-password-btn');
   
   // Get current page filename
@@ -42,8 +42,17 @@ function initializeNavbar() {
     userRole.textContent = roleText;
     
     // Show change password button only on dashboard.html (home page)
+    // Use CSS class instead of display property to maintain layout
     if (currentPage !== 'dashboard.html') {
-      changePasswordBtn.style.display = 'none';
+      changePasswordBtn.classList.add('hidden');
+    } else {
+      changePasswordBtn.classList.remove('hidden');
+      
+      // Add event listener to change password button
+      changePasswordBtn.addEventListener('click', () => {
+        // Dispatch a custom event that dashboard.js can listen for
+        document.dispatchEvent(new CustomEvent('openChangePasswordModal'));
+      });
     }
     
     // Handle logout button click

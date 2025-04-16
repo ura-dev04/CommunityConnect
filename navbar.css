@@ -1,4 +1,10 @@
 /* Navbar Styles */
+:root {
+  --main-font: 'Poppins', sans-serif;
+  --secondary-font: 'Roboto', sans-serif;
+  --logo-font: 'Montserrat', sans-serif;
+}
+
 .navbar {
   display: flex;
   justify-content: space-between;
@@ -11,32 +17,69 @@
   position: sticky;
   top: 0;
   z-index: 100;
+  width: 100%;
+  box-sizing: border-box;
+  font-family: var(--main-font);
 }
 
 .logo {
-  font-size: 2rem;
+  font-size: 32px;
   font-weight: bold;
   color: var(--primary-dark);
   text-shadow: 0 2px 5px var(--shadow-dark);
   letter-spacing: 1px;
+  width: 220px;
+  height: 40px;
+  line-height: 40px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-family: var(--logo-font);
 }
 
 .user-welcome-container {
   display: flex;
   flex-direction: column;
   align-items: center;
+  width: 200px;
+  height: 50px;
+  justify-content: center;
 }
 
-#welcome-message {
-  font-size: 1.2rem;
+#navbar-welcome-message {
+  font-size: 19px;
   font-weight: 600;
   color: var(--text-dark);
+  height: 24px;
+  line-height: 24px;
+  width: 100%;
+  text-align: center;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-family: var(--secondary-font);
 }
 
-#user-role {
-  font-size: 0.9rem;
+#navbar-user-role {
+  font-size: 14px;
   color: var(--text-muted);
   font-style: italic;
+  height: 18px;
+  line-height: 18px;
+  width: 100%;
+  text-align: center;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-family: var(--secondary-font);
+}
+
+.nav-links {
+  width: 180px;
+  height: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .nav-links a {
@@ -47,12 +90,30 @@
   font-weight: 600;
   border-radius: 5px;
   transition: background-color 0.3s ease, transform 0.3s ease;
+  height: 40px;
+  line-height: 22px;
+  display: inline-block;
+  box-sizing: border-box;
+  width: 100px;
+  text-align: center;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-size: 16px;
+  font-family: var(--main-font);
 }
 
 .nav-links a:hover {
   background-color: var(--primary-light);
   color: var(--primary-dark);
   transform: scale(1.05);
+}
+
+.auth-buttons {
+  display: flex;
+  justify-content: flex-end;
+  width: 280px;
+  height: 40px;
 }
 
 .auth-buttons button {
@@ -65,6 +126,19 @@
   cursor: pointer;
   transition: background 0.3s ease, transform 0.3s ease;
   margin-left: 0.5rem;
+  width: 135px;
+  height: 40px;
+  font-size: 16px;
+  text-align: center;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-family: var(--main-font);
+}
+
+/* Specific styling for change password button with smaller font */
+.auth-buttons .change-password-btn {
+  font-size: 10px !important; /* Increased from 8px for better readability and added !important */
 }
 
 .auth-buttons button:hover {
@@ -72,12 +146,21 @@
   transform: translateY(-3px);
 }
 
+.auth-buttons .hidden {
+  visibility: hidden;
+  opacity: 0;
+  pointer-events: none;
+  /* Maintain space in layout */
+  margin-left: 0.5rem;
+  width: 135px;
+  height: 40px;
+}
+
 /* Mobile Responsive Styles for Navbar */
 @media screen and (max-width: 768px) {
   .navbar {
     padding: 1rem;
-    height: auto; /* Allow height to adjust on mobile */
-    min-height: 120px; /* Minimum height for mobile */
+    height: 180px; /* Fixed height for mobile */
     flex-direction: column;
     gap: 1rem;
   }
@@ -87,26 +170,39 @@
     display: flex;
     justify-content: center;
     margin: 0.5rem 0;
+    height: 40px;
   }
 
   .auth-buttons {
-    width: 100%;
+    width: 280px;
     display: flex;
     justify-content: center;
     gap: 1rem;
+    height: 40px;
   }
 
   .auth-buttons button {
-    font-size: 0.9rem;
+    font-size: 14px;
     padding: 0.5rem 0.8rem;
+    width: 120px;
+    height: 36px;
+  }
+
+  .auth-buttons .change-password-btn {
+    font-size: 12px !important;
   }
 
   .logo {
-    font-size: 1.8rem;
+    font-size: 28px;
+    width: 200px;
+    height: 36px;
+    line-height: 36px;
   }
 
   .user-welcome-container {
     text-align: center;
+    width: 180px;
+    height: 42px;
   }
 }
 
@@ -114,16 +210,44 @@
 @media screen and (max-width: 480px) {
   .navbar {
     padding: 0.8rem 0.5rem;
-    min-height: 100px; /* Slightly smaller minimum height for small phones */
+    height: 160px; /* Fixed height for small phones */
   }
 
   .nav-links a {
     margin: 0 0.5rem;
     padding: 0.3rem 0.6rem;
-    font-size: 0.9rem;
+    font-size: 14px;
+    width: 80px;
+    height: 36px;
+    line-height: 20px;
   }
 
   .logo {
-    font-size: 1.5rem;
+    font-size: 24px;
+    width: 180px;
+    height: 30px;
+    line-height: 30px;
+  }
+  
+  .auth-buttons {
+    width: 250px;
+  }
+  
+  .auth-buttons button {
+    width: 110px;
+    height: 34px;
+    font-size: 13px;
+  }
+  
+  .auth-buttons .change-password-btn {
+    font-size: 11px !important;
+  }
+  
+  #navbar-welcome-message {
+    font-size: 16px;
+  }
+  
+  #navbar-user-role {
+    font-size: 12px;
   }
 }

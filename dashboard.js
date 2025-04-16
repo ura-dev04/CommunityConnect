@@ -77,6 +77,11 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
   
+  // Listen for custom event from navbar for change password
+  document.addEventListener('openChangePasswordModal', () => {
+    showChangePasswordModal();
+  });
+
   // Handle change password button click
   if (changePasswordBtn) {
     changePasswordBtn.addEventListener('click', () => {
