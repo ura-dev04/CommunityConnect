@@ -23,12 +23,12 @@
 }
 
 .logo {
-  font-size: 32px;
+  font-size: 24px; /* Reduced from 32px */
   font-weight: bold;
   color: var(--primary-dark);
   text-shadow: 0 2px 5px var(--shadow-dark);
   letter-spacing: 1px;
-  width: 220px;
+  width: 290px; /* Increased from 220px to accommodate the full text */
   height: 40px;
   line-height: 40px;
   overflow: hidden;
@@ -193,8 +193,8 @@
   }
 
   .logo {
-    font-size: 28px;
-    width: 200px;
+    font-size: 22px; /* Reduced from 28px */
+    width: 270px; /* Increased from 200px */
     height: 36px;
     line-height: 36px;
   }
@@ -223,8 +223,8 @@
   }
 
   .logo {
-    font-size: 24px;
-    width: 180px;
+    font-size: 18px; /* Reduced from 24px */
+    width: 250px; /* Increased from 180px */
     height: 30px;
     line-height: 30px;
   }
