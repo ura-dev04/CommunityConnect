@@ -1,0 +1,129 @@
+/* Navbar Styles */
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 3rem;
+  height: 80px; /* Fixed height for consistency */
+  background: var(--primary-light);
+  box-shadow: 0 4px 15px var(--shadow-dark);
+  border-bottom: 2px solid var(--primary);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.logo {
+  font-size: 2rem;
+  font-weight: bold;
+  color: var(--primary-dark);
+  text-shadow: 0 2px 5px var(--shadow-dark);
+  letter-spacing: 1px;
+}
+
+.user-welcome-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+#welcome-message {
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: var(--text-dark);
+}
+
+#user-role {
+  font-size: 0.9rem;
+  color: var(--text-muted);
+  font-style: italic;
+}
+
+.nav-links a {
+  margin: 0 1rem;
+  padding: 0.5rem 1rem;
+  color: var(--text-dark);
+  text-decoration: none;
+  font-weight: 600;
+  border-radius: 5px;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.nav-links a:hover {
+  background-color: var(--primary-light);
+  color: var(--primary-dark);
+  transform: scale(1.05);
+}
+
+.auth-buttons button {
+  padding: 0.6rem 1.2rem;
+  border: none;
+  border-radius: 5px;
+  background: var(--primary);
+  color: #ffffff;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.3s ease, transform 0.3s ease;
+  margin-left: 0.5rem;
+}
+
+.auth-buttons button:hover {
+  background: var(--primary-dark);
+  transform: translateY(-3px);
+}
+
+/* Mobile Responsive Styles for Navbar */
+@media screen and (max-width: 768px) {
+  .navbar {
+    padding: 1rem;
+    height: auto; /* Allow height to adjust on mobile */
+    min-height: 120px; /* Minimum height for mobile */
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .nav-links {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    margin: 0.5rem 0;
+  }
+
+  .auth-buttons {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+  }
+
+  .auth-buttons button {
+    font-size: 0.9rem;
+    padding: 0.5rem 0.8rem;
+  }
+
+  .logo {
+    font-size: 1.8rem;
+  }
+
+  .user-welcome-container {
+    text-align: center;
+  }
+}
+
+/* Small phones */
+@media screen and (max-width: 480px) {
+  .navbar {
+    padding: 0.8rem 0.5rem;
+    min-height: 100px; /* Slightly smaller minimum height for small phones */
+  }
+
+  .nav-links a {
+    margin: 0 0.5rem;
+    padding: 0.3rem 0.6rem;
+    font-size: 0.9rem;
+  }
+
+  .logo {
+    font-size: 1.5rem;
+  }
+}
