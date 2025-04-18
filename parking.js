@@ -22,9 +22,6 @@ let isHigherRole = false; // Flag to track if user has higher-level permissions
 let activeTab = 'all'; // Default active tab for requests
 
 // DOM elements
-const welcomeMessage = document.getElementById('welcome-message');
-const userRole = document.getElementById('user-role');
-const logoutBtn = document.getElementById('logout-btn');
 const parkingSpotsContainer = document.getElementById('parking-spots-container');
 const spotCountDisplay = document.getElementById('spot-count');
 const vehicleTypeFilter = document.getElementById('vehicle-type');
@@ -61,16 +58,6 @@ document.addEventListener('DOMContentLoaded', () => {
   // Check if user has higher-level access
   isHigherRole = checkIfHigherRole(currentUser.sub_role);
   
-  // Update welcome message and role
-  welcomeMessage.textContent = `Hi ${currentUser.name || 'there'}`;
-  
-  let roleText = `${currentUser.role}`;
-  if (currentUser.sub_role) {
-    roleText += ` (${currentUser.sub_role})`;
-  }
-  
-  userRole.textContent = roleText;
-  
   // Show or hide admin functions based on role
   toggleAdminFunctions();
   
@@ -85,7 +72,6 @@ document.addEventListener('DOMContentLoaded', () => {
   
   // Add event listeners
   applyFiltersBtn.addEventListener('click', loadAvailableParkingSpots);
-  logoutBtn.addEventListener('click', logout);
   myRequestsBtn.addEventListener('click', openMyRequestsModal);
   
   if (isHigherRole && allRequestsBtn) {
@@ -950,10 +936,4 @@ async function rejectRequest(userId, requestId, requestData) {
     console.error("Error rejecting request:", error);
     alert("Error rejecting request. Please try again later.");
   }
-}
-
-// Function for logging out
-function logout() {
-  sessionStorage.removeItem('loggedInUser');
-  window.location.href = 'homepage.html';
 }
