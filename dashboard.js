@@ -2,21 +2,28 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-app.js";
 import { getDatabase, ref, get, update, child } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-database.js";
 
-// Firebase configuration
-const firebaseConfig = {
-  apiKey: "AIzaSyAjWn47KqOzJ2cMM7t74EE86XxWvOA_OOA",
-  authDomain: "societymanagement-df579.firebaseapp.com",
-  projectId: "societymanagement-df579",
-  storageBucket: "societymanagement-df579.appspot.com",
-  messagingSenderId: "526280568230",
-  appId: "1:526280568230:web:c5c01cf4f30591be437367"
-};
+// We'll fetch Firebase config from the server
+let app;
+let database;
 
-// Initialize Firebase
-const app = initializeApp(firebaseConfig);
-const database = getDatabase(app);
+// Function to initialize Firebase
+async function initializeFirebase() {
+    try {
+        const response = await fetch('/api/config');
+        const data = await response.json();
+        
+        // Initialize Firebase with the config from server
+        app = initializeApp(data.firebaseConfig);
+        database = getDatabase(app);
+    } catch (error) {
+        console.error('Error fetching Firebase config:', error);
+    }
+}
 
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('DOMContentLoaded', async () => {
+  // Initialize Firebase first
+  await initializeFirebase();
+  
   const notificationsPanel = document.querySelector('.notifications-panel');
   const notificationToggle = document.querySelector('.notification-toggle');
   const closeNotifications = document.querySelector('.close-notifications');
