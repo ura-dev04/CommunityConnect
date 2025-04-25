@@ -21,7 +21,8 @@ app.get('/api/config', (req, res) => {
       'FIREBASE_PROJECT_ID',
       'FIREBASE_STORAGE_BUCKET',
       'FIREBASE_MESSAGING_SENDER_ID',
-      'FIREBASE_APP_ID'
+      'FIREBASE_APP_ID',
+      'FIREBASE_DATABASE_URL'
     ];
     
     const missingVars = requiredEnvVars.filter(varName => !process.env[varName]);
@@ -40,7 +41,8 @@ app.get('/api/config', (req, res) => {
       projectId: process.env.FIREBASE_PROJECT_ID,
       storageBucket: process.env.FIREBASE_STORAGE_BUCKET,
       messagingSenderId: process.env.FIREBASE_MESSAGING_SENDER_ID,
-      appId: process.env.FIREBASE_APP_ID
+      appId: process.env.FIREBASE_APP_ID,
+      databaseURL: process.env.FIREBASE_DATABASE_URL
     };
     
     res.json({ firebaseConfig });
