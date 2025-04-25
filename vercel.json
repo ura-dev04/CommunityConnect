@@ -10,8 +10,5 @@
   ],
   "env": {
     "NODE_ENV": "production"
-  },
-  "rewrites": [
-      { "source": "/", "destination": "/homepage.html" }
-    ]
+  }
 }
