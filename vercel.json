@@ -5,13 +5,15 @@
     { "src": "*.js", "use": "@vercel/static" },
     { "src": "*.css", "use": "@vercel/static" },
     { "src": "*.html", "use": "@vercel/static" },
-    { "src": "Face-Detection-JavaScript-master/**", "use": "@vercel/static" }
+    { "src": "Face-Detection-JavaScript-master/**", "use": "@vercel/static" },
+    { "src": "images/**", "use": "@vercel/static" }
   ],
   "routes": [
     { "src": "/api/(.*)", "dest": "/server.js" },
     { "handle": "filesystem" },
     { "src": "/login", "dest": "/server.js" },
     { "src": "/dashboard", "dest": "/server.js" },
+    { "src": "/images/(.*)", "dest": "/images/$1" },
     { "src": "/(.*)", "dest": "/server.js" }
   ],
   "env": {
