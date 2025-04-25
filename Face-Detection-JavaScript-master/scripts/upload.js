@@ -1,4 +1,4 @@
-import { storage, database } from './firebase-config.js';
+import { getStoragess, initializeFirebase, getDatabasess } from './firebase-init.js';
 import { ref, uploadBytes, getDownloadURL } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-storage.js";
 import { ref as dbRef, push, set } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-database.js";
 
@@ -8,9 +8,12 @@ export async function uploadImage(file) {
         return;
     }
 
-    const storageRef = ref(storage, `images/${file.name}`);
-
     try {
+        // Initialize Firebase
+        const { storage, database } = await initializeFirebase();
+        
+        const storageRef = ref(storage, `images/${file.name}`);
+
         const snapshot = await uploadBytes(storageRef, file);
         const url = await getDownloadURL(snapshot.ref);  // ✅ Get direct Firebase URL
 

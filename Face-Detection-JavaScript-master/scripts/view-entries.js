@@ -1,7 +1,10 @@
-import { database } from './firebase-config.js';
 import { ref, get, query, orderByChild } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-database.js";
+import { initializeFirebase } from './firebase-init.js';
 
 document.addEventListener('DOMContentLoaded', async () => {
+    // Initialize Firebase
+    const { database } = await initializeFirebase();
+
     // Check if user is logged in with appropriate role
     const loggedInUser = JSON.parse(sessionStorage.getItem('loggedInUser') || '{}');
     const userSubRole = loggedInUser.sub_role || 'resident';

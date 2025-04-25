@@ -1,19 +1,25 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-app.js";
 import { getDatabase, ref, push, set, get, child, onValue, update } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-database.js";
 
-// Firebase Configuration
-const firebaseConfig = {
-  apiKey: "AIzaSyAjWn47KqOzJ2cMM7t74EE86XxWvOA_OOA",
-  authDomain: "societymanagement-df579.firebaseapp.com",
-  projectId: "societymanagement-df579",
-  storageBucket: "societymanagement-df579",
-  messagingSenderId: "526280568230",
-  appId: "1:526280568230:web:c5c01cf4f30591be437367"
-};
+// We'll fetch Firebase config from the server
+let app;
+let db;
 
-// Initialize Firebase
-const app = initializeApp(firebaseConfig);
-const db = getDatabase(app);
+// Function to initialize Firebase
+async function initializeFirebase() {
+  try {
+    const response = await fetch('/api/config');
+    const data = await response.json();
+    
+    // Initialize Firebase with the config from server
+    app = initializeApp(data.firebaseConfig);
+    db = getDatabase(app);
+    return true;
+  } catch (error) {
+    console.error('Error fetching Firebase config:', error);
+    return false;
+  }
+}
 
 // Constants
 const TOTAL_ROOMS = 8;
@@ -454,7 +460,7 @@ function loadGuestroomBookings() {
         } else {
           // Handle legacy single-day bookings
           li.textContent = `${b.date} | ${formatTime(b.startTime)} - ${formatTime(b.endTime)} | 
-                          ${b.type.toUpperCase()}${b.roomCount ? ' x' + b.roomCount : ''} | ${b.flat} | ${b.status}`;
+                          ${b.type.toUpperCASE()}${b.roomCount ? ' x' + b.roomCount : ''} | ${b.flat} | ${b.status}`;
         }
         
         // Add color coding based on status
@@ -1137,7 +1143,26 @@ function initializeCalendar() {
 // =================
 // INITIALIZATION
 // =================
-document.addEventListener("DOMContentLoaded", function () {
+document.addEventListener("DOMContentLoaded", async function () {
+  // Initialize Firebase first
+  const initialized = await initializeFirebase();
+  
+  if (!initialized) {
+    // Show error message if Firebase initialization fails
+    const errorMessage = document.createElement('div');
+    errorMessage.className = 'error-message';
+    errorMessage.style.textAlign = 'center';
+    errorMessage.style.padding = '2rem';
+    errorMessage.style.margin = '2rem auto';
+    errorMessage.style.maxWidth = '600px';
+    errorMessage.style.backgroundColor = '#ffebee';
+    errorMessage.style.color = '#c62828';
+    errorMessage.style.borderRadius = '4px';
+    errorMessage.innerHTML = '<h2>Error</h2><p>Failed to initialize Firebase. Please refresh the page and try again.</p>';
+    document.body.insertBefore(errorMessage, document.body.firstChild);
+    return;
+  }
+  
   // Get user data from session storage
   userData = getUserData();
   

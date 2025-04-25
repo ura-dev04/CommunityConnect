@@ -1,19 +1,23 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-app.js";
 import { getDatabase, ref, push, update, get, child } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-database.js";
 
-// Firebase Configuration
-const firebaseConfig = {
-    apiKey: "AIzaSyAjWn47KqOzJ2cMM7t74EE86XxWvOA_OOA",
-    authDomain: "societymanagement-df579.firebaseapp.com",
-    projectId: "societymanagement-df579",
-    storageBucket: "societymanagement-df579.firebasestorage.app",
-    messagingSenderId: "526280568230",
-    appId: "1:526280568230:web:c5c01cf4f30591be437367"
-};
+// We'll fetch Firebase config from the server
+let app;
+let database;
 
-// Initialize Firebase
-const app = initializeApp(firebaseConfig);
-const database = getDatabase(app);
+// Function to initialize Firebase
+async function initializeFirebase() {
+    try {
+        const response = await fetch('/api/config');
+        const data = await response.json();
+        
+        // Initialize Firebase with the config from server
+        app = initializeApp(data.firebaseConfig);
+        database = getDatabase(app);
+    } catch (error) {
+        console.error('Error fetching Firebase config:', error);
+    }
+}
 
 // Roles that can access admin features
 const ADMIN_ROLES = ['admin', 'president', 'secretary', 'treasurer', 'building-manager'];
@@ -22,7 +26,10 @@ const ADMIN_ROLES = ['admin', 'president', 'secretary', 'treasurer', 'building-m
 let currentActionData = null;
 
 // Check if user is logged in
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('DOMContentLoaded', async () => {
+    // Initialize Firebase first
+    await initializeFirebase();
+    
     // Wait for the navbar to be loaded completely
     document.addEventListener('navbarLoaded', initializeComplaintPage);
     

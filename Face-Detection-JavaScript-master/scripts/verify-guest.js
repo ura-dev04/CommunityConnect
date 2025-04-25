@@ -1,8 +1,11 @@
-import { database } from './firebase-config.js';
+import { initializeFirebase } from './firebase-init.js';
 import { ref, get, push, set } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-database.js";
 import { ensureModelsLoaded, compareDescriptors } from './setup-models.js';
 
 document.addEventListener('DOMContentLoaded', async () => {
+    // Initialize Firebase
+    const { database } = await initializeFirebase();
+
     const video = document.getElementById('camera');
     const verifyBtn = document.getElementById('verify-btn');
     const resultContainer = document.getElementById('result-container');

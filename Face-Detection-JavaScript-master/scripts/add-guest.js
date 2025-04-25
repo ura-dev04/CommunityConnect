@@ -1,9 +1,12 @@
-import { storage, database } from './firebase-config.js';
+import { initializeFirebase } from './firebase-init.js';
 import { ref as storageRef, uploadBytes, getDownloadURL } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-storage.js";
 import { ref as dbRef, push, set } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-database.js";
 import { ensureModelsLoaded } from './setup-models.js';
 
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('DOMContentLoaded', async () => {
+    // Initialize Firebase
+    const { database, storage } = await initializeFirebase();
+
     const guestForm = document.getElementById('guest-form');
     const nameInput = document.getElementById('guest-name');
     const phoneInput = document.getElementById('guest-phone');

@@ -1,21 +1,33 @@
-const firebaseConfig = {
-    apiKey: "AIzaSyAjWn47KqOzJ2cMM7t74EE86XxWvOA_OOA",
-    authDomain: "societymanagement-df579.firebaseapp.com",
-    projectId: "societymanagement-df579",
-    databaseURL: "https://societymanagement-df579-default-rtdb.firebaseio.com",
-    storageBucket: "societymanagement-df579.appspot.com",
-    messagingSenderId: "526280568230",
-    appId: "1:526280568230:web:c5c01cf4f30591be437367"
-};
+// We'll fetch Firebase config from the server
+let app;
+let database;
 
-// Initialize Firebase
-if (!firebase.apps.length) {
-    firebase.initializeApp(firebaseConfig);
+// Function to initialize Firebase
+async function initializeFirebase() {
+    try {
+        const response = await fetch('/api/config');
+        const data = await response.json();
+        
+        // Initialize Firebase with the config from server
+        app = firebase.initializeApp(data.firebaseConfig);
+        database = firebase.database();
+        return true;
+    } catch (error) {
+        console.error('Error fetching Firebase config:', error);
+        return false;
+    }
 }
-const database = firebase.database();
 
 // Check user authentication and role
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('DOMContentLoaded', async () => {
+    // Initialize Firebase first
+    const initialized = await initializeFirebase();
+    
+    if (!initialized) {
+        alert('Failed to initialize Firebase. Please refresh the page and try again.');
+        return;
+    }
+    
     const loggedInUser = JSON.parse(sessionStorage.getItem('loggedInUser'));
     if (!loggedInUser) {
         window.location.href = 'login.html';

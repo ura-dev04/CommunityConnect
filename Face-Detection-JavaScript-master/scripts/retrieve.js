@@ -1,7 +1,10 @@
-import { database } from './firebase-config.js';
+import { getDatabasess, initializeFirebase } from './firebase-init.js';
 import { ref, onValue, query, orderByKey, limitToLast } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-database.js";
 
-document.addEventListener("DOMContentLoaded", () => {
+document.addEventListener("DOMContentLoaded", async () => {
+    // Initialize Firebase
+    const { database } = await initializeFirebase();
+    
     const imageContainer = document.getElementById('captured-image-container');
 
     if (!imageContainer) {

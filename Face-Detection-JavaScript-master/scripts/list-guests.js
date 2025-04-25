@@ -1,7 +1,10 @@
-import { database } from './firebase-config.js';
+import { initializeFirebase } from './firebase-init.js';
 import { ref, onValue, remove } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-database.js";
 
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('DOMContentLoaded', async () => {
+    // Initialize Firebase
+    const { database } = await initializeFirebase();
+    
     const guestsList = document.getElementById('guests-list');
     const addGuestBtn = document.getElementById('add-guest-btn');
     const verifyBtn = document.getElementById('verify-guest-btn');

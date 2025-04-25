@@ -44,3 +44,38 @@ CommunityConnect is a comprehensive society management application designed to s
 - **Authentication**: Firebase Authentication for secure user management
 - **Hosting**: Firebase Hosting for web application deployment
 - **Real-time Updates**: Firebase Realtime Database features for instant notifications and updates
+
+
+## Setup Instructions
+
+1. Install dependencies:
+   ```
+   npm install
+   ```
+
+2. Configure environment variables:
+   - Rename `.env.example` to `.env`
+   - Update the values in the `.env` file with your Firebase configuration
+
+3. Start the server:
+   ```
+   npm start
+   ```
+
+4. Access the application:
+   - Open your browser and navigate to `http://localhost:3000`
+
+## Environment Variables
+
+The following environment variables are required in the `.env` file:
+
+```
+FIREBASE_API_KEY=your_api_key
+FIREBASE_AUTH_DOMAIN=your_auth_domain
+FIREBASE_PROJECT_ID=your_project_id
+FIREBASE_STORAGE_BUCKET=your_storage_bucket
+FIREBASE_MESSAGING_SENDER_ID=your_messaging_sender_id
+FIREBASE_APP_ID=your_app_id
+FIREBASE_DATABASE_URL=your_database_url
+PORT=3000
+```
