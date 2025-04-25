@@ -9,7 +9,9 @@ const PORT = process.env.PORT || 3000;
 // Middlewares
 app.use(cors());
 app.use(express.json());
-app.use(express.static(path.join(__dirname)));
+
+// Serve static files - updated to be more explicit
+app.use(express.static(__dirname));
 
 // API endpoint to serve Firebase config
 app.get('/api/config', (req, res) => {
@@ -71,6 +73,53 @@ app.get('/login', (req, res) => {
 
 app.get('/dashboard', (req, res) => {
   res.sendFile(path.join(__dirname, 'dashboard.html'));
+});
+
+// Add routes for all sub-pages that might be used from the dashboard
+app.get('/users.html', (req, res) => {
+  res.sendFile(path.join(__dirname, 'users.html'));
+});
+
+app.get('/complaint.html', (req, res) => {
+  res.sendFile(path.join(__dirname, 'complaint.html'));
+});
+
+app.get('/parking.html', (req, res) => {
+  res.sendFile(path.join(__dirname, 'parking.html'));
+});
+
+app.get('/events.html', (req, res) => {
+  res.sendFile(path.join(__dirname, 'events.html'));
+});
+
+app.get('/notice.html', (req, res) => {
+  res.sendFile(path.join(__dirname, 'notice.html'));
+});
+
+app.get('/contact.html', (req, res) => {
+  res.sendFile(path.join(__dirname, 'contact.html'));
+});
+
+app.get('/maintenance.html', (req, res) => {
+  res.sendFile(path.join(__dirname, 'maintenance.html'));
+});
+
+app.get('/maid-services.html', (req, res) => {
+  res.sendFile(path.join(__dirname, 'maid-services.html'));
+});
+
+app.get('/booking.html', (req, res) => {
+  res.sendFile(path.join(__dirname, 'booking.html'));
+});
+
+// Catch-all route to handle SPA routing and direct requests to CSS/JS files
+app.get('*', (req, res) => {
+  // Check if the request is for a CSS or JS file
+  if (req.path.endsWith('.css') || req.path.endsWith('.js')) {
+    res.sendFile(path.join(__dirname, req.path));
+  } else {
+    res.sendFile(path.join(__dirname, 'homepage.html'));
+  }
 });
 
 // Error handler middleware

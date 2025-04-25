@@ -1,13 +1,13 @@
 document.addEventListener('DOMContentLoaded', () => {
   // Event listener for the login button
   document.querySelector('.login-btn').addEventListener('click', () => {
-    window.location.href = 'login.html';
+    window.location.href = '/login';
   });
 
   // Event listener for verify guest button
   document.querySelector('.verify-guest-btn').addEventListener('click', () => {
     // Direct to the verify-guest.html page which will operate in public mode
-    window.location.href = 'Face-Detection-JavaScript-master/verify-guest.html';
+    window.location.href = '/Face-Detection-JavaScript-master/verify-guest.html';
   });
 
   // Add animation to feature cards when they come into view

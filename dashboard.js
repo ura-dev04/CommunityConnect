@@ -9,12 +9,28 @@ let database;
 // Function to initialize Firebase
 async function initializeFirebase() {
     try {
-        const response = await fetch('/api/config');
+        // Always use absolute path for API endpoint
+        const configEndpoint = '/api/config';
+        console.log('Fetching Firebase config from:', configEndpoint);
+        
+        const response = await fetch(configEndpoint);
+        
+        if (!response.ok) {
+            throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+        
         const data = await response.json();
+        
+        if (!data || !data.firebaseConfig) {
+            throw new Error('Invalid configuration received from server');
+        }
+        
+        console.log('Firebase config received successfully');
         
         // Initialize Firebase with the config from server
         app = initializeApp(data.firebaseConfig);
         database = getDatabase(app);
+        console.log('Firebase initialized successfully');
     } catch (error) {
         console.error('Error fetching Firebase config:', error);
     }
@@ -44,7 +60,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   
   if (!loggedInUser) {
     // User is not logged in, redirect to login page
-    window.location.href = 'login.html';
+    window.location.href = '/login';
     return;
   }
   
@@ -316,7 +332,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     // Remove user data from session storage
     sessionStorage.removeItem('loggedInUser');
     // Redirect to homepage after logout
-    window.location.href = 'homepage.html';
+    window.location.href = '/';
   }
 
   // Function to load notifications
@@ -525,12 +541,12 @@ document.addEventListener('DOMContentLoaded', async () => {
   function applySubRoleBasedAccess(subRole) {
     // Define permissions for each feature based on sub-role
     const subRolePermissions = {
-      'admin': ['users.html', 'complaint.html', 'parking.html', 'events.html', 'notice.html', 'contact.html', 'maid-services.html', 'booking.html', 'maintenance.html', 'Face-Detection-JavaScript-master/index.html'],
-      'president': ['users.html', 'complaint.html', 'parking.html', 'events.html', 'notice.html', 'contact.html', 'maid-services.html', 'booking.html', 'maintenance.html', 'Face-Detection-JavaScript-master/index.html'],
-      'secretary': ['users.html', 'complaint.html', 'parking.html', 'events.html', 'notice.html', 'contact.html', 'maid-services.html', 'booking.html', 'maintenance.html', 'Face-Detection-JavaScript-master/index.html'],
-      'treasurer': ['users.html', 'complaint.html', 'parking.html', 'events.html', 'notice.html', 'contact.html', 'maid-services.html', 'booking.html', 'maintenance.html', 'Face-Detection-JavaScript-master/index.html'],
-      'resident': ['users.html', 'complaint.html', 'parking.html', 'events.html', 'contact.html', 'maid-services.html', 'booking.html', 'maintenance.html', 'Face-Detection-JavaScript-master/index.html'],
-      'building-manager': ['users.html', 'complaint.html', 'parking.html', 'events.html', 'notice.html', 'contact.html', 'maid-services.html', 'booking.html', 'maintenance.html', 'Face-Detection-JavaScript-master/index.html'],
+      'admin': ['/users.html', '/complaint.html', '/parking.html', '/events.html', '/notice.html', '/contact.html', '/maid-services.html', '/booking.html', '/maintenance.html', '/Face-Detection-JavaScript-master/index.html'],
+      'president': ['/users.html', '/complaint.html', '/parking.html', '/events.html', '/notice.html', '/contact.html', '/maid-services.html', '/booking.html', '/maintenance.html', '/Face-Detection-JavaScript-master/index.html'],
+      'secretary': ['/users.html', '/complaint.html', '/parking.html', '/events.html', '/notice.html', '/contact.html', '/maid-services.html', '/booking.html', '/maintenance.html', '/Face-Detection-JavaScript-master/index.html'],
+      'treasurer': ['/users.html', '/complaint.html', '/parking.html', '/events.html', '/notice.html', '/contact.html', '/maid-services.html', '/booking.html', '/maintenance.html', '/Face-Detection-JavaScript-master/index.html'],
+      'resident': ['/users.html', '/complaint.html', '/parking.html', '/events.html', '/contact.html', '/maid-services.html', '/booking.html', '/maintenance.html', '/Face-Detection-JavaScript-master/index.html'],
+      'building-manager': ['/users.html', '/complaint.html', '/parking.html', '/events.html', '/notice.html', '/contact.html', '/maid-services.html', '/booking.html', '/maintenance.html', '/Face-Detection-JavaScript-master/index.html'],
     };
 
     // Get all feature boxes
