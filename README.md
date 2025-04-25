@@ -24,7 +24,7 @@ CommunityConnect is a comprehensive society management application designed to s
 - **Invoice Generation**: Generate and distribute invoices for dues
 
 ### Amenities Management
-- **Amenity Booking System**: Book common areas like party halls, gyms, etc.
+- **Amenity Booking System**: Book common areas like party halls, guest rooms, etc.
 - **Maintenance Scheduling**: Schedule maintenance for community facilities
 - **Service Provider Directory**: List of approved service providers
 
