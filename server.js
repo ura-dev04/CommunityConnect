@@ -75,6 +75,43 @@ app.get('/dashboard', (req, res) => {
   res.sendFile(path.join(__dirname, 'dashboard.html'));
 });
 
+// Add routes for all sub-pages that might be used from the dashboard
+app.get('/users.html', (req, res) => {
+  res.sendFile(path.join(__dirname, 'users.html'));
+});
+
+app.get('/complaint.html', (req, res) => {
+  res.sendFile(path.join(__dirname, 'complaint.html'));
+});
+
+app.get('/parking.html', (req, res) => {
+  res.sendFile(path.join(__dirname, 'parking.html'));
+});
+
+app.get('/events.html', (req, res) => {
+  res.sendFile(path.join(__dirname, 'events.html'));
+});
+
+app.get('/notice.html', (req, res) => {
+  res.sendFile(path.join(__dirname, 'notice.html'));
+});
+
+app.get('/contact.html', (req, res) => {
+  res.sendFile(path.join(__dirname, 'contact.html'));
+});
+
+app.get('/maintenance.html', (req, res) => {
+  res.sendFile(path.join(__dirname, 'maintenance.html'));
+});
+
+app.get('/maid-services.html', (req, res) => {
+  res.sendFile(path.join(__dirname, 'maid-services.html'));
+});
+
+app.get('/booking.html', (req, res) => {
+  res.sendFile(path.join(__dirname, 'booking.html'));
+});
+
 // Catch-all route to handle SPA routing and direct requests to CSS/JS files
 app.get('*', (req, res) => {
   // Check if the request is for a CSS or JS file
