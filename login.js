@@ -8,14 +8,33 @@ let database;
 // Function to initialize Firebase
 async function initializeFirebase() {
     try {
-        const response = await fetch('/api/config');
+        // Try to get config from the server API
+        const configEndpoint = window.location.hostname === 'localhost' ? '/api/config' : '/api/config';
+        console.log('Fetching Firebase config from:', configEndpoint);
+        
+        const response = await fetch(configEndpoint);
+        
+        if (!response.ok) {
+            throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+        
         const data = await response.json();
+        
+        if (!data || !data.firebaseConfig) {
+            throw new Error('Invalid configuration received from server');
+        }
+        
+        console.log('Firebase config received successfully');
         
         // Initialize Firebase with the config from server
         app = initializeApp(data.firebaseConfig);
         database = getDatabase(app);
+        console.log('Firebase initialized successfully');
     } catch (error) {
         console.error('Error fetching Firebase config:', error);
+        document.getElementById('error-message').textContent = 
+            'Failed to connect to the server. Please try again later.';
+        document.getElementById('error-message').style.display = 'block';
     }
 }
 

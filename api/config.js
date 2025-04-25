@@ -1,20 +1,6 @@
-const express = require('express');
-const cors = require('cors');
-const path = require('path');
-require('dotenv').config();
-
-const app = express();
-const PORT = process.env.PORT || 3000;
-
-// Middlewares
-app.use(cors());
-app.use(express.json());
-app.use(express.static(path.join(__dirname)));
-
-// API endpoint to serve Firebase config
-app.get('/api/config', (req, res) => {
+// This file creates a standalone API endpoint for Vercel
+module.exports = (req, res) => {
   try {
-    console.log('API config endpoint accessed');
     // Check if environment variables are set
     const requiredEnvVars = [
       'FIREBASE_API_KEY',
@@ -46,40 +32,19 @@ app.get('/api/config', (req, res) => {
       databaseURL: process.env.FIREBASE_DATABASE_URL
     };
     
-    console.log('Firebase config successfully generated');
-    
-    // Set CORS headers for API endpoint
+    // Set CORS headers
     res.setHeader('Access-Control-Allow-Origin', '*');
     res.setHeader('Access-Control-Allow-Methods', 'GET,OPTIONS');
     res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
     
-    res.json({ firebaseConfig });
+    // Handle OPTIONS request for CORS preflight
+    if (req.method === 'OPTIONS') {
+      return res.status(200).end();
+    }
+    
+    return res.status(200).json({ firebaseConfig });
   } catch (error) {
     console.error('Error serving config:', error);
-    res.status(500).json({ error: 'Failed to retrieve configuration' });
+    return res.status(500).json({ error: 'Failed to retrieve configuration' });
   }
-});
-
-// Serve HTML files
-app.get('/', (req, res) => {
-  res.sendFile(path.join(__dirname, 'homepage.html'));
-});
-
-app.get('/login', (req, res) => {
-  res.sendFile(path.join(__dirname, 'login.html'));
-});
-
-app.get('/dashboard', (req, res) => {
-  res.sendFile(path.join(__dirname, 'dashboard.html'));
-});
-
-// Error handler middleware
-app.use((err, req, res, next) => {
-  console.error(err.stack);
-  res.status(500).send('Something broke!');
-});
-
-// Start the server
-app.listen(PORT, () => {
-  console.log(`Server running on port ${PORT}`);
-});
+};
