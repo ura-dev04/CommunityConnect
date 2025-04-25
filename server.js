@@ -13,6 +13,9 @@ app.use(express.json());
 // Serve static files - updated to be more explicit
 app.use(express.static(__dirname));
 
+// Explicitly serve files from the images directory
+app.use('/images', express.static(path.join(__dirname, 'images')));
+
 // API endpoint to serve Firebase config
 app.get('/api/config', (req, res) => {
   try {
@@ -112,10 +115,19 @@ app.get('/booking.html', (req, res) => {
   res.sendFile(path.join(__dirname, 'booking.html'));
 });
 
+// Add a specific route to handle image requests
+app.get('/images/:filename', (req, res) => {
+  const filename = req.params.filename;
+  res.sendFile(path.join(__dirname, 'images', filename));
+});
+
 // Catch-all route to handle SPA routing and direct requests to CSS/JS files
 app.get('*', (req, res) => {
   // Check if the request is for a CSS or JS file
   if (req.path.endsWith('.css') || req.path.endsWith('.js')) {
+    res.sendFile(path.join(__dirname, req.path));
+  } else if (req.path.startsWith('/images/') && (req.path.endsWith('.gif') || req.path.endsWith('.png') || req.path.endsWith('.jpg') || req.path.endsWith('.jpeg'))) {
+    // Handle image files specifically
     res.sendFile(path.join(__dirname, req.path));
   } else {
     res.sendFile(path.join(__dirname, 'homepage.html'));
