@@ -8,8 +8,8 @@ let database;
 // Function to initialize Firebase
 async function initializeFirebase() {
     try {
-        // Try to get config from the server API
-        const configEndpoint = window.location.hostname === 'localhost' ? '/api/config' : '/api/config';
+        // Always use absolute path for API endpoint
+        const configEndpoint = '/api/config';
         console.log('Fetching Firebase config from:', configEndpoint);
         
         const response = await fetch(configEndpoint);

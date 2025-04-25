@@ -9,7 +9,9 @@ const PORT = process.env.PORT || 3000;
 // Middlewares
 app.use(cors());
 app.use(express.json());
-app.use(express.static(path.join(__dirname)));
+
+// Serve static files - updated to be more explicit
+app.use(express.static(__dirname));
 
 // API endpoint to serve Firebase config
 app.get('/api/config', (req, res) => {
@@ -71,6 +73,16 @@ app.get('/login', (req, res) => {
 
 app.get('/dashboard', (req, res) => {
   res.sendFile(path.join(__dirname, 'dashboard.html'));
+});
+
+// Catch-all route to handle SPA routing and direct requests to CSS/JS files
+app.get('*', (req, res) => {
+  // Check if the request is for a CSS or JS file
+  if (req.path.endsWith('.css') || req.path.endsWith('.js')) {
+    res.sendFile(path.join(__dirname, req.path));
+  } else {
+    res.sendFile(path.join(__dirname, 'homepage.html'));
+  }
 });
 
 // Error handler middleware
