@@ -1,4 +1,4 @@
-import { database, storage } from './firebase-config.js';
+import { initializeFirebase } from './firebase-init.js';
 import { ref as dbRef, push, set, get, remove, query, orderByChild } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-database.js";
 import { ref as storageRef, uploadBytes, getDownloadURL } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-storage.js";
 
@@ -18,6 +18,15 @@ const photoCanvas = document.getElementById('photo-canvas');
 
 let photoTaken = false;
 let stream = null;
+let database;
+let storage;
+
+// Initialize Firebase when page loads
+document.addEventListener('DOMContentLoaded', async () => {
+    const result = await initializeFirebase();
+    database = result.database;
+    storage = result.storage;
+});
 
 // Event Listeners
 addGuestBtn.addEventListener('click', openAddGuestModal);
